@@ -1,24 +1,29 @@
-import logo from 'assets/icons/logo.svg';
-import 'assets/style/App.css';
+import { ReactElement } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import routes from 'lib/routes';
+import { Button } from 'carbon-components-react';
 
-function App() {
+function App(): ReactElement {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Wenas
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={{}}>
+      <Router>
+        <Switch>
+          <Route exact path={routes.main}>
+            <div> :D </div>
+            <Button>Primary</Button>
+          </Route>
+
+          <Route exact path={routes.signSection}>
+            <div>Auth</div>
+          </Route>
+
+          <Route path="/">
+            <div>404</div>
+          </Route>
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
 }
 

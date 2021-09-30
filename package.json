@@ -6,9 +6,15 @@
     "@types/node": "^12.20.26",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "carbon-components": "^10.45.0",
+    "carbon-components-react": "^7.45.0",
+    "carbon-icons": "^7.0.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "^4.0.3",
+    "styled-components": "^5.3.1",
     "typescript": "^4.4.3"
   },
   "scripts": {
@@ -16,7 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "serve -s build"
+    "start": "serve -s build",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -40,7 +47,13 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.1",
     "@testing-library/user-event": "^13.2.1",
+    "@types/carbon-components-react": "^7.44.0",
     "@types/jest": "^27.0.2",
+    "@types/react-router-dom": "^5.3.0",
+    "@types/styled-components": "^5.1.14",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "2.4.1",
     "serve": "^12.0.1"
   }
 }

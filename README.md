@@ -1,7 +1,8 @@
 # Getting Started with Create React App
 
-### TypeScript in the CRA
-https://www.newline.co/@dmitryrogozhny/how-to-start-new-react-application-with-create-react-app-and-typescript--4298e606
+## Configuration
+
+Prettier configuration thanks to: https://robertcooper.me/post/using-eslint-and-prettier-in-a-typescript-project
 
 ## Available Scripts
 
