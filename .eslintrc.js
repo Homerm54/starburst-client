@@ -8,10 +8,20 @@ module.exports = {
     'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
     'plugin:react/jsx-runtime', // To allow the new JSX transform from React 17 (not needed in scope)
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
-    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier.
   ],
   rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
+    'linebreak-style': 'off',
+    'no-console': [
+      'error',
+      {
+        allow: ['error'],
+      },
+    ],
+    'no-multiple-empty-lines': [
+      'warn',
+      {
+        max: 3,
+      },
+    ],
   },
 };

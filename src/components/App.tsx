@@ -1,10 +1,10 @@
-import { ReactElement } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import routes from 'lib/routes';
 import { Button } from 'carbon-components-react';
 
-function App(): ReactElement {
+
+function App(): JSX.Element {
   return (
     <ThemeProvider theme={{}}>
       <Router>
