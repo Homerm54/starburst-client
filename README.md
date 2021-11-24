@@ -4,6 +4,8 @@
 
 Prettier configuration thanks to: https://robertcooper.me/post/using-eslint-and-prettier-in-a-typescript-project
 
+## Carbon Design Colors at: @carbon/colors
+
 ## Available Scripts
 
 In the project directory, you can run:

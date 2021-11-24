@@ -1,17 +1,17 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import routes from 'lib/routes';
-import { Button } from 'carbon-components-react';
-
+import GlobalStyle from 'assets/style/global';
+import { darkTheme } from 'assets/style/darkTheme';
 
 function App(): JSX.Element {
   return (
-    <ThemeProvider theme={{}}>
+    <ThemeProvider theme={darkTheme}>
+      <GlobalStyle />
       <Router>
         <Switch>
           <Route exact path={routes.main}>
             <div> :D </div>
-            <Button>Primary</Button>
           </Route>
 
           <Route exact path={routes.signSection}>

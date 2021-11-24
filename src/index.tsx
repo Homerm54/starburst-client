@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from 'components/App';
 
-// Style Imports
-import 'carbon-components/css/carbon-components.min.css';
-import 'assets/style/index.css';
+// Globals
 
 ReactDOM.render(
   <React.StrictMode>
