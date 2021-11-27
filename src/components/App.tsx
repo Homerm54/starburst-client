@@ -3,12 +3,16 @@ import { ThemeProvider } from 'styled-components';
 import routes from 'lib/routes';
 import GlobalStyle from 'assets/style/global';
 import { darkTheme } from 'assets/style/darkTheme';
+import SideBarMenu from './shared/sidebar';
+
 
 function App(): JSX.Element {
   return (
     <ThemeProvider theme={darkTheme}>
       <GlobalStyle />
       <Router>
+
+        <SideBarMenu />
         <Switch>
           <Route exact path={routes.main}>
             <div> :D </div>
