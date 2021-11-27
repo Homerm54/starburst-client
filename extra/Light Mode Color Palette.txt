@@ -1,0 +1,13 @@
+/* Coolors Exported Palette - https://coolors.co/2d3142-bfc0c0-dfe0e0-ffffff-c0dfe9-80bfd3-007ea7-377ea2-527e9f-6d7e9c */
+
+/* CSV */
+2d3142,bfc0c0,dfe0e0,ffffff,c0dfe9,80bfd3,007ea7,377ea2,527e9f,6d7e9c
+
+/* Array */
+["2d3142","bfc0c0","dfe0e0","ffffff","c0dfe9","80bfd3","007ea7","377ea2","527e9f","6d7e9c"]
+
+/* Object */
+{"Space Cadet":"2d3142","Silver":"bfc0c0","Gainsboro":"dfe0e0","White":"ffffff","Columbia Blue":"c0dfe9","Dark Sky Blue":"80bfd3","CG Blue":"007ea7","Celadon Blue":"377ea2","Steel Blue":"527e9f","Shadow Blue":"6d7e9c"}
+
+/* Extended Array */
+[{"name":"Space Cadet","hex":"2d3142","rgb":[45,49,66],"cmyk":[32,26,0,74],"hsb":[229,32,26],"hsl":[229,19,22],"lab":[21,3,-11]},{"name":"Silver","hex":"bfc0c0","rgb":[191,192,192],"cmyk":[1,0,0,25],"hsb":[180,1,75],"hsl":[180,1,75],"lab":[78,0,0]},{"name":"Gainsboro","hex":"dfe0e0","rgb":[223,224,224],"cmyk":[0,0,0,12],"hsb":[180,0,88],"hsl":[180,2,88],"lab":[89,0,0]},{"name":"White","hex":"ffffff","rgb":[255,255,255],"cmyk":[0,0,0,0],"hsb":[0,0,100],"hsl":[0,0,100],"lab":[100,0,0]},{"name":"Columbia Blue","hex":"c0dfe9","rgb":[192,223,233],"cmyk":[18,4,0,9],"hsb":[195,18,91],"hsl":[195,48,83],"lab":[87,-8,-8]},{"name":"Dark Sky Blue","hex":"80bfd3","rgb":[128,191,211],"cmyk":[39,9,0,17],"hsb":[194,39,83],"hsl":[194,49,66],"lab":[74,-15,-16]},{"name":"CG Blue","hex":"007ea7","rgb":[0,126,167],"cmyk":[100,25,0,35],"hsb":[195,100,65],"hsl":[195,100,33],"lab":[49,-14,-30]},{"name":"Celadon Blue","hex":"377ea2","rgb":[55,126,162],"cmyk":[66,22,0,36],"hsb":[200,66,64],"hsl":[200,49,43],"lab":[50,-11,-26]},{"name":"Steel Blue","hex":"527e9f","rgb":[82,126,159],"cmyk":[48,21,0,38],"hsb":[206,48,62],"hsl":[206,32,47],"lab":[51,-6,-22]},{"name":"Shadow Blue","hex":"6d7e9c","rgb":[109,126,156],"cmyk":[30,19,0,39],"hsb":[218,30,61],"hsl":[218,19,52],"lab":[52,1,-18]}]

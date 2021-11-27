@@ -10,6 +10,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint/eslint-plugin
   ],
   rules: {
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": ["off"],
     'linebreak-style': 'off',
     'no-console': [
       'error',
