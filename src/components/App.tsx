@@ -2,20 +2,21 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import routes from 'lib/routes';
 import GlobalStyle from 'assets/style/global';
-import { darkTheme } from 'assets/style/darkTheme';
-import SideBarMenu from './shared/sidebar';
+import { dark as darktheme, light as lighttheme } from 'assets/style/theme';
+import SideBarMenu from 'components/shared/sidebar';
+import Loading from 'components/shared/Loading';
 
 
 function App(): JSX.Element {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darktheme}>
       <GlobalStyle />
       <Router>
 
         <SideBarMenu />
         <Switch>
           <Route exact path={routes.main}>
-            <div> :D </div>
+            <Loading />
           </Route>
 
           <Route exact path={routes.signSection}>
