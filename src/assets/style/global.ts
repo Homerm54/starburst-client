@@ -18,20 +18,18 @@ export default createGlobalStyle
 }
 
 body, html, #root {
-  width: 100%;
-  height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 
 body {
   margin: 0;
-  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
 }
 
 #root {
-  padding: 1rem;
   color: ${props => props.theme.colors.font.normal};
   background-color: ${props => props.theme.colors.primary.normal};
 }

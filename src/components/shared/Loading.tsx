@@ -14,21 +14,60 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const GlobalContainer = styled.div`
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.5);
+  flex-direction: column;
+`;
+
 const Hint = styled.div`
   width: 100%;
   text-align: center;
   padding-left: 1rem;
 `;
 
-function Loading(): JSX.Element {
+interface LoadingProps {
+  show?: boolean;
+  global?: boolean;
+  size?: number;
+  hint?: string;
+}
+function Loading({ show = true, global = false, size = 200, hint = '' } : LoadingProps): JSX.Element | null {
   const theme = useContext(ThemeContext);
+
+  if (!show) return null;
+
+  if (global) {
+    return (
+      <GlobalContainer>
+        <Lottie
+          style={{
+            width: size,
+            height: size,
+          }}
+          animationData={replaceColors({
+            sourceColors: '#ffffff',
+            targetColors: theme.colors.secondary.normal,
+            lottieObj: LoadingAnimation
+          })}
+        />
+
+        {hint && <Hint>{hint}</Hint>}
+    </GlobalContainer>
+    )
+  }
 
   return (
     <Container>
       <Lottie
         style={{
-          width: 200,
-          height: 200,
+          width: size,
+          height: size,
         }}
         animationData={replaceColors({
           sourceColors: ['#000000', '#ffffff'],
@@ -37,7 +76,7 @@ function Loading(): JSX.Element {
         })}
       />
 
-      <Hint>Loading...</Hint>
+      {hint && <Hint>{hint}</Hint>}
     </Container>
   )
 }

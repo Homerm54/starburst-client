@@ -11,12 +11,18 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={darktheme}>
       <GlobalStyle />
-      <Router>
+      
+      <Loading
+        show
+        global
+        hint="Loading..."
+      />
+      <SideBarMenu />
 
-        <SideBarMenu />
+      <Router>
         <Switch>
           <Route exact path={routes.main}>
-            <Loading />
+            <div>Comming Soon</div>
           </Route>
 
           <Route exact path={routes.signSection}>
