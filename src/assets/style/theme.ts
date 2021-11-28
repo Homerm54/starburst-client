@@ -19,6 +19,11 @@ export type Theme = {
       normal: string;
       light: string;
     }
+
+    success: string;
+    info: string;
+    warning: string;
+    danger: string;
   }
 }
 
@@ -42,6 +47,11 @@ export const dark: Theme = {
         normal: "#d0d5ce",
         light: "#dbdacc,",
       },
+      
+      success: '#198754',
+      info: '#0dcaf0',
+      warning: '#ffc107',
+      danger: '#dc3545',
     }
 };
 
@@ -64,6 +74,11 @@ export const light: Theme = {
       font: {
         normal: "#2d3142",
         light: "#bfc0c0",
-      },
+    },
+      
+      success: '#198754',
+      info: '#0dcaf0',
+      warning: '#ffc107',
+      danger: '#dc3545',
     }
 };
