@@ -5,11 +5,15 @@ import GlobalStyle from 'assets/style/global';
 import { dark as darktheme, light as lighttheme } from 'assets/style/theme';
 import SideBarMenu from 'components/shared/sidebar';
 import Loading from 'components/shared/Loading';
+import { useGlobalContext } from './shared/context';
 
-
+// Check the Authentication Flow used here
+// https://v5.reactrouter.com/web/example/auth-workflow
 function App(): JSX.Element {
+  const context = useGlobalContext();
+
   return (
-    <ThemeProvider theme={darktheme}>
+    <ThemeProvider theme={context.state.theme === 'dark' ? darktheme : lighttheme}>
       <GlobalStyle />
       
       <Loading show global />
