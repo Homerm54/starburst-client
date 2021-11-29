@@ -9,6 +9,7 @@ import ServerError from 'pages/500';
 import NotFound from 'pages/404';
 import { useEffect, useState, Suspense } from 'react';
 import Dashboard from 'pages/dashboard';
+import Console from 'lib/Console';
 
 const PagesRouter = (): JSX.Element => {
   return (
@@ -42,9 +43,21 @@ function App(): JSX.Element {
   
   useEffect(() =>{
     // Check API and authentication status
-    setTimeout(() => {
-      setInitialLoading(false);
-    }, 1500);
+    if(!process.env.REACT_APP_API_URL) throw new Error("API URL must be declared in the env file");
+
+    fetch(process.env.REACT_APP_API_URL)
+      .then((res) => res.json())
+      .then((data) => {
+        Console.log(data);
+        if (!data.ok) throw new Error("Server Response not OK");
+
+        // Check auth status here
+      })
+      .catch((error) => {
+        Console.error(error);
+        setServerError(true);
+      })
+      .finally(() => setInitialLoading(false));
   }, []);
   
 
@@ -54,7 +67,7 @@ function App(): JSX.Element {
       
       {
         initialLoading
-          ? <Loading global />
+          ? <Loading global hint="Reaching server..." />
           : serverError
             ? <ServerError />
             : <PagesRouter />
