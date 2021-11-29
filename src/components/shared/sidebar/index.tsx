@@ -1,7 +1,6 @@
 
 const SideBarMenu = () : JSX.Element | null => {
 
-  return null;
   return(
     <h1>SideBarMenu</h1>
   )
