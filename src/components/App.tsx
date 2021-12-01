@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import routes from 'lib/routes';
+import routes from 'router/routes';
 import GlobalStyle from 'assets/style/global';
 import { dark as darktheme, light as lighttheme } from 'assets/style/theme';
 import Loading from 'components/shared/Loading';
@@ -10,18 +10,20 @@ import NotFound from 'pages/404';
 import { useEffect, useState, Suspense } from 'react';
 import Dashboard from 'pages/dashboard';
 import Console from 'lib/Console';
+import PrivateRoute from 'router/PrivateRoute';
+import Auth from 'pages/auth';
 
 const PagesRouter = (): JSX.Element => {
   return (
     <Router>
-      <Suspense fallback={<Loading show />}>
+      <Suspense fallback={<Loading />}>
         <Switch>
-          <Route exact path={routes.main}>
+          <PrivateRoute exact path={routes.main}>
             <Dashboard />
-          </Route>
+          </PrivateRoute>
 
-          <Route exact path={routes.signSection}>
-            <div>Auth</div>
+          <Route exact path={routes.authSection}>
+            <Auth />
           </Route>
 
           <Route>

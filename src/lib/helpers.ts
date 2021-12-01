@@ -1,5 +1,6 @@
 import { replaceColor as basic } from 'lottie-colorify';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type LottieObject = any;
 type replaceColorsProps = {
   sourceColors: string | string[];

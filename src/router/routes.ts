@@ -1,6 +1,6 @@
 const routes = {
   main: '/',
-  signSection: '/auth',
+  authSection: '/auth',
 };
 
 export default routes;
