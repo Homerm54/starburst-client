@@ -1,5 +1,5 @@
 const routes = {
-  main: '/',
+  dashboard: '/',
   authSection: '/auth',
 };
 

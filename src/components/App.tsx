@@ -18,7 +18,7 @@ const PagesRouter = (): JSX.Element => {
     <Router>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <PrivateRoute exact path={routes.main}>
+          <PrivateRoute exact path={routes.dashboard}>
             <Dashboard />
           </PrivateRoute>
 
@@ -35,9 +35,6 @@ const PagesRouter = (): JSX.Element => {
   )
 }
 
-
-// Check the Authentication Flow used here
-// https://v5.reactrouter.com/web/example/auth-workflow
 function App(): JSX.Element {
   const context = useGlobalContext();
   const [serverError, setServerError] = useState(false);

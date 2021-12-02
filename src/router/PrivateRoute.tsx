@@ -5,11 +5,12 @@ import routes from "./routes";
 const useAuth = () => ({ user: false });
 
 /**
- * A wrapper for <Route> that redirects to the login screen if the user is not yet authenticated.
+ * A wrapper of <Route />, that redirects to the login screen if the user is not yet authenticated.
+ * @see https://v5.reactrouter.com/web/example/auth-workflow for more information on auth flow
  */
 const PrivateRoute = ({ children, ...rest } : RouteProps): JSX.Element => {
-
   const auth = useAuth();
+
   return (
     <Route
       {...rest}
