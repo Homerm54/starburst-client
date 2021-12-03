@@ -2,6 +2,7 @@
  * Flex System Module for UI Design.
  * The System is based entirely in CSS Flex props.
  * @see https://rebassjs.org/reflexbox/ 
+ * @see https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
  */
 
 // Has to be imported from rebass in order for the props to work
@@ -55,6 +56,7 @@ const Row = ({ gutter, ...props }: RowProps): JSX.Element => {
  * * To fill exact pixel width, use `width={100}` for a width of 100px. 
  * 
  * Other flex properties can be used to manipulate the Col behaviour as well.
+ * [MDN Reference](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
  * 
  */
 const Col = ({ gutter, ...props }: ColProps): JSX.Element => {
