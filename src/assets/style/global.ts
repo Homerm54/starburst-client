@@ -2768,6 +2768,18 @@ fieldset {
   text-transform: capitalize !important;
 }
 
+.text-end {
+  text-align: right;
+}
+
+.text-start {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .text-wrap {
   white-space: normal !important;
 }

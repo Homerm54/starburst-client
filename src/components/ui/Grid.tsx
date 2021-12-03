@@ -13,7 +13,8 @@ import { useContext } from 'react';
 
 type base = {
   /** Spacing for the left - rigth margin of the parent Row in the system */
-  gutter?: number
+  gutter?: number,
+  noGutter?: boolean,
 };
 type RowProps = base & FlexProps;
 type ColProps = base & BoxProps;
@@ -22,7 +23,7 @@ type ColProps = base & BoxProps;
  * Wrapper for the Row/Col System.
  * 
  */
-const Row = ({ gutter, ...props }: RowProps): JSX.Element => {
+const Row = ({ gutter, noGutter, ...props }: RowProps): JSX.Element => {
   const theme = useContext(ThemeContext);
 
   return (
@@ -30,7 +31,7 @@ const Row = ({ gutter, ...props }: RowProps): JSX.Element => {
       flexWrap="wrap"
       flexDirection="row"
       my={0}
-      mx={(gutter || theme.space[3]) / 2}
+      mx={noGutter? 0 : (gutter || theme.space[3]) / 2}
       {...props}
     />
   );
@@ -59,12 +60,12 @@ const Row = ({ gutter, ...props }: RowProps): JSX.Element => {
  * [MDN Reference](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
  * 
  */
-const Col = ({ gutter, ...props }: ColProps): JSX.Element => {
+const Col = ({ gutter, noGutter, ...props }: ColProps): JSX.Element => {
   const theme = useContext(ThemeContext);
 
   return (
     <Box
-      p={(gutter || theme.space[3]) / 2}
+      p={noGutter? 0 : (gutter || theme.space[3]) / 2}
       {...props}
     />
   );
