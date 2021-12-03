@@ -38,6 +38,9 @@ interface LoadingProps {
   size?: number;
   hint?: string;
 }
+
+
+// 30px for loading icon
 function Loading({ show = true, global = false, size = 200, hint = '' } : LoadingProps): JSX.Element | null {
   const theme = useContext(ThemeContext);
 
