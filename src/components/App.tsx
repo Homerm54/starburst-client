@@ -12,6 +12,7 @@ import Dashboard from 'pages/dashboard';
 import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
 import Auth from 'pages/auth';
+import { Col, Row } from './ui/Grid';
 
 const PagesRouter = (): JSX.Element => {
   return (
@@ -64,13 +65,31 @@ function App(): JSX.Element {
     <ThemeProvider theme={context.state.theme === 'dark' ? darktheme : lighttheme}>
       <GlobalStyle />
       
-      {
+      <Row>
+        <Col flexGrow={1}>
+          Hola
+        </Col>
+
+        <Col flexGrow={[1]} width={['auto', 'auto', 'auto', '100%']}>
+          Hola
+        </Col>
+
+        <Col width="auto">
+          Hola
+        </Col>
+
+        <Col width={100}>
+          Hola
+        </Col>
+
+      </Row>
+      {/* {
         initialLoading
           ? <Loading global hint="Reaching server..." />
           : serverError
             ? <ServerError />
             : <PagesRouter />
-      }
+      } */}
     </ThemeProvider>
   );
 }
