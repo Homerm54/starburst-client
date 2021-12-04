@@ -1,5 +1,7 @@
 import { Col, Row } from "components/ui/Grid";
 import { Text } from "components/ui/Typography";
+import { useHistory } from "react-router";
+import routes from "router/routes";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -15,7 +17,8 @@ const Container = styled.div`
 `;
 
 
-const ServerError = () : JSX.Element => {
+const ServerError = (): JSX.Element => {
+  const history = useHistory();
 
   return (
     <Container>
@@ -44,7 +47,7 @@ const ServerError = () : JSX.Element => {
           </Row>
         </Col>
 
-        <Col width={[1]} fontSize={3}>
+        <Col width={[1]} fontSize={3} role="button" onClick={() => history.replace(routes.dashboard)}>
           Back to Home
         </Col>
       </Row>

@@ -40,10 +40,11 @@ function App(): JSX.Element {
   const [serverError, setServerError] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   
-  useEffect(() =>{
+  const initRoutine = () => {
     // Check API and authentication status
-    if(!process.env.REACT_APP_API_URL) throw new Error("API URL must be declared in the env file");
-
+    if (!process.env.REACT_APP_API_URL) throw new Error("API URL must be declared in the env file");
+    
+    setInitialLoading(true);
     fetch(process.env.REACT_APP_API_URL)
       .then((res) => res.json())
       .then((data) => {
@@ -57,8 +58,8 @@ function App(): JSX.Element {
         setServerError(true);
       })
       .finally(() => setInitialLoading(false));
-  }, []);
-  
+  };
+  useEffect(initRoutine, []);
 
   return (
     <ThemeProvider theme={context.state.theme === 'dark' ? darktheme : lighttheme}>
@@ -67,7 +68,7 @@ function App(): JSX.Element {
         initialLoading
           ? <Loading global hint="Reaching server..." />
           : serverError
-            ? <ServerError />
+            ? <ServerError retry={process.env.NODE_ENV === 'development' ? initRoutine : undefined} />
             : <PagesRouter />
       }
     </ThemeProvider>

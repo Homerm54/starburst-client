@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 
-const ServerError = () : JSX.Element => {
+const ServerError = ({ retry } : { retry?: () => void}) : JSX.Element => {
 
   return(
     <Container>
@@ -44,9 +44,14 @@ const ServerError = () : JSX.Element => {
           </Row>
         </Col>
 
-        <Col width={[1]} fontSize={3}>
-          Check connection again
-        </Col>
+        {
+          retry
+          && (
+            <Col width={[1]} fontSize={3} role="button" onClick={retry}>
+              Check connection again
+            </Col>
+          )
+        }
       </Row>
     </Container>
   )
