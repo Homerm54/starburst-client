@@ -51,7 +51,6 @@ function App(): JSX.Element {
         if (!data.ok) throw new Error("Server Response not OK");
 
         // Check auth status here
-        setServerError(true);
       })
       .catch((error) => {
         Console.error(error);
