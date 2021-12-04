@@ -1,3 +1,5 @@
+import { Col, Row } from "components/ui/Grid";
+import { Text } from "components/ui/Typography";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -8,20 +10,44 @@ const Container = styled.div`
   height: 100vh;
 
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 
 const ServerError = () : JSX.Element => {
 
-  return(
+  return (
     <Container>
-      <div>
-        <h1>404</h1>
-        SORRY!
-        he page you’re looking for was not found.
+      <Row justifyContent="center" alignItems="center" width="100%" maxWidth={1000}>
+        <Col
+          width={[1, 1, 1 / 2]}
+          className="text-md-end"
+          mb={[-42, -42, 'auto']}
+        >
+          <Text size={6}>404</Text>
+        </Col>
 
-        <div>Back to Home</div>
-      </div>
+        <Col width={[1, 1, 1 / 2]}>
+          <Row gutter={16} className="text-md-start">
+            <Col width={'100%'} noGutter>
+              <Text size={3}>
+                SORRY!
+              </Text>
+            </Col>
+
+            <Col width={'100%'} noGutter>
+              <Text size={2}>
+                The page you’re looking for was not found.
+              </Text>
+            </Col>
+          </Row>
+        </Col>
+
+        <Col width={[1]} fontSize={3}>
+          Back to Home
+        </Col>
+      </Row>
     </Container>
   )
 }

@@ -12,7 +12,6 @@ import Dashboard from 'pages/dashboard';
 import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
 import Auth from 'pages/auth';
-import { Col, Row } from './ui/Grid';
 
 const PagesRouter = (): JSX.Element => {
   return (
@@ -69,6 +68,7 @@ function App(): JSX.Element {
         initialLoading
           ? <Loading global hint="Reaching server..." />
           : serverError
+            // ? <NotFound />
             ? <ServerError />
             : <PagesRouter />
       }

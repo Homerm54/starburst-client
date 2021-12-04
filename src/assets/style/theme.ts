@@ -27,12 +27,46 @@ export type Theme = {
   },
 
   breakpoints: string[],
+  displays: string[],
   space: number[],
+  mediaQueries: {
+    small: string,
+    medium: string,
+    large: string,
+    xlarge: string,
+    xxlarge: string,
+  },
+  formatDisplay: (num:number) => string | number,
 }
 
+// xs = 0, sm, md, lg, xl, xxl
+const breakpoints = ['576px', '768px', '992px', '1200px', '1400px'];
 const base = {
-  // xs = 0, sm, md, lg, xl, xxl
-  breakpoints: ['576px', '768px', '992px', '1200px', '1400px'],
+  // Font Sizes
+  // example fontSizes aliases
+  fontSizes: [12, 14, 16, 20, 24, 32],
+  displays: ['1.75rem', '2.5rem', '3.24rem', '5rem', '8rem', '10rem'],
+  formatDisplay(num: number) {
+    if (num < 3) {
+      return this.fontSizes[num + 3];
+    }
+
+    if (num < 5) {
+      return this.displays[num - 2];
+    }
+
+    return this.displays[4];
+  },
+
+  breakpoints,
+  mediaQueries: {
+    // extra small is 0
+    small: `@media screen and (min-width: ${breakpoints[0]})`,
+    medium: `@media screen and (min-width: ${breakpoints[1]})`,
+    large: `@media screen and (min-width: ${breakpoints[2]})`,
+    xlarge: `@media screen and (min-width: ${breakpoints[3]})`,
+    xxlarge: `@media screen and (min-width: ${breakpoints[4]})`,
+  },
 
   // In pixels
   space: [4, 8, 16, 24, 32],

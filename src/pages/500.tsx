@@ -1,4 +1,5 @@
 import { Col, Row } from "components/ui/Grid";
+import { Text } from "components/ui/Typography";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -18,21 +19,33 @@ const ServerError = () : JSX.Element => {
 
   return(
     <Container>
-      <Row justifyContent="center" alignItems="center" width="100%">
-        <Col width={1/2}>
-          <h1>500</h1>
+      <Row justifyContent="center" alignItems="center" width="100%" maxWidth={1000}>
+        <Col
+          width={[1, 1, 1 / 2]}
+          className="text-md-end"
+          mb={[-64, -64, 'auto']}
+        >
+          <Text size={6}>500</Text>
         </Col>
 
-        <Col width={1/2}>
-          <Row gutter={16}>
+        <Col width={[1, 1, 1 / 2]}>
+          <Row gutter={16} className="text-md-start">
             <Col width={'100%'} noGutter>
-              <strong>SORRY!</strong>
+              <Text size={3}>
+                SORRY!
+              </Text>
             </Col>
 
             <Col width={'100%'} noGutter>
-              Internal server error!
+              <Text size={2}>
+                Server didn&apos;t response on time
+              </Text>
             </Col>
           </Row>
+        </Col>
+
+        <Col width={[1]} fontSize={3}>
+          Check connection again
         </Col>
       </Row>
     </Container>
