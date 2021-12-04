@@ -68,7 +68,6 @@ function App(): JSX.Element {
         initialLoading
           ? <Loading global hint="Reaching server..." />
           : serverError
-            // ? <NotFound />
             ? <ServerError />
             : <PagesRouter />
       }

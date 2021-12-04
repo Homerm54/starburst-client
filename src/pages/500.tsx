@@ -25,7 +25,7 @@ const ServerError = () : JSX.Element => {
           className="text-md-end"
           mb={[-64, -64, 'auto']}
         >
-          <Text size={6}>500</Text>
+          <Text as="h1" size={6}>500</Text>
         </Col>
 
         <Col width={[1, 1, 1 / 2]}>
