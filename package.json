@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/node": "^16.11.11",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-router-dom": "^5.3.2",
+    "@types/rebass": "^4.0.10",
+    "@types/reflexbox": "^4.0.3",
+    "@types/styled-components": "^5.1.16",
     "lottie-colorify": "^0.8.0",
     "lottie-react": "^2.1.0",
     "react": "^17.0.2",
@@ -12,15 +19,15 @@
     "react-scripts": "^4.0.3",
     "rebass": "^4.0.7",
     "reflexbox": "^4.0.6",
+    "serve": "^13.0.2",
     "styled-components": "^5.3.1",
     "typescript": "^4.4.3"
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "postinstall": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "serve": "serve -s build",
+    "start": "serve -s build",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "eslintConfig": {
@@ -46,17 +53,9 @@
     "@testing-library/react": "^12.1.1",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.2",
-    "@types/node": "^16.11.11",
-    "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-router-dom": "^5.3.0",
-    "@types/rebass": "^4.0.10",
-    "@types/reflexbox": "^4.0.3",
-    "@types/styled-components": "^5.1.15",
     "babel-plugin-styled-components": "^2.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "2.4.1",
-    "serve": "^12.0.1"
+    "prettier": "2.4.1"
   }
 }
