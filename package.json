@@ -10,6 +10,7 @@
     "@types/rebass": "^4.0.10",
     "@types/reflexbox": "^4.0.3",
     "@types/styled-components": "^5.1.16",
+    "axios": "^0.24.0",
     "lottie-colorify": "^0.8.0",
     "lottie-react": "^2.1.0",
     "react": "^17.0.2",

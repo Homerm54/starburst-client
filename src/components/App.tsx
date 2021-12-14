@@ -12,6 +12,7 @@ import Dashboard from 'pages/dashboard';
 import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
 import Auth from 'pages/auth';
+import api from 'api';
 
 const PagesRouter = (): JSX.Element => {
   return (
@@ -45,12 +46,9 @@ function App(): JSX.Element {
     if (!process.env.REACT_APP_API_URL) throw new Error("API URL must be declared in the env file");
     
     setInitialLoading(true);
-    fetch(process.env.REACT_APP_API_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        Console.log(data);
-        if (!data.ok) throw new Error("Server Response not OK");
-
+    api.wakeUpServer()
+      .then((ok) => {
+        if (!ok) throw new Error("Server Response not OK");
         // Check auth status here
       })
       .catch((error) => {
