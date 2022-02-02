@@ -49,13 +49,13 @@ function App(): JSX.Element {
     api.wakeUpServer()
       .then((ok) => {
         if (!ok) throw new Error("Server Response not OK");
-        // Check auth status here
+        // TODO: Check auth status here
       })
       .catch((error) => {
         Console.error(error);
         setServerError(true);
       })
-      .finally(() => setInitialLoading(false));
+      // .finally(() => setInitialLoading(false));
   };
   useEffect(initRoutine, []);
 

@@ -12,6 +12,18 @@ const Console = {
   debug: inDevMode ? console.debug : function(){},
 }
 
+/** Print a welcome message to console */
+const printWelcomeMessage = (): void => {
+  console.log(`
+     ######  ########    ###    ########  ########  ##     ## ########   ######  ######## 
+    ##    ##    ##      ## ##   ##     ## ##     ## ##     ## ##     ## ##    ##    ##    
+    ##          ##     ##   ##  ##     ## ##     ## ##     ## ##     ## ##          ##    
+     ######     ##    ##     ## ########  ########  ##     ## ########   ######     ##    
+          ##    ##    ######### ##   ##   ##     ## ##     ## ##   ##         ##    ##    
+    ##    ##    ##    ##     ## ##    ##  ##     ## ##     ## ##    ##  ##    ##    ##    
+     ######     ##    ##     ## ##     ## ########   #######  ##     ##  ######     ##    
+  `);
+}
 
-
+export { printWelcomeMessage };
 export default Console;

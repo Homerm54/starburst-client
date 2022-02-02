@@ -2,7 +2,7 @@ import axiosBase from 'axios';
 import Console from 'lib/Console';
 import { variables } from 'lib/config';
 
-const endpoint = variables.devMode
+const baseURL = false //variables.devMode
   ? `http://localhost:${variables.BACKEND_PORT}`
   : variables.BACKEND_URL
 ;
@@ -13,7 +13,7 @@ const endpoint = variables.devMode
  * TODO: Add offline interceptor
  */
 const axios = axiosBase.create({
-  baseURL: endpoint,
+  baseURL,
   responseType: 'json', // Default response type from api, if other, specify in the request call
   headers: {
     'Content-Type': 'application/json', // Default payload, if other specify in call
