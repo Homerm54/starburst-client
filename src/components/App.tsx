@@ -42,9 +42,7 @@ function App(): JSX.Element {
   const [initialLoading, setInitialLoading] = useState(true);
   
   const initRoutine = () => {
-    // Check API and authentication status
-    if (!process.env.REACT_APP_API_URL) throw new Error("API URL must be declared in the env file");
-    
+    // Check API status adn initial routine
     setInitialLoading(true);
     api.wakeUpServer()
       .then((ok) => {
@@ -55,7 +53,7 @@ function App(): JSX.Element {
         Console.error(error);
         setServerError(true);
       })
-      // .finally(() => setInitialLoading(false));
+      .finally(() => setInitialLoading(false));
   };
   useEffect(initRoutine, []);
 
