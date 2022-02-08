@@ -21,7 +21,6 @@ const GlobalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0,0.5);
   flex-direction: column;
   z-index: 1000;
 `;

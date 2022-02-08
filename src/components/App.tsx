@@ -13,6 +13,7 @@ import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
 import Auth from 'pages/auth';
 import api from 'api';
+import ScreenSizeWatcher from 'components/ScreenSizeWatcher';
 
 const PagesRouter = (): JSX.Element => {
   return (
@@ -60,6 +61,8 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={context.state.theme === 'dark' ? darktheme : lighttheme}>
       <GlobalStyle />
+
+      <ScreenSizeWatcher />
       {
         initialLoading
           ? <Loading global hint="Reaching server..." />

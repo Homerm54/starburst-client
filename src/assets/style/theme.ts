@@ -1,6 +1,5 @@
 export type Theme = {
   colors: {
-    /**Hola */
     primary: {
       normal: string;
       light: string;
@@ -24,6 +23,8 @@ export type Theme = {
     info: string;
     warning: string;
     danger: string;
+
+    background: string;
   },
 
   breakpoints: string[],
@@ -40,13 +41,13 @@ export type Theme = {
 }
 
 // xs = 0, sm, md, lg, xl, xxl
-const breakpoints = ['576px', '768px', '992px', '1200px', '1400px'];
-const base = {
+export const breakpoints = ['576px', '768px', '992px', '1200px', '1400px'];
+export const base = {
   // Font Sizes
   // example fontSizes aliases
   fontSizes: [12, 14, 16, 20, 24, 32],
   displays: ['1.75rem', '2.5rem', '3.24rem', '5rem', '8rem', '10rem'],
-  formatDisplay(num: number) {
+  formatDisplay(num: number): string | number {
     if (num < 3) {
       return this.fontSizes[num + 3];
     }
@@ -97,6 +98,8 @@ export const dark: Theme = {
     info: '#0dcaf0',
     warning: '#ffc107',
     danger: '#dc3545',
+
+    background: 'rgba(0, 0, 0, 1)',
   },
   
   ...base,
@@ -127,6 +130,8 @@ export const light: Theme = {
     info: '#0dcaf0',
     warning: '#ffc107',
     danger: '#dc3545',
+
+    background: '#dfe0e0',
   },
   ...base,
 };

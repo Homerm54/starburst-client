@@ -5,13 +5,14 @@ import React, { createContext } from "react"
 
 // Type declarations and Interfaces
 type AppState = {
-  theme:  'ligth' | 'dark'
-  loading: boolean,
+  theme: 'ligth' | 'dark';
+  loading: boolean;
 };
  
 type Action =
   | { type: 'initialSetup' }
   | { type: 'toggleTheme' }
+  | { type: 'setMobile', is: boolean };
 
 type GlobalContext = { state: AppState, dispatch: React.Dispatch<Action> };
 
@@ -46,12 +47,14 @@ const loadSettings = (defaultState: AppState) => {
 
 function reducer(state: AppState, action: Action): AppState {
   Console.log(action);
+
   switch (action.type) {
     case 'toggleTheme': {
       const newState: AppState = { ...state, theme: state.theme === 'ligth' ? 'dark' : 'ligth' }
       saveSettings(newState);
       return newState;
     }
+      
     default:
       throw new Error('Invalid Action passed');
   }

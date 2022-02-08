@@ -32,7 +32,7 @@ body {
 
 #root {
   color: ${props => props.theme.colors.font.normal};
-  background-color: ${props => props.theme.colors.primary.normal};
+  background-color: ${props => props.theme.colors.background};
 }
 
 
