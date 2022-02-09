@@ -4,6 +4,7 @@ import Lottie from "lottie-react";
 import LoadingAnimation  from 'assets/animations/loading_animation.json';
 import { replaceColors } from 'lib/helpers';
 import styled from 'styled-components';
+import { zIndex } from 'assets/style/theme';
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const GlobalContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 1000;
+  z-index: ${zIndex.loading};
 `;
 
 const Hint = styled.div`

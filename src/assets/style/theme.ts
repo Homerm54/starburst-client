@@ -40,8 +40,13 @@ export type Theme = {
   formatDisplay: (num:number) => string | number,
 }
 
+export const zIndex = {
+  loading: 100,
+  modal: 1000,
+}
+
 // xs = 0, sm, md, lg, xl, xxl
-export const breakpoints = ['576px', '768px', '992px', '1200px', '1400px'];
+export const breakpoints = ['576px', '767px', '992px', '1200px', '1400px'];
 export const base = {
   // Font Sizes
   // example fontSizes aliases

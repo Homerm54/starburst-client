@@ -1,8 +1,9 @@
 import { breakpoints } from "assets/style/theme";
 import Console from "lib/Console";
 import { useEffect, useState } from "react";
+import Modal from "components/ui/Modal";
 
-const ScreenSizeWatcher = (): JSX.Element | null => {
+const ScreenSizeWatcher = (): JSX.Element => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   
   useEffect(() =>{
@@ -19,15 +20,11 @@ const ScreenSizeWatcher = (): JSX.Element | null => {
     return () => mql.removeEventListener('change', watcher);
   }, []);
 
-  if (isSmallScreen) {
-    Console.log('Is in small screen');
-    // Show modal here
-    return null;
-  }
-
-  Console.log('Is in big screeeen');
-
-  return null;
+  return (
+    <Modal display={isSmallScreen}>
+      <div>Sorry, but this app isn&apos;t available for small screens</div>
+    </Modal>
+  )
 }
 
 

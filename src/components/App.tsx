@@ -62,13 +62,17 @@ function App(): JSX.Element {
     <ThemeProvider theme={context.state.theme === 'dark' ? darktheme : lighttheme}>
       <GlobalStyle />
 
-      <ScreenSizeWatcher />
       {
         initialLoading
           ? <Loading global hint="Reaching server..." />
           : serverError
             ? <ServerError retry={process.env.NODE_ENV === 'development' ? initRoutine : undefined} />
-            : <PagesRouter />
+            : (
+              <>
+                <ScreenSizeWatcher />
+                <PagesRouter />
+              </>
+            )
       }
     </ThemeProvider>
   );
