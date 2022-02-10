@@ -63,9 +63,11 @@ const Modal = ({
         <Header className={`${closable ? '' : 'mb-3'}`}>
           {closable
             &&
-            <Button onClick={onClose}>
-              <FontAwesomeIcon icon="circle-xmark" />
-            </Button>
+            <Button
+              onClick={onClose}
+              type="unstyled"
+              icon={<FontAwesomeIcon icon="circle-xmark" />}
+            />
           }
         </Header>
 

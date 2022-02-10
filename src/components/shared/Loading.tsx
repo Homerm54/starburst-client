@@ -85,5 +85,8 @@ function Loading({ show = true, global = false, size = 200, hint = '' } : Loadin
   );
 }
 
+const LoadingIcon = (): JSX.Element => <Loading size={30} />;
+
 
 export default Loading;
+export { LoadingIcon };
