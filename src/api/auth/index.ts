@@ -38,4 +38,4 @@
  * @todo Check how to use 2 factor authentication
  */
 
-export { }
+export { };

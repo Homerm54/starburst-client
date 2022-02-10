@@ -30,7 +30,7 @@ const PrivateRoute = ({ children, ...rest } : RouteProps): JSX.Element => {
       }
     />
   );
-}
+};
 
 
 export default PrivateRoute;

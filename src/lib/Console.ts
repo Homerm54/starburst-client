@@ -12,7 +12,7 @@ const Console = {
   error: inDevMode ? console.error : function(){},
   debug: inDevMode ? console.debug : function () { },
   dir: inDevMode ? console.dir : function () { },
-}
+};
 
 /** Print a welcome message to console */
 const printWelcomeMessage = (): void => {
@@ -25,7 +25,7 @@ const printWelcomeMessage = (): void => {
     ##    ##    ##    ##     ## ##    ##  ##     ## ##     ## ##    ##  ##    ##    ##    
      ######     ##    ##     ## ##     ## ########   #######  ##     ##  ######     ##    
   `);
-}
+};
 
 export { printWelcomeMessage };
 export default Console;

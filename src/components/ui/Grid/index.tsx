@@ -35,7 +35,7 @@ const Row = ({ gutter, noGutter, ...props }: RowProps): JSX.Element => {
       {...props}
     />
   );
-}
+};
 
 /**
  * Column for the Row/Col System.
@@ -69,7 +69,7 @@ const Col = ({ gutter, noGutter, ...props }: ColProps): JSX.Element => {
       {...props}
     />
   );
-}
+};
 
 
 export { Row, Col };

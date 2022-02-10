@@ -63,7 +63,7 @@ function Loading({ show = true, global = false, size = 200, hint = '' } : Loadin
 
         {hint && <Hint>{hint}</Hint>}
     </GlobalContainer>
-    )
+    );
   }
 
   return (
@@ -82,7 +82,7 @@ function Loading({ show = true, global = false, size = 200, hint = '' } : Loadin
 
       {hint && <Hint>{hint}</Hint>}
     </Container>
-  )
+  );
 }
 
 

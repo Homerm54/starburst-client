@@ -36,8 +36,8 @@ const PagesRouter = (): JSX.Element => {
         </Switch>
       </Suspense>
     </Router>
-  )
-}
+  );
+};
 
 function App(): JSX.Element {
   const context = useGlobalContext();

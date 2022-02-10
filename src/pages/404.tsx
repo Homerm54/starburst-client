@@ -52,8 +52,8 @@ const ServerError = (): JSX.Element => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
 
 export default ServerError;

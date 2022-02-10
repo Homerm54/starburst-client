@@ -10,8 +10,8 @@ const Auth = () : JSX.Element => {
     <>
       <h1>auth</h1>
     </>
-  )
-}
+  );
+};
 
 
 export default Auth;

@@ -19,8 +19,8 @@ const Text = ({ size, children, as }: Props): JSX.Element => {
     <Display size={size} as={as}>
       {children}
     </Display>
-  )
-}
+  );
+};
 
 
 export { Text };

@@ -54,8 +54,8 @@ const ServerError = ({ retry } : { retry?: () => void}) : JSX.Element => {
         }
       </Row>
     </Container>
-  )
-}
+  );
+};
 
 
 export default ServerError;

@@ -26,7 +26,7 @@
     "postinstall": "react-scripts build",
     "test": "react-scripts test",
     "start": "serve -s build",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
   },
   "eslintConfig": {
     "extends": [

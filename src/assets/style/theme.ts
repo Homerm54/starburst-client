@@ -43,7 +43,7 @@ export type Theme = {
 export const zIndex = {
   loading: 100,
   modal: 1000,
-}
+};
 
 // xs = 0, sm, md, lg, xl, xxl
 export const breakpoints = ['576px', '767px', '992px', '1200px', '1400px'];

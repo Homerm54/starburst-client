@@ -89,8 +89,8 @@ const Modal = ({
         </Footer>
       </BodyContainer>
     </BaseContainer>
-  )
-}
+  );
+};
 
 type ModalFunctionProps = {
   content: React.ReactNode;
@@ -103,9 +103,9 @@ const showModal = ({ content }: ModalFunctionProps): void => {
   return;
   const container = document.createElement('div');
   const onClose = () => {
-    Console.log('Closing!')
+    Console.log('Closing!');
     ReactDOM.unmountComponentAtNode(container);
-    container.remove()
+    container.remove();
   };
 
   document.body.appendChild(container);
@@ -116,7 +116,7 @@ const showModal = ({ content }: ModalFunctionProps): void => {
       container
     ); 
   });
-}
+};
 
 export default Modal;
-export { showModal }
+export { showModal };

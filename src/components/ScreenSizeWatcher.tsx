@@ -12,7 +12,7 @@ const ScreenSizeWatcher = (): JSX.Element => {
     const watcher = () => {
       Console.log('Media Qeury watcher fired');
       setIsSmallScreen(mql.matches);
-    }
+    };
 
     mql.addEventListener('change', watcher);
     watcher();
@@ -28,8 +28,8 @@ const ScreenSizeWatcher = (): JSX.Element => {
     >
       <div>Sorry, but this app isn&apos;t available for small screens</div>
     </Modal>
-  )
-}
+  );
+};
 
 
 export default ScreenSizeWatcher;

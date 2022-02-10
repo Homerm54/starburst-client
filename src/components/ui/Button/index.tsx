@@ -8,9 +8,9 @@
  * 
  * Color on hoover
  */
-import { BaseButton } from "./style"
+import { BaseButton } from "./style";
 
-type ButtonProps = {
+type ButtonProps = { 
   children: React.ReactNode;
 
   onClick?: () => unknown;
@@ -22,8 +22,8 @@ const Button = ({ children, onClick }: ButtonProps): JSX.Element => {
     <BaseButton onClick={() => onClick && onClick()}>
       {children}
     </BaseButton>
-  )
-}
+  );
+};
 
 
 export { Button };
