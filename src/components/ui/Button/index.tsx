@@ -1,3 +1,13 @@
+/**
+ * TODO: Add themed buttons
+ * Basic
+ * Danger
+ * Info
+ * Outlined
+ * Link
+ * 
+ * Color on hoover
+ */
 import { BaseButton } from "./style"
 
 type ButtonProps = {
