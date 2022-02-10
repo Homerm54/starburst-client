@@ -6,8 +6,10 @@ const Auth = () : JSX.Element => {
   const redirectTo = state?.redirectTo || '';
   Console.log(`When done, will redirect to: ${redirectTo}`);
 
-  return(
-    <h1>auth</h1>
+  return (
+    <>
+      <h1>auth</h1>
+    </>
   )
 }
 

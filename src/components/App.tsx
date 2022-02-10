@@ -15,6 +15,8 @@ import Auth from 'pages/auth';
 import api from 'api';
 import ScreenSizeWatcher from 'components/ScreenSizeWatcher';
 
+import 'assets/icons/faIcons';
+
 const PagesRouter = (): JSX.Element => {
   return (
     <Router>

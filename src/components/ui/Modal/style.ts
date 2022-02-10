@@ -16,9 +16,26 @@ const BodyContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 2rem;
+
+  padding: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+
   background-color: ${props => props.theme.colors.primary.normal};
   border-radius: 16px;
+  z-index: ${zIndex.modal + 1};
+  
+  min-width: 300px;
 `;
 
-export { BaseContainer, BodyContainer };
+const Header = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+export { BaseContainer, BodyContainer, Header, Footer };
