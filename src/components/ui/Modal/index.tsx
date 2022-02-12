@@ -65,7 +65,7 @@ const Modal = ({
             &&
             <Button
               onClick={onClose}
-              type="unstyled"
+              mode="unstyled"
               icon={<FontAwesomeIcon icon="circle-xmark" />}
             />
           }
@@ -80,13 +80,13 @@ const Modal = ({
             footer !== null
             && (
               footer
-              ? footer
-              : (
-                <>
-                  <Button onClick={onCancel}>Cancelar</Button>
-                  <Button onClick={onOk}>Ok</Button>
-                </>
-              ))
+                ? footer
+                : (
+                  <>
+                    <Button onClick={onCancel}>Cancelar</Button>
+                    <Button onClick={onOk}>Ok</Button>
+                  </>
+                ))
           }
         </Footer>
       </BodyContainer>
@@ -113,8 +113,8 @@ const showModal = ({ content }: ModalFunctionProps): void => {
   document.body.appendChild(container);
 
   setTimeout(() => {
-     ReactDOM.render(
-       <Modal display onClose={onClose}>{content}</Modal>,
+    ReactDOM.render(
+      <Modal display onClose={onClose}>{content}</Modal>,
       container
     ); 
   });

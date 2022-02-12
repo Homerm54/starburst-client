@@ -1,44 +1,6 @@
-export type Theme = {
-  colors: {
-    primary: {
-      normal: string;
-      light: string;
-    }
-    
-    mid1: string;
+import { DefaultTheme } from 'styled-components';
 
-    secondary: {
-      normal: string;
-      light: string;
-    }
-    
-    mid2: string;
-
-    font: {
-      normal: string;
-      light: string;
-    }
-
-    success: string;
-    info: string;
-    warning: string;
-    danger: string;
-
-    background: string;
-  },
-
-  breakpoints: string[],
-  displays: string[],
-  space: number[],
-  mediaQueries: {
-    small: string,
-    medium: string,
-    large: string,
-    xlarge: string,
-    xxlarge: string,
-  },
-  formatDisplay: (num:number) => string | number,
-}
+export type Theme = DefaultTheme;
 
 export const zIndex = {
   loading: 100,
@@ -96,7 +58,7 @@ export const dark: Theme = {
 
     font: {
       normal: "#d0d5ce",
-      light: "#dbdacc,",
+      light: "#dbdacc",
     },
     
     success: '#198754',

@@ -1,6 +1,47 @@
 import 'styled-components';
-import { Theme } from './theme';
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends Theme { nothing?: null }
+  export interface DefaultTheme { 
+    colors: {
+      primary: {
+        normal: string;
+        light: string;
+      }
+
+      mid1: string;
+
+      secondary: {
+        normal: string;
+        light: string;
+      }
+
+      mid2: string;
+
+      font: {
+        normal: string;
+        light: string;
+      }
+
+      success: string;
+      info: string;
+      warning: string;
+      danger: string;
+
+      background: string;
+    },
+
+    breakpoints: string[];
+    displays: string[];
+    space: number[];
+
+    mediaQueries: {
+      small: string;
+      medium: string;
+      large: string;
+      xlarge: string;
+      xxlarge: string;
+    };
+  
+    formatDisplay: (num: number) => string | number,
+  }
 }
