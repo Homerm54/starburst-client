@@ -1,10 +1,8 @@
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle
 `
 // Font Families: Montserrat as Main - Nunito as Secondary
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -31,8 +29,8 @@ body {
 }
 
 #root {
-  color: ${props => props.theme.colors.font.normal};
-  background-color: ${props => props.theme.colors.background};
+  color: ${props => props.theme.palette.text.primary};
+  background-color: ${props => props.theme.palette.background.default};
 }
 
 
@@ -2789,27 +2787,31 @@ fieldset {
 }
 
 .text-primary {
-  color: ${props => props.theme.colors.primary} !important;
+  color: ${props => props.theme.palette.text.primary} !important;
 }
 
 .text-secondary {
-  color: ${props => props.theme.colors.secondary} !important;
+  color: ${props => props.theme.palette.text.secondary} !important;
 }
 
 .text-success {
-  color: ${props => props.theme.colors.success} !important;
+  color: ${props => props.theme.palette.success.main} !important;
 }
 
 .text-info {
-  color: ${props => props.theme.colors.info} !important;
+  color: ${props => props.theme.palette.info.main} !important;
 }
 
 .text-warning {
-  color: ${props => props.theme.colors.warning} !important;
+  color: ${props => props.theme.palette.warning.main} !important;
 }
 
 .text-danger {
-  color: ${props => props.theme.colors.danger} !important;
+  color: ${props => props.theme.palette.error.main} !important;
+}
+
+.text-error {
+  color: ${props => props.theme.palette.error.main} !important;
 }
 
 .text-white {

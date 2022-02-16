@@ -1,14 +1,13 @@
-import { zIndex } from "assets/style/theme";
 import styled from "styled-components";
 
-const BaseContainer = styled.div`
+const Mask = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: ${zIndex.modal};
+  z-index: ${({ theme }) => theme.zIndex.modal};
 `;
 
 const BodyContainer = styled.div`
@@ -16,15 +15,7 @@ const BodyContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  padding: 0.5rem;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-
-  background-color: ${props => props.theme.colors.primary.normal};
-  border-radius: 16px;
-  z-index: ${zIndex.modal + 1};
-  
+  z-index: ${({ theme }) => (theme.zIndex.modal + 1)};
   min-width: 300px;
 `;
 
@@ -38,4 +29,4 @@ const Footer = styled.div`
   justify-content: end;
 `;
 
-export { BaseContainer, BodyContainer, Header, Footer };
+export { Mask, BodyContainer, Header, Footer };

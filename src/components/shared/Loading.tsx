@@ -4,7 +4,6 @@ import Lottie from "lottie-react";
 import LoadingAnimation  from 'assets/animations/loading_animation.json';
 import { replaceColors } from 'lib/helpers';
 import styled from 'styled-components';
-import { zIndex } from 'assets/style/theme';
 
 const Container = styled.div`
   display: flex;
@@ -23,7 +22,7 @@ const GlobalContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: ${zIndex.loading};
+  z-index: ${({ theme }) => theme.zIndex.modal};
 `;
 
 const Hint = styled.div`
@@ -56,13 +55,13 @@ function Loading({ show = true, global = false, size = 200, hint = '' } : Loadin
           }}
           animationData={replaceColors({
             sourceColors: '#ffffff',
-            targetColors: theme.colors.secondary.normal,
+            targetColors: theme.palette.primary.main,
             lottieObj: LoadingAnimation
           })}
         />
 
         {hint && <Hint>{hint}</Hint>}
-    </GlobalContainer>
+      </GlobalContainer>
     );
   }
 
@@ -75,7 +74,7 @@ function Loading({ show = true, global = false, size = 200, hint = '' } : Loadin
         }}
         animationData={replaceColors({
           sourceColors: ['#000000', '#ffffff'],
-          targetColors: [theme.colors.primary.normal, theme.colors.secondary.normal],
+          targetColors: [theme.palette.primary.main, theme.palette.secondary.main],
           lottieObj: LoadingAnimation
         })}
       />

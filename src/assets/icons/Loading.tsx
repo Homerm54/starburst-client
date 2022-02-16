@@ -12,7 +12,7 @@ const Container = styled.svg`
   }
 
   animation: rotating 1s linear infinite;
-  color: ${({ theme }) => theme.colors.font.light};
+  color: ${({ theme }) => theme.palette.text.primary};
 `;
 
 const LoadingIcon = ({ size = 16 }: IconProps): JSX.Element => {

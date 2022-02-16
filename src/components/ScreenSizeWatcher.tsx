@@ -22,9 +22,10 @@ const ScreenSizeWatcher = (): JSX.Element => {
 
   return (
     <Modal
+      title="Web app not available"
       display={isSmallScreen}
       closable={true}
-      footer={null}
+      // footer={null}
     >
       <div>Sorry, but this app isn&apos;t available for small screens</div>
     </Modal>

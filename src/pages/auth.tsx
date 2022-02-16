@@ -8,25 +8,31 @@ const Auth = () : JSX.Element => {
   const redirectTo = state?.redirectTo || '';
   Console.log(`When done, will redirect to: ${redirectTo}`);
 
-  const mode = 'primary';
-  const variant = 'outlined';
+  const type = 'primary';
+  const variant = 'text';
 
   return (
     <div className="ml-2">
       <h1>auth</h1>
-      <Button mode={mode} variant={variant}>
+      <Button type={type} variant={variant}>
         Click here!
       </Button>
 
       <div className="mb-4"></div>
 
-      <Button icon={<FontAwesomeIcon icon="circle-xmark" />} mode={mode} variant={variant}>
+      <Button icon={<FontAwesomeIcon icon="circle-xmark" />} type={type} variant={variant}>
         Click here!
       </Button>
 
       <div className="mb-4"></div>
 
-      <Button mode={mode} variant={variant}>
+      <Button type={type} variant={variant}>
+        Click here!
+      </Button>
+
+      <div className="mb-4"></div>
+
+      <Button type={type} variant={variant} shape='round'>
         Click here!
       </Button>
     </div>

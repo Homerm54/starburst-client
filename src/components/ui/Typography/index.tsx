@@ -6,9 +6,9 @@ type DisplayRange = 1 | 2 | 3 | 4 | 5 | 6;
 type StyledProps = { size: DisplayRange, theme: Theme }
 
 const Display = styled.div`
-  font-size: ${(props: StyledProps) => props.theme.displays[props.size - 2]};
+  font-size: 1,2rem;
   ${props => props.theme.mediaQueries.medium}{
-    font-size: ${props => props.theme.formatDisplay(props.size - 1)};
+    font-size: 1.2rem;
   }
 `;
 

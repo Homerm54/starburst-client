@@ -16,16 +16,21 @@ type ButtonStyleVariants = 'filled' | 'link' | 'outlined' | 'text';
 /** Type of button size */
 type ButtonSize = 'small' | 'medium' | 'large';
 
+type ButtonShape = 'round' | 'box';
+
 /** Props accepted by the Button component */
 interface ButtonProps extends BaseButtonProps {
   /** Type of button to display, the type modifies the style applied */
-  mode?: ButtonStyleTypes;
+  type?: ButtonStyleTypes;
 
   /** Variation in the style of the button */
   variant?: ButtonStyleVariants;
 
   /** Size of the button */
   size?: ButtonSize;
+
+  /** Shape of the button box is default, round will make the button a circle if content is small enough (i.e. an icon) */
+  shape?: ButtonShape;
 
   // --------- ICON
   /**
@@ -44,16 +49,20 @@ interface ButtonProps extends BaseButtonProps {
    * if true will block the onClick call.
    */
   loading?: boolean;
+
+  // ---------- ATTRIBUTES
+  htmlType?: 'button' | 'reset' | 'submit';
 }
 
-// --------- STYLE PROPS ---------
+// ---------- STYLE PROPS ----------
 /** Props passed to the styled component object, see the ButtonProps for details on the fields */
-interface BaseStyleProps extends BaseButtonProps {
+interface ButtonStyleProps extends BaseButtonProps {
   readonly disabled: boolean;
-  readonly loading: boolean;
-  readonly type: ButtonStyleTypes;
-  readonly variant: ButtonStyleVariants;
-  readonly size: ButtonSize;
+  readonly $loading: boolean;
+  readonly $type: ButtonStyleTypes;
+  readonly $variant: ButtonStyleVariants;
+  readonly $size: ButtonSize;
+  readonly $shape: ButtonShape;
 }
 
 type VariantStyleObject = { [key in ButtonStyleVariants]: FlattenInterpolation<any>; }
@@ -62,7 +71,7 @@ type TypeStyleObject = { [key in ButtonStyleTypes]: VariantStyleObject; }
 export type {
   ButtonProps,
   ButtonStyleTypes,
-  BaseStyleProps,
+  ButtonStyleProps,
   ButtonStyleVariants,
 
   TypeStyleObject,
