@@ -3,8 +3,7 @@ import { ThemeContext } from 'styled-components';
 import Lottie from "lottie-react";
 import LoadingAnimation  from 'assets/animations/loading_animation.json';
 import { replaceColors } from 'lib/helpers';
-import { GlobalContainer, Hint } from './style';
-import { Container } from '../Card/style';
+import { Container, GlobalContainer, Hint } from './style';
 import { LoadingProps } from './types';
 
 function Loading({
