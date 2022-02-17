@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import routes from 'router/routes';
 import GlobalStyle from 'assets/style/global';
 import { dark as darktheme, light as lighttheme } from 'assets/style/theme';
-import Loading from 'components/shared/Loading';
+import Loading from 'components/ui/Loading';
 import { useGlobalContext } from './shared/context';
 import ServerError from 'pages/500';
 import NotFound from 'pages/404';
