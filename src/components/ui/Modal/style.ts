@@ -19,14 +19,4 @@ const BodyContainer = styled.div`
   min-width: 300px;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: end;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: end;
-`;
-
-export { Mask, BodyContainer, Header, Footer };
+export { Mask, BodyContainer };

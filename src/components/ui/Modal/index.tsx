@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactDOM from 'react-dom';
 import { Button } from 'components/ui/Button';
-import { Mask, BodyContainer, Footer, Header } from "./style";
+import { Mask, BodyContainer } from "./style";
 import Console from 'lib/Console';
 import { ModalFunctionProps, ModalProps } from './types';
 import { Card } from '../Card';
@@ -11,14 +11,14 @@ const ModalID = 'ui-modal';
 
 const Modal = ({
   footer,
-  children,
   title,
+  children,
+  onOk,
+  onClose,
+  onCancel,
   display = false,
   closable = true,
   allowCloseOutside = true,
-  onClose,
-  onCancel,
-  onOk,
 }: ModalProps): JSX.Element | null => {
   if (!display) return null;
 
@@ -55,16 +55,6 @@ const Modal = ({
         >
           {children}
         </Card>
-
-        {/* <div className='px-3 py-2'>
-          {children}
-        </div>
-
-        <Footer className={`${footer === null ? 'mt-3' : ''}`}>
-          {
-            
-          }
-        </Footer> */}
       </BodyContainer>
     </Mask>
   );

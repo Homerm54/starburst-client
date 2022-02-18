@@ -65,6 +65,10 @@ const FooterTool = styled.div<{ showDivider: boolean }>`
   border-right-color: ${({ theme, showDivider }) => showDivider ? theme.palette.divider : 'transparent'};
   border-right-width: 1px;
   border-right-style: solid;
+
+  & > * {
+    margin: auto;
+  }
 `;
 
 const Header = {
