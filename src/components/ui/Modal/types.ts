@@ -1,9 +1,6 @@
-import React from "react";
+type NativeProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'title'>;
 
-interface ModalProps {
-  /** Content (body) of the modal */
-  children: React.ReactNode;
-
+interface ModalProps extends NativeProps {
   /** 
    * Whether the modal is visible or not.
    * In case of toggling this flag, the modal body is completely unmounted.

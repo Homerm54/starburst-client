@@ -1,12 +1,5 @@
 import { FlattenInterpolation } from 'styled-components';
 
-interface BaseButtonProps { 
-  readonly children?: React.ReactNode | string;
-
-  /** Funtion to be called when the user presses the button */
-  readonly onClick?: () => unknown;
-}
-
 /** Types of button style available, changes the color  */
 type ButtonStyleTypes = 'primary' | 'secondary' | 'info' | 'danger' | 'sucess' | 'unstyled';
 
@@ -18,8 +11,10 @@ type ButtonSize = 'small' | 'medium' | 'large';
 
 type ButtonShape = 'round' | 'box';
 
+type NativeButtonProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'type'>;
+
 /** Props accepted by the Button component */
-interface ButtonProps extends BaseButtonProps {
+interface ButtonProps extends NativeButtonProps {
   /** Type of button to display, the type modifies the style applied */
   type?: ButtonStyleTypes;
 
@@ -56,7 +51,7 @@ interface ButtonProps extends BaseButtonProps {
 
 // ---------- STYLE PROPS ----------
 /** Props passed to the styled component object, see the ButtonProps for details on the fields */
-interface ButtonStyleProps extends BaseButtonProps {
+interface ButtonStyleProps extends NativeButtonProps {
   readonly disabled: boolean;
   readonly $loading: boolean;
   readonly $type: ButtonStyleTypes;

@@ -10,7 +10,8 @@ function Loading({
   show = true,
   global = false,
   size = 200,
-  hint = ''
+  hint = '',
+  ...rest
 }: LoadingProps): JSX.Element | null {
   const theme = useContext(ThemeContext);
 
@@ -18,7 +19,7 @@ function Loading({
 
   if (global) {
     return (
-      <GlobalContainer>
+      <GlobalContainer {...rest}>
         <Lottie
           style={{
             width: size,

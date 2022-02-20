@@ -12,14 +12,14 @@ type Variants =
   | 'overline'
   | 'subtitle1';
 
-interface Props {
+type NativeProps = React.ComponentPropsWithoutRef<'span'>;
+
+interface TypographyProps extends NativeProps {
   /** Variant of the Typography */
   variant: Variants;
 
   /** Which HTML component to use */
   component?: keyof HTMLElementTagNameMap;
-
-  children?: React.ReactNode;
 }
 
 interface TypographyStyleProps {
@@ -27,4 +27,4 @@ interface TypographyStyleProps {
   variant: Variants;
 }
 
-export type { TypographyStyleProps, Variants, Props };
+export type { TypographyStyleProps, Variants, TypographyProps };

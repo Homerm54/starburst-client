@@ -1,5 +1,7 @@
+type NativeProps = React.ComponentPropsWithoutRef<'div'>;
+
 /** Props for the Loading component */
-interface LoadingProps {
+interface LoadingProps extends NativeProps {
   /** Whether to show or not the Loading component */
   show?: boolean;
 

@@ -1,8 +1,8 @@
 import React from "react";
 
-interface CardProps {
-  children?: React.ReactNode;
+type NativeProps = Omit<React.ComponentPropsWithoutRef<'div'>, 'title'>;
 
+interface CardProps extends NativeProps {
   /** Title of the Card, aligned to the left */
   title?: React.ReactNode;
 

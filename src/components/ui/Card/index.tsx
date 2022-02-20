@@ -1,7 +1,13 @@
 import { Body, Container, Footer, Header } from "./style";
 import { CardProps } from "./types";
 
-const Card = ({ children, actionsTop, title, actionsBottom: actionsBotton }: CardProps): JSX.Element => {
+const Card = ({
+  children,
+  actionsTop,
+  title,
+  actionsBottom,
+  ...rest
+}: CardProps): JSX.Element => {
   return (
     <Container>
       {
@@ -14,18 +20,18 @@ const Card = ({ children, actionsTop, title, actionsBottom: actionsBotton }: Car
         )
       }
 
-      <Body>
+      <Body {...rest}>
         {children}
       </Body>
 
-      {actionsBotton
+      {actionsBottom
         && (
           <Footer.Container>
-            {Array.isArray(actionsBotton) ? actionsBotton.map((item, ix) => (
-              <Footer.Tool showDivider={actionsBotton.length !== ix + 1} key={ix}>
+            {Array.isArray(actionsBottom) ? actionsBottom.map((item, ix) => (
+              <Footer.Tool showDivider={actionsBottom.length !== ix + 1} key={ix}>
                 {item}
               </Footer.Tool>
-            )) : actionsBotton}
+            )) : actionsBottom}
           </Footer.Container>
         )}
     </Container>
