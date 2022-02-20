@@ -1,26 +1,27 @@
-import { Theme } from 'assets/style/theme';
-import React from 'react';
-import styled from 'styled-components';
+import { TypographyContainer } from './style';
+import { Props } from './types';
 
-type DisplayRange = 1 | 2 | 3 | 4 | 5 | 6;
-type StyledProps = { size: DisplayRange, theme: Theme }
+const Typography = ({ component, children, variant }: Props): JSX.Element => {
+  let flag = false;
 
-const Display = styled.div`
-  font-size: 1,2rem;
-  ${props => props.theme.mediaQueries.medium}{
-    font-size: 1.2rem;
+  switch (variant) {
+  case 'body1':
+  case 'body2':
+  case 'caption':
+  case 'overline':
+  case 'subtitle1':
+    flag = true;
+    break;
+  default:
+    break;
   }
-`;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Props = { size: DisplayRange, children: React.ReactNode, as?: any };
-const Text = ({ size, children, as }: Props): JSX.Element => {
+  
   return(
-    <Display size={size} as={as}>
+    <TypographyContainer variant={variant} as={component || (flag? 'div' : variant)}>
       {children}
-    </Display>
+    </TypographyContainer>
   );
 };
 
 
-export { Text };
+export { Typography };
