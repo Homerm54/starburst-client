@@ -2,6 +2,9 @@ import { DefaultTheme } from 'styled-components';
 
 export type Theme = DefaultTheme;
 
+/** Base, minimun spacing, in pixels */
+const baseSpacing = 8;
+
 // xs = 0, sm, md, lg, xl
 export const breakpoints = ['600px', '900px', '1200px', '1536px'];
 const base = {
@@ -72,10 +75,13 @@ const base = {
     "0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)"
   ],
 
-  // In pixels
-  space: [4, 8, 16, 24, 32],
-
   borderRadius: 10,
+
+  spacing: (multiplier: number, withUnit = false) => {
+    const calculatedSpacing = baseSpacing * multiplier;
+    if (withUnit)`${calculatedSpacing}px`;
+    return calculatedSpacing;
+  },
 };
 
 const basePalette = {
