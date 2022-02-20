@@ -11,7 +11,7 @@ const ScreenSizeWatcher = (): JSX.Element => {
     // Catch any media query changes here
     const mql = window.matchMedia(`(max-width: ${theme.breakpoints.values.sm}px)`);
     const watcher = () => {
-      Console.log('Media Qeury watcher fired');
+      Console.log('Media Query watcher fired');
       setIsSmallScreen(mql.matches);
     };
 
