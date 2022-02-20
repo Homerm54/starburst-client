@@ -133,9 +133,7 @@ const generateStyle = ({ $variant, $type: $mode, $loading, disabled }: ButtonSty
 };
 
 const ButtonContainer = styled.button<ButtonStyleProps>`
-	padding: 0.25rem;
-	padding-left: 0.5rem;
-	padding-right: 0.5rem;
+	padding: ${({ theme }) => theme.spacing(0.5)}px ${({ theme }) => theme.spacing(1.5)}px;
 
   border-radius: ${props => props.$shape === 'round' ? '1000' : '4'}px;
   border-style: solid;
