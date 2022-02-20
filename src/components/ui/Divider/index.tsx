@@ -1,14 +1,27 @@
-import { DividerStyled } from "./style";
+import { HorizontalDivider, VerticalDivider, TextDivider, HorizontalDividerText } from "./style";
+import { Props } from "./types";
 
-interface Props {
-  /** True if the divider will be used in a vertical way, false to horizontal */
-  vertical?: boolean;
-}
+/**
+ * Divider component to show a line, either vertical or horizontal,
+ * and divide into sections as needed.
+ */
+const Divider = ({
+  text,
+  type = 'horizontal',
+  textOrientation = 'center'
+}: Props): JSX.Element => {
 
-const Divider = ({ vertical = false }: Props): JSX.Element => {
+  if (type === 'vertical') return <VerticalDivider />;
 
+  if (text) {
+    return (
+      <HorizontalDividerText orientation={textOrientation}>
+        <TextDivider>{text}</TextDivider>
+      </HorizontalDividerText>
+    );
+  }
   return(
-    <DividerStyled />
+    <HorizontalDivider />
   );
 };
 
