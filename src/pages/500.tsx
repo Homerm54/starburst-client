@@ -1,5 +1,5 @@
 import { Col, Row } from "components/ui/Grid";
-import { Text } from "components/ui/Typography";
+import { Typography } from "components/ui/Typography";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -19,27 +19,23 @@ const ServerError = ({ retry } : { retry?: () => void}) : JSX.Element => {
 
   return(
     <Container>
-      <Row justifyContent="center" alignItems="center" width="100%" maxWidth={1000}>
-        <Col
-          width={[1, 1, 1 / 2]}
-          className="text-md-end"
-          mb={[-64, -64, 'auto']}
-        >
-          <Text as="h1" size={6}>500</Text>
+      <Row spacing={{ x: 3 }}>
+        <Col xs={6} style={{ textAlign: 'end' }}>
+          <Typography variant="h1">500</Typography>
         </Col>
 
-        <Col width={[1, 1, 1 / 2]}>
-          <Row gutter={16} className="text-md-start">
-            <Col width={'100%'} noGutter>
-              <Text size={3}>
+        <Col xs={6}>
+          <Row style={{ textAlign: 'start' }}>
+            <Col flex={{ basis: '100%' }}>
+              <Typography variant="h3" component="div">
                 SORRY!
-              </Text>
+              </Typography>
             </Col>
 
-            <Col width={'100%'} noGutter>
-              <Text size={2}>
+            <Col flex={{ basis: '100%' }}>
+              <Typography variant="h3" component="div">
                 Server didn&apos;t response on time
-              </Text>
+              </Typography>
             </Col>
           </Row>
         </Col>
@@ -47,7 +43,7 @@ const ServerError = ({ retry } : { retry?: () => void}) : JSX.Element => {
         {
           retry
           && (
-            <Col width={[1]} fontSize={3} role="button" onClick={retry}>
+            <Col flex={{ basis: '100%' }} onClick={retry}>
               Check connection again
             </Col>
           )

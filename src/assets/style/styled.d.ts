@@ -1,22 +1,5 @@
 import 'styled-components';
-
-type ColorScale = {
-  50: string;
-  100: string;
-  200: string;
-  300: string;
-  400: string;
-  500: string;
-  600: string;
-  700: string;
-  800: string;
-  900: string;
-  main: string;
-};
-
-type Breakpoints = "xs" | "sm" | "md" | "lg" | "xl";
-
-type PaletteMode = 'dark' | 'light';
+import { Breakpoints, ColorScale, PaletteMode } from './types';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -218,6 +201,7 @@ declare module 'styled-components' {
       snackbar: number;
       tooltip: number;
     };
+
 
     /** 
      * Generate unified spacing, in pixels, derived from the base spacing.

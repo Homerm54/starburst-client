@@ -1,73 +1,132 @@
 /**
  * Flex System Module for UI Design.
  * The System is based entirely in CSS Flex props.
- * @see https://rebassjs.org/reflexbox/ 
  * @see https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
  */
+import { RowStyle, ColStyle } from './style';
+import { useTheme } from 'styled-components';
+import { FlexContainerProps, FlexItemProps, GenericObject } from './types';
+import { useMediaQueries } from '../hooks';
+import Console from 'lib/Console';
 
-// Has to be imported from rebass in order for the props to work
-import { Box, Flex } from 'rebass/styled-components';
-import { FlexProps, BoxProps } from 'rebass';
-import { ThemeContext } from 'styled-components';
-import { useContext } from 'react';
-
-type base = {
-  /** Spacing for the left - rigth margin of the parent Row in the system */
-  gutter?: number,
-  noGutter?: boolean,
-};
-type RowProps = base & FlexProps;
-type ColProps = base & BoxProps;
+/** Flexbox system max items in the same row */
+const MaxItems = 12;
 
 /**
- * Wrapper for the Row/Col System.
- * 
+ * Container of the flex system.
  */
-const Row = ({ gutter, noGutter, ...props }: RowProps): JSX.Element => {
-  const theme = useContext(ThemeContext);
+const Row = ({
+  align,
+  justify,
+  spacing,
+  children,
+  justifyItems,
+  style = {},
+  wrap = true,
+  ...props
+}: FlexContainerProps): JSX.Element => {
+  const { spacing: spaceGenerator } = useTheme();
+  const trueSpacing = { x: spaceGenerator(1), y: spaceGenerator(1) };
+  const flexStyle: GenericObject = {};
+
+  if (wrap) flexStyle.flexFlow = "row wrap";
+  else flexStyle.flexFlow = "row nowrap";
+  if (justify) flexStyle.justifyContent = justify;
+  if (align) flexStyle.alignItems = align;
+  if (justifyItems) flexStyle.justifyItems = justifyItems;
+
+  if (spacing) {
+    if (typeof spacing === 'number') {
+      trueSpacing.x = spaceGenerator(spacing);
+      trueSpacing.y = spaceGenerator(spacing);
+    } else {
+      if (spacing.x) trueSpacing.x = spaceGenerator(spacing.x);
+      if (spacing.y) trueSpacing.y = spaceGenerator(spacing.y);
+    }
+  }
 
   return (
-    <Flex
-      flexWrap="wrap"
-      flexDirection="row"
-      my={0}
-      mx={noGutter? 0 : (gutter || theme.space[3]) / 2}
+    <RowStyle
+      spacing={trueSpacing}
+      style={{...style, ...flexStyle}}
       {...props}
-    />
+    >
+      {children}
+    </RowStyle>
   );
 };
 
 /**
- * Column for the Row/Col System.
- * 
- * For responsiveness, all the widths, flexGrows and other props accepts an array that represents the
- *  different values across the breakpoints set by the theme.
- * 
- * Example: `width={[100, '100%']}` means that the Col will have a width of 100px, from xs breakpoint
- *  (0px) up to the sm breakpoint (second position in the array).
- * 
- * Add up to 5 options for the 5 available breakpoints.
- * 
- * 
- * Tips:
- *  
- * * To fill available width without using `width: 100%;`, use the flexGrow prop.
- *  This flexGrow prop will grow the component to fill available, based on other siblings with flexGrow.
- * * To fill by percentage, use `width={1/3}`, this will fill 0.3333% of available width (Row parent).
- * * To fill exact pixel width, use `width={100}` for a width of 100px. 
- * 
- * Other flex properties can be used to manipulate the Col behaviour as well.
- * [MDN Reference](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
- * 
+ * Flex item, must be direct child of the flex container
  */
-const Col = ({ gutter, noGutter, ...props }: ColProps): JSX.Element => {
-  const theme = useContext(ThemeContext);
+const Col = ({
+  xs,
+  sm,
+  md,
+  lg,
+  xl,
+
+  alignSelf,
+  flex,
+  children,
+
+  style = {},
+  ...props
+}: FlexItemProps): JSX.Element => {
+  const activeBreakpoints = useMediaQueries();
+  Console.log(activeBreakpoints);
+  const extraStyle: GenericObject = {};
+  const breakpointProps = { xs, sm, md, lg, xl };
+
+  if (alignSelf) extraStyle.alignSelf = alignSelf;
+  if (flex) {
+    // This conditional means that the flex props overrides the breakpoints props
+    if (typeof flex === 'number') {
+      extraStyle.flex = `${flex} ${flex} auto`;
+    } else {
+      extraStyle.flex = `${flex.grow || 1} ${flex.shrink || 1} ${flex.basis || 'auto'}`;
+    }
+  } else {
+    // Process the flex item based on the breakpoints
+    activeBreakpoints.forEach((breakpoints) => {
+      const settings = breakpointProps[breakpoints];
+
+      if (settings) {
+        if (typeof settings === 'number') {
+          const width = (settings / MaxItems) * 100;
+          extraStyle.flex = `0 0 ${width}%`;
+        } else {
+          const width = (settings.span / MaxItems) * 100;
+          extraStyle.flex = `0 0 ${width}%`;
+          
+          if (settings.offset) {
+            if (typeof settings.offset === 'number') {
+              const width = (settings.offset / MaxItems) * 100;
+              extraStyle.marginLeft = `${width}%`;
+            } else {
+              if (settings.offset.left) {
+                const width = (settings.offset.left / MaxItems) * 100;
+                extraStyle.marginLeft = `${width}%`;
+              }
+
+              if (settings.offset.right) {
+                const width = (settings.offset.right / MaxItems) * 100;
+                extraStyle.marginRight = `${width}%`;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
 
   return (
-    <Box
-      p={noGutter? 0 : (gutter || theme.space[3]) / 2}
+    <ColStyle
+      style={{ ...style, ...extraStyle }}
       {...props}
-    />
+    >
+      {children}
+    </ColStyle>
   );
 };
 
