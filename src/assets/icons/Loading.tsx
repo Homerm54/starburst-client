@@ -17,8 +17,18 @@ const Container = styled.svg`
 
 const LoadingIcon = ({ size = 16 }: IconProps): JSX.Element => {
   return (
-    <Container width={`${size}px`} height={`${size}px`} viewBox={`0 0 ${size} ${size}`} xmlns="http://www.w3.org/2000/svg">
-      <path fillRule="evenodd" clipRule="evenodd" d="M13.917 7A6.002 6.002 0 0 0 2.083 7H1.071a7.002 7.002 0 0 1 13.858 0h-1.012z" />
+    <Container
+      fill="currentColor"
+      width={`${size}px`}
+      height={`${size}px`}
+      viewBox={`0 0 ${size} ${size}`}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M13.917 7A6.002 6.002 0 0 0 2.083 7H1.071a7.002 7.002 0 0 1 13.858 0h-1.012z"
+      />
     </Container>
   );
 };

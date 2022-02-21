@@ -1,11 +1,11 @@
 import LoadingIcon from "assets/icons/Loading";
-import { ButtonContainer } from "./style";
-import { ButtonProps } from "./types";
+import { isValidElement } from "react";
+import { ButtonContainer, ChildStyle } from "./style";
+import { ButtonProps, IconComplex } from "./types";
 
 const Button = ({
   icon,
   children,
-  onClick,
   loading = false,
   disabled = false,
   size = 'medium',
@@ -15,12 +15,22 @@ const Button = ({
   htmlType = 'button',
   ...rest
 }: ButtonProps): JSX.Element => {
-  // TODO: Logic to reflect show icon in position for object type
-  const Icon = () => {
-    if (loading) return <><LoadingIcon />&nbsp;&nbsp;</>;
-    if (icon) return <>{icon}&nbsp;&nbsp;</>;
-    return null;
-  };
+  let startElement;
+  let endElement;
+
+  if (icon) {
+    if (isValidElement(icon)) {
+      if (loading) startElement = <LoadingIcon />;
+      else startElement = icon;
+    } else {
+      const typedIcon = icon as IconComplex;
+      if (loading) startElement = <LoadingIcon />;
+      if (typedIcon.iconStart && !loading) startElement = typedIcon.iconStart;
+      if (typedIcon.iconEnd) endElement = typedIcon.iconEnd;
+    }
+  } else {
+    if (loading) startElement = <LoadingIcon />;
+  }
 
   return (
     <ButtonContainer
@@ -31,10 +41,9 @@ const Button = ({
       $variant={variant}
       $loading={loading}
       disabled={disabled}
-      onClick={onClick}
       {...rest}
     >
-      <Icon />{children}
+      {startElement}<ChildStyle>{children}</ChildStyle>{endElement}
     </ButtonContainer>
   );
 };

@@ -1,6 +1,6 @@
 import Console from "lib/Console";
 import styled, { css } from "styled-components";
-import { ButtonProps, ButtonStyleProps, TypeStyleObject } from "./types";
+import { ButtonProps, ButtonStyleProps, SizeStyleObject, TypeStyleObject, VariantStyleObject } from "./types";
 
 const unstyledCss = css`
 	background: none;
@@ -15,104 +15,208 @@ const unstyledCss = css`
 const types: TypeStyleObject = {
   primary: {
     filled: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
-				border-color: ${({ theme }) => theme.palette.primary.main};
+				color: ${({ theme }) => theme.palette.common.black};
+				background-color: ${({ theme }) => theme.palette.primary.dark};
+				border-color: ${({ theme }) => theme.palette.primary.dark};
 
 				:hover {
-					background-color: ${({ theme }) => theme.palette.primary.dark};
-					border-color: ${({ theme }) => theme.palette.primary.dark};
+					background-color: ${({ theme }) => theme.palette.primary['800']};
+					border-color: ${({ theme }) => theme.palette.primary['800']};
 				}
 			`,
+
     outlined: css<ButtonProps>`
 				background-color: transparent;
 				border-color: ${({ theme }) => theme.palette.primary.main};
 
         :hover {
 					border-color: ${({ theme }) => theme.palette.primary.dark};
-          background-color: rgba(220, 237, 200, 0.1);
+          background-color: ${({ theme }) => theme.palette.action.hover};
 				}
 			`,
 
     link: css<ButtonProps>`
 				background-color: transparent;
-				border-color: none;
+				border: none;
+
+				:hover {
+          background-color: ${({ theme }) => theme.palette.action.hover};
+				}
 			`,
 
     text: css<ButtonProps>`
+				border: none;
 				background-color: transparent;
-				border-color: transparent;
+				color: ${({ theme }) => theme.palette.primary.main};
 
         :hover {
-          background-color: rgba(220, 237, 200, 0.14);
+					background-color: ${({ theme }) => theme.palette.action.hover};
 				}
 			`,
   },
   secondary: {
     filled: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
-			`,
+				color: ${({ theme }) => theme.palette.common.black};
+				background-color: ${({ theme }) => theme.palette.secondary.main};
+				border-color: ${({ theme }) => theme.palette.secondary.main};
 
-    link: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				:hover {
+					background-color: ${({ theme }) => theme.palette.secondary.dark};
+					border-color: ${({ theme }) => theme.palette.secondary.dark};
+				}
 			`,
 
     outlined: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				background-color: transparent;
+				border-color: ${({ theme }) => theme.palette.secondary.main};
+				color: ${({ theme }) => theme.palette.secondary.main};
+
+        :hover {
+					border-color: ${({ theme }) => theme.palette.secondary.dark};
+          background-color: ${({ theme }) => theme.palette.action.hover};
+				}
+			`,
+
+    link: css<ButtonProps>`
+				background-color: transparent;
+				border: none;
+
+				:hover {
+          background-color: ${({ theme }) => theme.palette.action.hover};
+				}
 			`,
 
     text: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				border: none;
+				background-color: transparent;
+				color: ${({ theme }) => theme.palette.secondary.main};
+
+        :hover {
+					background-color: ${({ theme }) => theme.palette.action.hover};
+				}
 			`,
   },
   danger: {
     filled: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
-			`,
+				color: ${({ theme }) => theme.palette.common.black};
+				background-color: ${({ theme }) => theme.palette.error.main};
+				border-color: ${({ theme }) => theme.palette.error.main};
 
-    link: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				:hover {
+					background-color: ${({ theme }) => theme.palette.error.dark};
+					border-color: ${({ theme }) => theme.palette.error.dark};
+				}
 			`,
 
     outlined: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				background-color: transparent;
+				border-color: ${({ theme }) => theme.palette.error.main};
+				color: ${({ theme }) => theme.palette.error.main};
+
+        :hover {
+					border-color: ${({ theme }) => theme.palette.error.light};
+				}
+			`,
+
+    link: css<ButtonProps>`
+				background-color: transparent;
+				border: none;
+
+				:hover {
+          background-color: ${({ theme }) => theme.palette.action.hover};
+				}
 			`,
 
     text: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				border: none;
+				background-color: transparent;
+				color: ${({ theme }) => theme.palette.error.main};
+
+        :hover {
+					background-color: ${({ theme }) => theme.palette.action.hover};
+				}
 			`,
   },
   info: {
     filled: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
-			`,
+				color: ${({ theme }) => theme.palette.common.black};
+				background-color: ${({ theme }) => theme.palette.info.dark};
+				border-color: ${({ theme }) => theme.palette.info.dark};
 
-    link: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				:hover {
+					background-color: ${({ theme }) => theme.palette.info.main};
+					border-color: ${({ theme }) => theme.palette.info.main};
+				}
 			`,
 
     outlined: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				background-color: transparent;
+				border-color: ${({ theme }) => theme.palette.info.dark};
+				color: ${({ theme }) => theme.palette.info.dark};
+
+        :hover {
+					border-color: ${({ theme }) => theme.palette.info.main};
+				}
 			`,
 
+    link: css<ButtonProps>`
+				background-color: transparent;
+				border: none;
+
+				:hover {
+          background-color: ${({ theme }) => theme.palette.action.hover};
+				}
+			`,
+ 
     text: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				border: none;
+				background-color: transparent;
+				color: ${({ theme }) => theme.palette.info.dark};
+
+        :hover {
+					background-color: ${({ theme }) => theme.palette.action.hover};
+				}
 			`,
   },
-  sucess: {
+  success: {
     filled: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
-			`,
+				color: ${({ theme }) => theme.palette.common.black};
+				background-color: ${({ theme }) => theme.palette.success.main};
+				border-color: ${({ theme }) => theme.palette.success.main};
 
-    link: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				:hover {
+					background-color: ${({ theme }) => theme.palette.success.dark};
+					border-color: ${({ theme }) => theme.palette.success.dark};
+				}
 			`,
 
     outlined: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				background-color: transparent;
+				color: ${({ theme }) => theme.palette.success.main};
+				border-color: ${({ theme }) => theme.palette.success.main};
+
+        :hover {
+					border-color: ${({ theme }) => theme.palette.success.dark};
+				}
+			`,
+
+    link: css<ButtonProps>`
+				background-color: transparent;
+				border: none;
+
+				:hover {
+          background-color: ${({ theme }) => theme.palette.action.hover};
+				}
 			`,
 
     text: css<ButtonProps>`
-				background-color: ${({ theme }) => theme.palette.primary.main};
+				border: none;
+				background-color: transparent;
+				color: ${({ theme }) => theme.palette.success.main};
+
+        :hover {
+					background-color: ${({ theme }) => theme.palette.action.hover};
+				}
 			`,
   },
   unstyled: {
@@ -123,37 +227,89 @@ const types: TypeStyleObject = {
   }
 };
 
-const generateStyle = ({ $variant, $type: $mode, $loading, disabled }: ButtonStyleProps) => {
-  Console.log(`Style function called with the following values: 
-		- variant: ${$variant} 
-		- mode: ${$mode}
-	`);
+const disabledStyles: VariantStyleObject = {
+  filled: css<ButtonProps>`
+		border-color: transparent;
+		color: ${({ theme }) => theme.palette.action.disabled};
+		background-color: ${({ theme }) => theme.palette.action.disabledBackground};
 
-  return types[$mode][$variant];
+		& > svg {
+			color: ${({ theme }) => theme.palette.text.icon};
+		}
+	`,
+  outlined: css<ButtonProps>`
+		background-color: transparent;
+		color: ${({ theme }) => theme.palette.action.disabled};
+		border-color: ${({ theme }) => theme.palette.action.disabledBackground};
+
+		& > svg {
+			color: ${({ theme }) => theme.palette.text.icon};
+		}
+	`,
+
+  link: css<ButtonProps>`
+		background-color: transparent;
+		border-color: none;
+		color: ${({ theme }) => theme.palette.action.disabled};
+	`,
+
+  text: css<ButtonProps>`
+		background-color: transparent;
+		border-color: transparent;
+		color: ${({ theme }) => theme.palette.action.disabled};
+
+		& > svg {
+			color: ${({ theme }) => theme.palette.text.icon};
+		}
+	`,
+};
+
+const sizeStyles: SizeStyleObject = {
+  large: css`
+		font-size: ${({ theme }) => (theme.baseFontSize) + 2}px;
+		padding: ${({ theme }) => theme.spacing(0.75)}px ${({ theme }) => theme.spacing(1)}px;
+	`,
+  medium: css`
+		padding: ${({ theme }) => theme.spacing(0.5)}px ${({ theme }) => theme.spacing(0.75)}px;
+	`,
+  small: css`
+		font-size: ${({ theme }) => (theme.baseFontSize) - 2}px;
+		padding: ${({ theme }) => theme.spacing(0.25)}px ${({ theme }) => theme.spacing(0.25)}px;
+	`,
+};
+
+const generateStyle = ({ $variant, $type, $loading, disabled }: ButtonStyleProps) => {
+  // The disabled style takes precedence over the color mode style, only variant remains
+  if ($loading || disabled) return disabledStyles[$variant];
+  return types[$type][$variant];
 };
 
 const ButtonContainer = styled.button<ButtonStyleProps>`
-	padding: ${({ theme }) => theme.spacing(0.5)}px ${({ theme }) => theme.spacing(1.5)}px;
-
   border-radius: ${props => props.$shape === 'round' ? '1000' : '4'}px;
   border-style: solid;
-  border-width: 1px;
+  border-width: 2px;
 
 	color: inherit;
+	font-weight: bold;
 
 	transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
 							border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   ${generateStyle}
+	${({ $size }) => sizeStyles[$size]};
 
 	display: flex;
   align-items: center;
+	justify-content: space-between;
   white-space: nowrap;
 
 	&[disabled] {
-		color: #6c757d !important;
 		cursor: default !important;
 	}
 `;
 
-export { ButtonContainer };
+const ChildStyle = styled.span`
+	margin: 0 ${({ theme }) => theme.spacing(0.75)}px;
+`;
+
+export { ButtonContainer, ChildStyle };

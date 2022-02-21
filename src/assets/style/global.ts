@@ -26,6 +26,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
+  font-size: ${({ theme }) => theme.baseFontSize}px;
 }
 
 #root {

@@ -8,6 +8,8 @@ const baseSpacing = 8;
 // xs = 0, sm, md, lg, xl
 export const breakpoints = ['600px', '900px', '1200px', '1536px'];
 const base = {
+  baseFontSize: 16,
+
   zIndex: {
     appBar: 1100,
     drawer: 1200,
