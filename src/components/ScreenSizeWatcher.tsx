@@ -1,6 +1,6 @@
 import Console from "lib/Console";
 import { useEffect, useState } from "react";
-import Modal from "components/ui/Modal";
+import { Modal } from "components/ui";
 import { useTheme } from "styled-components";
 
 const ScreenSizeWatcher = (): JSX.Element => {

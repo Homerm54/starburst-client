@@ -1,5 +1,5 @@
-import { Col, Row } from "components/ui/Grid";
-import { Typography } from "components/ui/Typography";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Typography, Col, Row, Button } from "components/ui";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -43,8 +43,16 @@ const ServerError = ({ retry } : { retry?: () => void}) : JSX.Element => {
         {
           retry
           && (
-            <Col flex={{ basis: '100%' }} onClick={retry}>
-              Check connection again
+            <Col flex={{ basis: '100%' }} style={{marginTop: '1rem'}}>
+              <Button
+                variant="text"
+                size="large"
+                style={{ margin: 'auto', color: 'inherit' }}
+                onClick={retry}
+                icon={{ iconEnd: <FontAwesomeIcon icon="arrow-rotate-left" /> }}
+              >
+                Check connection again
+              </Button>
             </Col>
           )
         }

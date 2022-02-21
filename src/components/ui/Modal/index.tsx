@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactDOM from 'react-dom';
-import { Button } from 'components/ui/Button';
+import { Button } from 'components/ui';
 import { Mask, BodyContainer } from "./style";
 import Console from 'lib/Console';
 import { ModalFunctionProps, ModalProps } from './types';

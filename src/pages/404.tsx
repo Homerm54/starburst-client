@@ -1,5 +1,5 @@
-import { Col, Row } from "components/ui/Grid";
-import { Typography } from "components/ui/Typography";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Typography, Col, Row, Button } from "components/ui";
 import { useHistory } from "react-router";
 import routes from "router/routes";
 import styled from "styled-components";
@@ -43,8 +43,16 @@ const ServerError = (): JSX.Element => {
           </Row>
         </Col>
 
-        <Col flex={{ basis: '100%' }} onClick={() => history.replace(routes.dashboard)}>
-          Back to Home
+        <Col flex={{ basis: '100%' }}>
+          <Button
+            variant="text"
+            size="large"
+            style={{ margin: 'auto', color: 'inherit' }}
+            onClick={() => history.replace(routes.dashboard)}
+            icon={{ iconEnd: <FontAwesomeIcon icon="arrow-left" /> }}
+          >
+            Back to Home
+          </Button>
         </Col>
       </Row>
     </Container>
