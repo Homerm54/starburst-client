@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: ${props => props.theme.palette.primaryDark.main};
+  background-color: ${props => props.theme.palette.primaryDark[800]};
   border-radius: ${props => props.theme.borderRadius}px;
 
   width: fit-content;
