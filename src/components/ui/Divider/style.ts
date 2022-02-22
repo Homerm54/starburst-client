@@ -26,8 +26,7 @@ const HorizontalDivider = styled.div`
 
   display: flex;
   clear: both;
-  width: 100%;
-  min-width: 100%;
+  width: auto;
   margin: 24px 0;
 `;
 
@@ -68,7 +67,7 @@ const TextDivider = styled.span`
   display: inline-block;
 
   /* X padding to avoid rendering divider lines that "touches" the text */
-  padding: 0 1em;
+  padding: 0 ${({ theme }) => theme.spacing(2)}px;
 `;
 
 export { HorizontalDivider, VerticalDivider, TextDivider, HorizontalDividerText };
