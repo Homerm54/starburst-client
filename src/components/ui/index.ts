@@ -7,6 +7,7 @@ import Loading from './Loading';
 import Modal, { showModal } from './Modal';
 import Sidebar from './Sidebar';
 import { Typography } from './Typography';
+import { Tab } from './Tabs';
 
 export {
   Button,
@@ -21,4 +22,5 @@ export {
   showModal,
   Sidebar,
   Typography,
+  Tab
 };
