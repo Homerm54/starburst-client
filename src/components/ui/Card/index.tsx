@@ -9,7 +9,7 @@ const Card = ({
   ...rest
 }: CardProps): JSX.Element => {
   return (
-    <Container>
+    <Container {...rest}>
       {
         (title || actionsTop)
         && (
@@ -20,7 +20,7 @@ const Card = ({
         )
       }
 
-      <Body {...rest}>
+      <Body>
         {children}
       </Body>
 
