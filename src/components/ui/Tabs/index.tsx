@@ -74,8 +74,9 @@ const Group = ({
   Children.forEach(children, (child) => {
     if (child) {
       const content = child.props.children;
-      headers.push(cloneElement(child, { activeTab, onChange: onChangeItem, children: null }));
-      contents.push({ item: content, key: child.props.tabKey});
+      const key = child.props.tabKey;
+      headers.push(cloneElement(child, { activeTab, onChange: onChangeItem, children: null, key }));
+      contents.push({ item: content, key });
     }
   });
 
