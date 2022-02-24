@@ -1,11 +1,14 @@
-import { SigninForm } from "components/auth/signin";
+import { SignInScreen } from "components/auth/signin";
+import { SignUpScreen } from "components/auth/signup";
 import { Typography, Divider, Tab, Card } from "components/ui";
 import { Container } from "components/ui/Container";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const Auth = (): JSX.Element => {  
-  const state = useLocation().state as { redirectTo: string | null };
-  const redirectTo = state?.redirectTo || '';
+  const location = useLocation();
+  const history = useHistory();
+  const tab = new URLSearchParams(location.search).get("tab") || 'signin';
+  const handleTabChange = (key?: string) => key && history.push(`/auth?tab=${key}`);
  
   return (
     <Container maxWidth="sm" style={{ margin: 'auto', height: '100%', display: 'flex' }}>
@@ -13,19 +16,19 @@ const Auth = (): JSX.Element => {
         <Typography variant="h3">Starburst</Typography>
         <Divider />
       
-        <Tab.Group initialActiveTab="signin" alignment="center">
+        <Tab.Group forcedTab={tab} alignment="center" onChange={handleTabChange}>
           <Tab.Item
             tabKey="signin"
             label="Sign In"
           >
-            <SigninForm />
+            <SignInScreen />
           </Tab.Item>
 
           <Tab.Item
             label="Sign Up"
             tabKey="signup"
           >
-            Tab #2 aquí
+            <SignUpScreen />
           </Tab.Item>
         </Tab.Group>
       </Card>
