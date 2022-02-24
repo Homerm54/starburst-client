@@ -1,17 +1,18 @@
 // Check https://gist.github.com/sw-yx/f18fe6dd4c43fddb3a4971e80114a052#file-createctx-usereducer-tsx
 // Application Management Getter / Setter https://kentcdodds.com/blog/application-state-management-with-react
 import Console from "lib/Console";
-import React, { createContext } from "react"
+import React, { createContext } from "react";
 
 // Type declarations and Interfaces
 type AppState = {
-  theme:  'ligth' | 'dark'
-  loading: boolean,
+  theme: 'ligth' | 'dark';
+  loading: boolean;
 };
  
 type Action =
   | { type: 'initialSetup' }
   | { type: 'toggleTheme' }
+  | { type: 'setMobile', is: boolean };
 
 type GlobalContext = { state: AppState, dispatch: React.Dispatch<Action> };
 
@@ -42,18 +43,20 @@ const loadSettings = (defaultState: AppState) => {
     Console.error(error);
     return defaultState;
   }
-}
+};
 
 function reducer(state: AppState, action: Action): AppState {
   Console.log(action);
+
   switch (action.type) {
-    case 'toggleTheme': {
-      const newState: AppState = { ...state, theme: state.theme === 'ligth' ? 'dark' : 'ligth' }
-      saveSettings(newState);
-      return newState;
-    }
-    default:
-      throw new Error('Invalid Action passed');
+  case 'toggleTheme': {
+    const newState: AppState = { ...state, theme: state.theme === 'ligth' ? 'dark' : 'ligth' };
+    saveSettings(newState);
+    return newState;
+  }
+      
+  default:
+    throw new Error('Invalid Action passed');
   }
 }
 
@@ -68,7 +71,7 @@ function useGlobalContext(): GlobalContext {
   
 function GlobalProvider(props: { children?: React.ReactNode }) : JSX.Element {
   const [state, dispatch] = React.useReducer(reducer, initialState, loadSettings);
-  return <AppCtx.Provider value={{state, dispatch}} {...props} />
+  return <AppCtx.Provider value={{state, dispatch}} {...props} />;
 }
 
 export {useGlobalContext, GlobalProvider };

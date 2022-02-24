@@ -23,4 +23,4 @@ export const replaceColors = ({ sourceColors, targetColors, lottieObj }: replace
     
     return basic(sourceColors, targetColors, lottieObj);
   }
-}
+};

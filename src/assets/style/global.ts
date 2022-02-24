@@ -1,10 +1,8 @@
-import {createGlobalStyle} from "styled-components"
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle
 `
 // Font Families: Montserrat as Main - Nunito as Secondary
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -28,11 +26,12 @@ body {
   font-weight: 400;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
+  font-size: ${({ theme }) => theme.baseFontSize}px;
 }
 
 #root {
-  color: ${props => props.theme.colors.font.normal};
-  background-color: ${props => props.theme.colors.primary.normal};
+  color: ${props => props.theme.palette.text.primary};
+  background-color: ${props => props.theme.palette.background.default};
 }
 
 
@@ -41,124 +40,6 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
-  }
-}
-
-// Title class
-h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-h1, .h1 {
-  font-size: calc(1.375rem + 1.5vw);
-}
-@media (min-width: 1200px) {
-  h1, .h1 {
-    font-size: 2.5rem;
-  }
-}
-
-h2, .h2 {
-  font-size: calc(1.325rem + 0.9vw);
-}
-@media (min-width: 1200px) {
-  h2, .h2 {
-    font-size: 2rem;
-  }
-}
-
-h3, .h3 {
-  font-size: calc(1.3rem + 0.6vw);
-}
-@media (min-width: 1200px) {
-  h3, .h3 {
-    font-size: 1.75rem;
-  }
-}
-
-h4, .h4 {
-  font-size: calc(1.275rem + 0.3vw);
-}
-@media (min-width: 1200px) {
-  h4, .h4 {
-    font-size: 1.5rem;
-  }
-}
-
-h5, .h5 {
-  font-size: 1.25rem;
-}
-
-h6, .h6 {
-  font-size: 1rem;
-}
-
-.display-1 {
-  font-size: calc(1.625rem + 4.5vw);
-  font-weight: 300;
-  line-height: 1.2;
-}
-@media (min-width: 1200px) {
-  .display-1 {
-    font-size: 5rem;
-  }
-}
-
-.display-2 {
-  font-size: calc(1.575rem + 3.9vw);
-  font-weight: 300;
-  line-height: 1.2;
-}
-@media (min-width: 1200px) {
-  .display-2 {
-    font-size: 4.5rem;
-  }
-}
-
-.display-3 {
-  font-size: calc(1.525rem + 3.3vw);
-  font-weight: 300;
-  line-height: 1.2;
-}
-@media (min-width: 1200px) {
-  .display-3 {
-    font-size: 4rem;
-  }
-}
-
-.display-4 {
-  font-size: calc(1.475rem + 2.7vw);
-  font-weight: 300;
-  line-height: 1.2;
-}
-@media (min-width: 1200px) {
-  .display-4 {
-    font-size: 3.5rem;
-  }
-}
-
-.display-5 {
-  font-size: calc(1.425rem + 2.1vw);
-  font-weight: 300;
-  line-height: 1.2;
-}
-@media (min-width: 1200px) {
-  .display-5 {
-    font-size: 3rem;
-  }
-}
-
-.display-6 {
-  font-size: calc(1.375rem + 1.5vw);
-  font-weight: 300;
-  line-height: 1.2;
-}
-@media (min-width: 1200px) {
-  .display-6 {
-    font-size: 2.5rem;
   }
 }
 
@@ -200,19 +81,6 @@ select {
 }
 select:disabled {
   opacity: 1;
-}
-
-button,
-[type=button],
-[type=reset],
-[type=submit] {
-  -webkit-appearance: button;
-}
-button:not(:disabled),
-[type=button]:not(:disabled),
-[type=reset]:not(:disabled),
-[type=submit]:not(:disabled) {
-  cursor: pointer;
 }
 
 ::-moz-focus-inner {
@@ -2789,27 +2657,31 @@ fieldset {
 }
 
 .text-primary {
-  color: ${props => props.theme.colors.primary} !important;
+  color: ${props => props.theme.palette.text.primary} !important;
 }
 
 .text-secondary {
-  color: ${props => props.theme.colors.secondary} !important;
+  color: ${props => props.theme.palette.text.secondary} !important;
 }
 
 .text-success {
-  color: ${props => props.theme.colors.success} !important;
+  color: ${props => props.theme.palette.success.main} !important;
 }
 
 .text-info {
-  color: ${props => props.theme.colors.info} !important;
+  color: ${props => props.theme.palette.info.main} !important;
 }
 
 .text-warning {
-  color: ${props => props.theme.colors.warning} !important;
+  color: ${props => props.theme.palette.warning.main} !important;
 }
 
 .text-danger {
-  color: ${props => props.theme.colors.danger} !important;
+  color: ${props => props.theme.palette.error.main} !important;
+}
+
+.text-error {
+  color: ${props => props.theme.palette.error.main} !important;
 }
 
 .text-white {
@@ -2900,4 +2772,4 @@ fieldset {
 .min-vh-100 {
   min-height: 100vh !important;
 }
-`
+`;

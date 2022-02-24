@@ -1,5 +1,10 @@
 import { checkAPIStatus } from "./utils";
 
+/**
+ * Dropbox link:
+ * https://www.dropbox.com/oauth2/authorize?client_id=kif0d4fv1k8zfqa&token_access_type=offline&response_type=code
+ */
+
 class APIClass {
   // Should hold api state
 

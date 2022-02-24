@@ -1,22 +1,27 @@
 import axiosBase from 'axios';
 import Console from 'lib/Console';
+import { variables } from 'lib/config';
 
-// Check https://axios-http.com/
-const endpoint = process.env.REACT_APP_API_URL;
-if (!endpoint) throw Error('No backend endpoint, check .env file');
+const baseURL = false //variables.devMode
+  ? `http://localhost:${variables.BACKEND_PORT}`
+  : variables.BACKEND_URL
+;
 
+/**
+ * Custom axios instance with all the pre configuration needed.
+ * TODO: Add access token refresh interceptor
+ * TODO: Add offline interceptor
+ */
 const axios = axiosBase.create({
-  baseURL: endpoint,
-  responseType: 'json', // Default response type, if other, specify in the request call
-  // timeout: ?
-  // timeoutErrorMessage ?
+  baseURL,
+  responseType: 'json', // Default response type from api, if other, specify in the request call
+  headers: {
+    'Content-Type': 'application/json', // Default payload, if other specify in call
+  }
 });
-
-// const offlineInterceptor = axios.interceptors.
 
 
 /**
- * // Decorators can be used to check if a api call is failed due to network errors
  * Checks if the API is active and ready to be used (in case Heroku put it to sleep, 
  * for example).
  * @returns Whether the API endpoint is active and ready to be used
