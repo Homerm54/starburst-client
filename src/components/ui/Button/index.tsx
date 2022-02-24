@@ -14,6 +14,7 @@ const Button = ({
   shape = 'box',
   htmlType = 'button',
   component = 'button',
+  block = false,
   ...rest
 }: ButtonProps): JSX.Element => {
   let startElement;
@@ -43,6 +44,7 @@ const Button = ({
       $variant={variant}
       $loading={loading}
       disabled={disabled}
+      $fullWidth={block}
       {...rest}
     >
       {startElement}<ChildStyle>{children}</ChildStyle>{endElement}

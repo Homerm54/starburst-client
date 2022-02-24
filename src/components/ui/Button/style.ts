@@ -224,6 +224,9 @@ const ButtonContainer = styled.button<ButtonStyleProps>`
   border-radius: ${props => props.$shape === 'round' ? '1000' : '4'}px;
   border-style: solid;
   border-width: 2px;
+	justify-content: center;
+
+	width: ${({ $fullWidth }) => $fullWidth ? '100%' : 'auto'};
 
 	color: inherit;
 	transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),

@@ -27,7 +27,6 @@ interface ButtonProps extends NativeButtonProps {
   size?: ButtonSize;
   /** Shape of the button box is default, round will make the button a circle if content is small enough (i.e. an icon) */
   shape?: ButtonShape;
-
   // --------- ICON
   /**
    * Icon to show alongside the body of the button.
@@ -43,13 +42,13 @@ interface ButtonProps extends NativeButtonProps {
    * if true will block the onClick call.
    */
   loading?: boolean;
-
   // ---------- ATTRIBUTES
   /** HTML type of the button */
   htmlType?: 'button' | 'reset' | 'submit';
-
   /** Which HTML component to use */
   component?: 'button' | 'a' | 'div';
+  /** Whether to make the button fill all the available width space */
+  block?: boolean;
 }
 
 // ---------- STYLE PROPS ----------
@@ -61,6 +60,7 @@ interface ButtonStyleProps extends NativeButtonProps {
   readonly $variant: ButtonStyleVariants;
   readonly $size: ButtonSize;
   readonly $shape: ButtonShape;
+  readonly $fullWidth: boolean;
 }
 
 export type {
