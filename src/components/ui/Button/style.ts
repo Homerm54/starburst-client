@@ -224,7 +224,6 @@ const ButtonContainer = styled.button<ButtonStyleProps>`
   border-radius: ${props => props.$shape === 'round' ? '1000' : '4'}px;
   border-style: solid;
   border-width: 2px;
-	justify-content: center;
 
 	width: ${({ $fullWidth }) => $fullWidth ? '100%' : 'auto'};
 
@@ -237,7 +236,7 @@ const ButtonContainer = styled.button<ButtonStyleProps>`
 
 	display: flex;
   align-items: center;
-	justify-content: space-between;
+	justify-content: ${({ $fullWidth }) => $fullWidth ? 'center' : 'space-between'};
   white-space: nowrap;
 
 	&[disabled] {
