@@ -9,6 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@react-spring/web": "^9.4.3",
     "axios": "^0.24.0",
+    "formik": "^2.2.9",
     "lottie-colorify": "^0.8.0",
     "lottie-react": "^2.1.0",
     "react": "^17.0.2",
