@@ -14,7 +14,6 @@ const unstyledCss = css`
 const types: TypeStyleObject = {
   primary: {
     filled: css<ButtonProps>`
-				color: ${({ theme }) => theme.palette.common.black};
 				background-color: ${({ theme }) => theme.palette.primary.dark};
 				border-color: ${({ theme }) => theme.palette.primary.dark};
 
@@ -45,7 +44,6 @@ const types: TypeStyleObject = {
   },
   secondary: {
     filled: css<ButtonProps>`
-				color: ${({ theme }) => theme.palette.common.black};
 				background-color: ${({ theme }) => theme.palette.secondary.main};
 				border-color: ${({ theme }) => theme.palette.secondary.main};
 
@@ -77,7 +75,6 @@ const types: TypeStyleObject = {
   },
   danger: {
     filled: css<ButtonProps>`
-				color: ${({ theme }) => theme.palette.common.black};
 				background-color: ${({ theme }) => theme.palette.error.main};
 				border-color: ${({ theme }) => theme.palette.error.main};
 
@@ -108,7 +105,6 @@ const types: TypeStyleObject = {
   },
   info: {
     filled: css<ButtonProps>`
-				color: ${({ theme }) => theme.palette.common.black};
 				background-color: ${({ theme }) => theme.palette.info.dark};
 				border-color: ${({ theme }) => theme.palette.info.dark};
 
@@ -139,7 +135,6 @@ const types: TypeStyleObject = {
   },
   success: {
     filled: css<ButtonProps>`
-				color: ${({ theme }) => theme.palette.common.black};
 				background-color: ${({ theme }) => theme.palette.success.main};
 				border-color: ${({ theme }) => theme.palette.success.main};
 
@@ -231,8 +226,6 @@ const ButtonContainer = styled.button<ButtonStyleProps>`
   border-width: 2px;
 
 	color: inherit;
-	font-weight: bold;
-
 	transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
 							border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
