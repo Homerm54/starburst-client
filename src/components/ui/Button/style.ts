@@ -1,4 +1,3 @@
-import Console from "lib/Console";
 import styled, { css } from "styled-components";
 import { ButtonProps, ButtonStyleProps, SizeStyleObject, TypeStyleObject, VariantStyleObject } from "./types";
 
