@@ -5,7 +5,6 @@ const Container = styled.div`
   border-radius: ${props => props.theme.borderRadius}px;
 
   width: fit-content;
-  max-width: 80vw;
   min-width: 300px;
 `;
 

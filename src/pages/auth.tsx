@@ -1,26 +1,26 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SigninForm } from "components/auth/signin";
 import { Typography, Divider, Tab, Card } from "components/ui";
+import { Container } from "components/ui/Container";
 import { useLocation } from 'react-router-dom';
 
-const Auth = (): JSX.Element => {
-  
+const Auth = (): JSX.Element => {  
   const state = useLocation().state as { redirectTo: string | null };
   const redirectTo = state?.redirectTo || '';
  
   return (
-    <div className="m-4">
-      <Card style={{ width: '90vw' }}>
+    <Container maxWidth="sm" style={{ margin: 'auto', height: '100%', display: 'flex' }}>
+      <Card style={{ width: '100%', margin: 'auto' }}>
         <Typography variant="h3">Starburst</Typography>
         <Divider />
       
         <Tab.Group initialActiveTab="signin" alignment="center">
           <Tab.Item
-            icon={<FontAwesomeIcon icon="user-plus" />}
             tabKey="signin"
             label="Sign In"
           >
-            Hola, soy el contenido del tab #1
+            <SigninForm />
           </Tab.Item>
+
           <Tab.Item
             label="Sign Up"
             tabKey="signup"
@@ -29,7 +29,7 @@ const Auth = (): JSX.Element => {
           </Tab.Item>
         </Tab.Group>
       </Card>
-    </div>
+    </Container>
   );
 };
 
