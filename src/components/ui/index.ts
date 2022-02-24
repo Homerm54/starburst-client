@@ -8,19 +8,21 @@ import Modal, { showModal } from './Modal';
 import Sidebar from './Sidebar';
 import { Typography } from './Typography';
 import { Tab } from './Tabs';
+import { Input } from './Input';
 
 export {
-  Button,
-  Card,
-  Divider,
+  Tab,
   Col,
   Row,
+  Card,
   Main,
-  Sider,
-  Loading,
   Modal,
-  showModal,
+  Input,
+  Sider,
+  Button,
+  Divider,
   Sidebar,
+  Loading,
+  showModal,
   Typography,
-  Tab
 };
