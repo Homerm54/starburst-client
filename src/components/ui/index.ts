@@ -9,6 +9,7 @@ import Sidebar from './Sidebar';
 import { Typography } from './Typography';
 import { Tab } from './Tabs';
 import { Input } from './Input';
+import { Link } from './Link';
 
 export {
   Tab,
@@ -25,4 +26,5 @@ export {
   Loading,
   showModal,
   Typography,
+  Link,
 };
