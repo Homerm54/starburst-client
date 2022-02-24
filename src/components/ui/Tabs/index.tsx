@@ -60,12 +60,17 @@ const Group = ({
   children,
   alignment = 'left',
   initialActiveTab,
+  forcedTab,
   ...rest
 }: TabGroupProps): JSX.Element => {
-  const [activeTab, setActiveTab] = useState(initialActiveTab);
+  const [activeTab, setActiveTab] = useState(forcedTab || initialActiveTab);
   const onChangeItem = (key: string) => setActiveTab(key);
 
   useLayoutEffect(() => { if(onChange) onChange(activeTab); }, [activeTab]);
+  useLayoutEffect(() => { 
+    if (onChange) onChange(forcedTab);
+    if(forcedTab) setActiveTab(forcedTab);
+  }, [forcedTab]);
 
   const headers: TabHeaderType = [];
   const contents: TabContentType = [];

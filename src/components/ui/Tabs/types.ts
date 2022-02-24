@@ -7,9 +7,20 @@ type alignment = 'center' | 'left' | 'right';
 
 interface TabGroupProps extends Omit<NativeProps, 'onChange'> {
   readonly children: React.ReactElement<TabItemProps> | Array<React.ReactElement<TabItemProps>>;
+  /** 
+   * Initial active tab, i.e., the tab content that will be displayed first.
+   * This prop will be overrided by the forcedTab prop if present.
+   * */
   readonly initialActiveTab?: string;
+  /** Function to call when a new tab has been selected */
   readonly onChange?: (key?: string) => unknown;
+  /** Where to align the tab headers (titles) relative to the tab group header */
   readonly alignment?: alignment;
+  /** 
+   * Initial tab + selected tab will be change to this tab in case of change, this way,
+   * you can "force" a tab state with a prop change.
+   */
+  readonly forcedTab?: string;
 }
 
 interface TabItemProps extends Omit<NativeProps, 'onChange'> {
