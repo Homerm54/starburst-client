@@ -49,14 +49,14 @@ function reducer(state: AppState, action: Action): AppState {
   Console.log(action);
 
   switch (action.type) {
-    case 'toggleTheme': {
-      const newState: AppState = { ...state, theme: state.theme === 'ligth' ? 'dark' : 'ligth' };
-      saveSettings(newState);
-      return newState;
-    }
+  case 'toggleTheme': {
+    const newState: AppState = { ...state, theme: state.theme === 'ligth' ? 'dark' : 'ligth' };
+    saveSettings(newState);
+    return newState;
+  }
       
-    default:
-      throw new Error('Invalid Action passed');
+  default:
+    throw new Error('Invalid Action passed');
   }
 }
 

@@ -1,26 +1,99 @@
-import { Theme } from 'assets/style/theme';
-import React from 'react';
-import styled from 'styled-components';
+import { TypographyContainer } from './style';
+import { TypographyProps } from './types';
 
-type DisplayRange = 1 | 2 | 3 | 4 | 5 | 6;
-type StyledProps = { size: DisplayRange, theme: Theme }
+const Typography = ({ component, children, variant, ...rest }: TypographyProps): JSX.Element => {
+  let flag = false;
 
-const Display = styled.div`
-  font-size: ${(props: StyledProps) => props.theme.displays[props.size - 2]};
-  ${props => props.theme.mediaQueries.medium}{
-    font-size: ${props => props.theme.formatDisplay(props.size - 1)};
+  switch (variant) {
+  case 'body1':
+  case 'body2':
+  case 'caption':
+  case 'overline':
+  case 'subtitle1':
+    flag = true;
+    break;
+  default:
+    break;
   }
-`;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Props = { size: DisplayRange, children: React.ReactNode, as?: any };
-const Text = ({ size, children, as }: Props): JSX.Element => {
+  
   return(
-    <Display size={size} as={as}>
+    <TypographyContainer
+      variant={variant} as={component || (flag ? 'div' : variant)}
+      {...rest}
+    >
       {children}
-    </Display>
+    </TypographyContainer>
   );
 };
 
+export { Typography };
 
-export { Text };
+/**
+ * Extra variants:
+ * 
+.display-1 {
+  font-size: calc(1.625rem + 4.5vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+@media (min-width: 1200px) {
+  .display-1 {
+    font-size: 5rem;
+  }
+}
+
+.display-2 {
+  font-size: calc(1.575rem + 3.9vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+@media (min-width: 1200px) {
+  .display-2 {
+    font-size: 4.5rem;
+  }
+}
+
+.display-3 {
+  font-size: calc(1.525rem + 3.3vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+@media (min-width: 1200px) {
+  .display-3 {
+    font-size: 4rem;
+  }
+}
+
+.display-4 {
+  font-size: calc(1.475rem + 2.7vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+@media (min-width: 1200px) {
+  .display-4 {
+    font-size: 3.5rem;
+  }
+}
+
+.display-5 {
+  font-size: calc(1.425rem + 2.1vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+@media (min-width: 1200px) {
+  .display-5 {
+    font-size: 3rem;
+  }
+}
+
+.display-6 {
+  font-size: calc(1.375rem + 1.5vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+@media (min-width: 1200px) {
+  .display-6 {
+    font-size: 2.5rem;
+  }
+}
+ */

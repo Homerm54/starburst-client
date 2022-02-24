@@ -1,16 +1,17 @@
-import { breakpoints } from "assets/style/theme";
 import Console from "lib/Console";
 import { useEffect, useState } from "react";
-import Modal from "components/ui/Modal";
+import { Modal } from "components/ui";
+import { useTheme } from "styled-components";
 
 const ScreenSizeWatcher = (): JSX.Element => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const theme = useTheme();
   
   useEffect(() =>{
     // Catch any media query changes here
-    const mql = window.matchMedia(`(max-width: ${breakpoints[1]})`);
+    const mql = window.matchMedia(`(max-width: ${theme.breakpoints.values.sm}px)`);
     const watcher = () => {
-      Console.log('Media Qeury watcher fired');
+      Console.log('Media Query watcher fired');
       setIsSmallScreen(mql.matches);
     };
 
@@ -22,8 +23,9 @@ const ScreenSizeWatcher = (): JSX.Element => {
 
   return (
     <Modal
+      title="Web app not available"
       display={isSmallScreen}
-      closable={true}
+      closable={false}
       footer={null}
     >
       <div>Sorry, but this app isn&apos;t available for small screens</div>

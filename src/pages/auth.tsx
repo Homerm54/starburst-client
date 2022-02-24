@@ -1,35 +1,38 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "components/ui/Button";
-import Console from "lib/Console";
-import { useLocation } from 'react-router-dom';
+import { SignInScreen } from "components/auth/signin";
+import { SignUpScreen } from "components/auth/signup";
+import { Typography, Divider, Tab, Card } from "components/ui";
+import { Container } from "components/ui/Container";
+import { useLocation, useHistory } from 'react-router-dom';
 
-const Auth = () : JSX.Element => {
-  const state = useLocation().state as { redirectTo: string | null };
-  const redirectTo = state?.redirectTo || '';
-  Console.log(`When done, will redirect to: ${redirectTo}`);
-
-  const mode = 'primary';
-  const variant = 'outlined';
-
+const Auth = (): JSX.Element => {  
+  const location = useLocation();
+  const history = useHistory();
+  const tab = new URLSearchParams(location.search).get("tab") || 'signin';
+  const handleTabChange = (key?: string) => key && history.push(`/auth?tab=${key}`);
+ 
   return (
-    <div className="ml-2">
-      <h1>auth</h1>
-      <Button mode={mode} variant={variant}>
-        Click here!
-      </Button>
+    <Container maxWidth="sm" style={{ margin: 'auto', height: '100%', display: 'flex' }}>
+      <Card style={{ width: '100%', margin: 'auto' }}>
+        <Typography variant="h3">Starburst</Typography>
+        <Divider />
+      
+        <Tab.Group forcedTab={tab} alignment="center" onChange={handleTabChange}>
+          <Tab.Item
+            tabKey="signin"
+            label="Sign In"
+          >
+            <SignInScreen />
+          </Tab.Item>
 
-      <div className="mb-4"></div>
-
-      <Button icon={<FontAwesomeIcon icon="circle-xmark" />} mode={mode} variant={variant}>
-        Click here!
-      </Button>
-
-      <div className="mb-4"></div>
-
-      <Button mode={mode} variant={variant}>
-        Click here!
-      </Button>
-    </div>
+          <Tab.Item
+            label="Sign Up"
+            tabKey="signup"
+          >
+            <SignUpScreen />
+          </Tab.Item>
+        </Tab.Group>
+      </Card>
+    </Container>
   );
 };
 

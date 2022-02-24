@@ -1,5 +1,5 @@
-import { Col, Row } from "components/ui/Grid";
-import { Text } from "components/ui/Typography";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Typography, Col, Row, Button } from "components/ui";
 import { useHistory } from "react-router";
 import routes from "router/routes";
 import styled from "styled-components";
@@ -22,33 +22,37 @@ const ServerError = (): JSX.Element => {
 
   return (
     <Container>
-      <Row justifyContent="center" alignItems="center" width="100%" maxWidth={1000}>
-        <Col
-          width={[1, 1, 1 / 2]}
-          className="text-md-end"
-          mb={[-42, -42, 'auto']}
-        >
-          <Text size={6} as="h1">404</Text>
+      <Row spacing={{ x: 3 }}>
+        <Col xs={6} style={{ textAlign: 'end' }}>
+          <Typography variant="h1">404</Typography>
         </Col>
 
-        <Col width={[1, 1, 1 / 2]}>
-          <Row gutter={16} className="text-md-start">
-            <Col width={'100%'} noGutter>
-              <Text size={3}>
+        <Col xs={6}>
+          <Row style={{ textAlign: 'start' }}>
+            <Col flex={{ basis: '100%' }}>
+              <Typography variant="h3" component="div">
                 SORRY!
-              </Text>
+              </Typography>
             </Col>
 
-            <Col width={'100%'} noGutter>
-              <Text size={2}>
+            <Col flex={{ basis: '100%' }}>
+              <Typography variant="h5" component="div">
                 The page you’re looking for was not found.
-              </Text>
+              </Typography>
             </Col>
           </Row>
         </Col>
 
-        <Col width={[1]} fontSize={3} role="button" onClick={() => history.replace(routes.dashboard)}>
-          Back to Home
+        <Col flex={{ basis: '100%' }}>
+          <Button
+            variant="text"
+            size="large"
+            style={{ margin: 'auto', color: 'inherit' }}
+            onClick={() => history.replace(routes.dashboard)}
+            icon={{ iconEnd: <FontAwesomeIcon icon="arrow-left" /> }}
+          >
+            Back to Home
+          </Button>
         </Col>
       </Row>
     </Container>

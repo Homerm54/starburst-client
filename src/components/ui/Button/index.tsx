@@ -1,38 +1,53 @@
 import LoadingIcon from "assets/icons/Loading";
-import { ButtonContainer } from "./style";
-import { ButtonProps } from "./types";
+import { isValidElement } from "react";
+import { ButtonContainer, ChildStyle } from "./style";
+import { ButtonProps, IconComplex } from "./types";
 
 const Button = ({
   icon,
   children,
-  onClick,
   loading = false,
   disabled = false,
   size = 'medium',
-  mode = 'primary',
+  type = 'primary',
   variant = 'filled',
+  shape = 'box',
+  htmlType = 'button',
+  component = 'button',
+  block = false,
+  ...rest
 }: ButtonProps): JSX.Element => {
-  const handleClick = () => {
-    if (onClick && !loading && !disabled) onClick();
-  };
+  let startElement;
+  let endElement;
 
-  // TODO: Logic to reflect show icon in position for object type
-  const Icon = () => {
-    if (loading) return <><LoadingIcon />&nbsp;&nbsp;</>;
-    if (icon) return <>{icon}&nbsp;&nbsp;</>;
-    return null;
-  };
+  if (icon) {
+    if (isValidElement(icon)) {
+      if (loading) startElement = <LoadingIcon />;
+      else startElement = icon;
+    } else {
+      const typedIcon = icon as IconComplex;
+      if (loading) startElement = <LoadingIcon />;
+      if (typedIcon.iconStart && !loading) startElement = typedIcon.iconStart;
+      if (typedIcon.iconEnd) endElement = typedIcon.iconEnd;
+    }
+  } else {
+    if (loading) startElement = <LoadingIcon />;
+  }
 
   return (
     <ButtonContainer
-      size={size}
-      mode={mode}
-      variant={variant}
-      loading={loading}
+      type={htmlType}
+      as={component}
+      $shape={shape}
+      $size={size}
+      $type={type}
+      $variant={variant}
+      $loading={loading}
       disabled={disabled}
-      onClick={handleClick}
+      $fullWidth={block}
+      {...rest}
     >
-      <Icon />{children}
+      {startElement}<ChildStyle>{children}</ChildStyle>{endElement}
     </ButtonContainer>
   );
 };
