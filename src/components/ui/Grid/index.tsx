@@ -7,7 +7,6 @@ import { RowStyle, ColStyle } from './style';
 import { useTheme } from 'styled-components';
 import { FlexContainerProps, FlexItemProps, GenericObject } from './types';
 import { useMediaQueries } from '../hooks';
-import Console from 'lib/Console';
 
 /** Flexbox system max items in the same row */
 const MaxItems = 12;
@@ -74,7 +73,6 @@ const Col = ({
   ...props
 }: FlexItemProps): JSX.Element => {
   const activeBreakpoints = useMediaQueries();
-  Console.log(activeBreakpoints);
   const extraStyle: GenericObject = {};
   const breakpointProps = { xs, sm, md, lg, xl };
 

@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactDOM from 'react-dom';
 import { Button } from 'components/ui';
 import { Mask, BodyContainer } from "./style";
-import Console from 'lib/Console';
 import { ModalFunctionProps, ModalProps } from './types';
 import { Card } from '../Card';
 
@@ -69,7 +68,6 @@ const showModal = ({ content }: ModalFunctionProps): void => {
   return;
   const container = document.createElement('div');
   const onClose = () => {
-    Console.log('Closing!');
     ReactDOM.unmountComponentAtNode(container);
     container.remove();
   };
