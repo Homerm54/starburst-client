@@ -4,7 +4,7 @@ type NativeButtonProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'type'>;
 /** Types of button style available, changes the color  */
 type ButtonStyleTypes = 'primary' | 'secondary' | 'info' | 'danger' | 'success' | 'unstyled';
 /** Types of button style variants, changes teh appearance of the button */
-type ButtonStyleVariants = 'filled' | 'link' | 'outlined' | 'text';
+type ButtonStyleVariants = 'filled' | 'outlined' | 'text';
 /** Type of button size */
 type ButtonSize = 'small' | 'medium' | 'large';
 /** Diferent shapes that the button can have */
@@ -43,8 +43,13 @@ interface ButtonProps extends NativeButtonProps {
    * if true will block the onClick call.
    */
   loading?: boolean;
+
   // ---------- ATTRIBUTES
+  /** HTML type of the button */
   htmlType?: 'button' | 'reset' | 'submit';
+
+  /** Which HTML component to use */
+  component?: 'button' | 'a' | 'div';
 }
 
 // ---------- STYLE PROPS ----------

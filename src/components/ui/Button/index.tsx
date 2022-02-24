@@ -13,6 +13,7 @@ const Button = ({
   variant = 'filled',
   shape = 'box',
   htmlType = 'button',
+  component = 'button',
   ...rest
 }: ButtonProps): JSX.Element => {
   let startElement;
@@ -35,6 +36,7 @@ const Button = ({
   return (
     <ButtonContainer
       type={htmlType}
+      as={component}
       $shape={shape}
       $size={size}
       $type={type}

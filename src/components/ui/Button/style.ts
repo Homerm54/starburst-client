@@ -33,16 +33,6 @@ const types: TypeStyleObject = {
           background-color: ${({ theme }) => theme.palette.action.hover};
 				}
 			`,
-
-    link: css<ButtonProps>`
-				background-color: transparent;
-				border: none;
-
-				:hover {
-          background-color: ${({ theme }) => theme.palette.action.hover};
-				}
-			`,
-
     text: css<ButtonProps>`
 				border: none;
 				background-color: transparent;
@@ -75,16 +65,6 @@ const types: TypeStyleObject = {
           background-color: ${({ theme }) => theme.palette.action.hover};
 				}
 			`,
-
-    link: css<ButtonProps>`
-				background-color: transparent;
-				border: none;
-
-				:hover {
-          background-color: ${({ theme }) => theme.palette.action.hover};
-				}
-			`,
-
     text: css<ButtonProps>`
 				border: none;
 				background-color: transparent;
@@ -116,16 +96,6 @@ const types: TypeStyleObject = {
 					border-color: ${({ theme }) => theme.palette.error.light};
 				}
 			`,
-
-    link: css<ButtonProps>`
-				background-color: transparent;
-				border: none;
-
-				:hover {
-          background-color: ${({ theme }) => theme.palette.action.hover};
-				}
-			`,
-
     text: css<ButtonProps>`
 				border: none;
 				background-color: transparent;
@@ -157,16 +127,6 @@ const types: TypeStyleObject = {
 					border-color: ${({ theme }) => theme.palette.info.main};
 				}
 			`,
-
-    link: css<ButtonProps>`
-				background-color: transparent;
-				border: none;
-
-				:hover {
-          background-color: ${({ theme }) => theme.palette.action.hover};
-				}
-			`,
- 
     text: css<ButtonProps>`
 				border: none;
 				background-color: transparent;
@@ -198,16 +158,6 @@ const types: TypeStyleObject = {
 					border-color: ${({ theme }) => theme.palette.success.dark};
 				}
 			`,
-
-    link: css<ButtonProps>`
-				background-color: transparent;
-				border: none;
-
-				:hover {
-          background-color: ${({ theme }) => theme.palette.action.hover};
-				}
-			`,
-
     text: css<ButtonProps>`
 				border: none;
 				background-color: transparent;
@@ -220,7 +170,6 @@ const types: TypeStyleObject = {
   },
   unstyled: {
     filled: unstyledCss,
-    link: unstyledCss,
     outlined: unstyledCss,
     text: unstyledCss,
   }
@@ -245,13 +194,6 @@ const disabledStyles: VariantStyleObject = {
 			color: ${({ theme }) => theme.palette.text.icon};
 		}
 	`,
-
-  link: css<ButtonProps>`
-		background-color: transparent;
-		border-color: none;
-		color: ${({ theme }) => theme.palette.action.disabled};
-	`,
-
   text: css<ButtonProps>`
 		background-color: transparent;
 		border-color: transparent;
