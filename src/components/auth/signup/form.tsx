@@ -1,6 +1,8 @@
 import { Input, Button } from "components/ui";
 import { useFormik } from "formik";
 import Console from "lib/Console";
+import { sleep } from "lib/sleep";
+import { useEffect, useState } from "react";
 import validator from 'validator';
 
 type FormValues = {
@@ -11,15 +13,18 @@ type FormValues = {
 }
 
 const SignUpForm = (): JSX.Element => {
+  const [submitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: { email: '', password: '', password2: '', secret: '' },
     onSubmit,
     validate,
   });
 
-  function onSubmit(values: FormValues) {
-    Console.log('About to sign in with the following values:', values);
+  async function onSubmit(values: FormValues) {
+    Console.log('About to sign un with the following values:', values);
     // TODO submit here
+    await sleep(2000);
+    formik.setSubmitting(false);
   }
 
   function validate(values: FormValues) {
@@ -48,6 +53,8 @@ const SignUpForm = (): JSX.Element => {
 
     return error;
   }
+
+  useEffect(() => { setSubmitting(formik.isSubmitting); }, [formik.isSubmitting]);
 
   return(
     <form onSubmit={formik.handleSubmit}>
@@ -108,6 +115,7 @@ const SignUpForm = (): JSX.Element => {
         block
         size="large"
         htmlType="submit"
+        loading={submitting}
       >
         SIGN UP
       </Button>
