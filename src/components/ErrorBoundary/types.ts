@@ -1,5 +1,5 @@
 interface ErrorScreenProps {
-  error: any;
+  error: Error;
   resetErrorBoundary: () => unknown
 }
 
