@@ -7,7 +7,7 @@ import { Loading } from 'components/ui';
 import { useGlobalContext } from './shared/context';
 import NotFound from 'pages/404';
 import { useEffect, useState, Suspense } from 'react';
-import Dashboard from 'pages/dashboard';
+import Dashboard from 'pages';
 import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
 import Auth from 'pages/auth';
