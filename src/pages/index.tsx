@@ -1,8 +1,11 @@
+import { Typography } from "components/ui";
 
 const Dashboard = (): JSX.Element => {
 
   return(
-    <h1>dashboard</h1>
+    <Typography variant="h2">
+      File Explorer! Coming soon
+    </Typography>
   );
 };
 
