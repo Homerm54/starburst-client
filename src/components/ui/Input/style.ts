@@ -91,7 +91,7 @@ const InputContainer = styled.span<InputContainerProps>`
     ? theme.palette.grey[600]
     : $error
       ? theme.palette.error.main
-      : $color === 'basic'
+      : ($color === 'basic' && ! $isFocused)
         ? theme.palette.grey[600]
         : $color === 'info'
           ? theme.palette.info.dark
