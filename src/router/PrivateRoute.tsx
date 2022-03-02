@@ -32,7 +32,7 @@ const PrivateRoute = ({ children, ...rest } : RouteProps): JSX.Element => {
           : (
             <Redirect
               to={{
-                pathname: routes.authSection,
+                pathname: routes.authentication,
                 state: {
                   redirectTo: location.pathname
                 }

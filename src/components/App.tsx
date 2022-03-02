@@ -13,6 +13,7 @@ import PrivateRoute from 'router/PrivateRoute';
 import Auth from 'pages/auth';
 import api from 'api';
 import ScreenSizeWatcher from 'components/ScreenSizeWatcher';
+import { AccountSettings } from 'pages/account-settings';
 import { ErrorBoundary } from './ErrorBoundary';
 
 import 'assets/icons/faIcons';
@@ -26,8 +27,12 @@ const PagesRouter = (): JSX.Element => {
             <Dashboard />
           </PrivateRoute>
 
-          <Route exact path={routes.authSection}>
+          <Route exact path={routes.authentication}>
             <Auth />
+          </Route>
+
+          <Route exact path={routes.accountSettings}>
+            <AccountSettings />
           </Route>
 
           <Route>

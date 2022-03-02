@@ -1,6 +1,7 @@
 const routes = {
   dashboard: '/',
-  authSection: '/auth',
+  authentication: '/auth',
+  accountSettings: '/account-settings',
 };
 
 export default routes;
