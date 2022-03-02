@@ -23,6 +23,7 @@ const variables = {
   devMode: process.env.NODE_ENV === 'development',
   BACKEND_URL: getEnvVariable('REACT_APP_API_URL'),
   BACKEND_PORT: process.env.REACT_APP_BACKEND_PORT || 5000,
+  DROPBOX_URL: getEnvVariable('REACT_APP_DROPBOX_BIND_URL'),
 };
 
 export { variables };

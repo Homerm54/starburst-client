@@ -13,9 +13,9 @@ import PrivateRoute from 'router/PrivateRoute';
 import Auth from 'pages/auth';
 import api from 'api';
 import ScreenSizeWatcher from 'components/ScreenSizeWatcher';
+import { ErrorBoundary } from './ErrorBoundary';
 
 import 'assets/icons/faIcons';
-import { ErrorBoundary } from './ErrorBoundary';
 
 const PagesRouter = (): JSX.Element => {
   return (
@@ -46,10 +46,10 @@ function App(): JSX.Element {
   const initRoutine = () => {
     // Check API status adn initial routine
     setInitialLoading(true);
-    api.wakeUpServer()
-      .then((ok) => {
-        if (!ok) throw new Error("Server Response not OK");
-        // TODO: Check auth status here
+    api.build()
+      .then(() => {
+        if (!api.isAPIOnline) throw new Error("API not online!");
+        Console.log(`Auth state: ${api.auth.isSignedIn}`);
       })
       .catch((error) => {
         Console.error(error);

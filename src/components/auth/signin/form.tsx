@@ -3,11 +3,12 @@ import Console from "lib/Console";
 import { useFormik } from 'formik';
 import validator from 'validator';
 import { useEffect, useState } from "react";
-import { sleep } from "lib/sleep";
+import api from 'api';
+import { AuthError } from 'api/auth/client-errors';
 
 type FormValues = {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 const SigninForm = (): JSX.Element => {
@@ -18,24 +19,32 @@ const SigninForm = (): JSX.Element => {
     validate,
   });
 
-  // Check https://formik.org/docs/guides/form-submission for this stages
-  // formik.isSubmitting
-  // formik.submitCount
-  // formik.isValidating
-  // formik.setSubmitting
-
-  // check render props pattern
-
   async function onSubmit(values: FormValues) {
     Console.log('About to sign in with the following values:', values);
-    // TODO submit here
-    await sleep(2000);
-    formik.setSubmitting(false);
+    try {
+      await api.auth.SignIn({ email: values.email, password: values.password });
+      Console.log(`Signed in!`);
+    } catch (error) {
+      Console.error(error);
+      if (error instanceof AuthError) {
+        if (error.code === 'invalid-credentials') {
+          formik.setFieldError('password', 'Email or password invalid, check again');
+        } else if (error.code === 'user-not-found') {
+          formik.setFieldError('email', 'Email or password invalid, check again');
+        } else if (error.code === 'unauthorized' || error.code === 'forbidden') {
+          alert('Sorry, but you are not authorized to perform such request');
+        } else {
+          // TODO: Make notification widget, and sent notification here!
+        }
+      }
+    } finally {
+      formik.setSubmitting(false);
+    }
   }
 
   function validate(values: FormValues) {
     Console.log('Validating with:', values);
-    const error: FormValues = {};
+    const error: Partial<FormValues> = {};
 
     if (!values.email) {
       error.email = 'The email is required to sign in';

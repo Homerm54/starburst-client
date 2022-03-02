@@ -1,15 +1,25 @@
+import api from "api";
 import { SignInScreen } from "components/auth/signin";
 import { SignUpScreen } from "components/auth/signup";
+import { SignOutScreen } from "components/auth/singout";
 import { Typography, Divider, Tab, Card } from "components/ui";
 import { Container } from "components/ui/Container";
 import { useLocation, useHistory } from 'react-router-dom';
 
-const Auth = (): JSX.Element => {  
+const Auth = (): JSX.Element => {
   const location = useLocation();
   const history = useHistory();
   const tab = new URLSearchParams(location.search).get("tab") || 'signin';
   const handleTabChange = (key?: string) => key && history.push(`/auth?tab=${key}`);
  
+  if (api.auth.isSignedIn) {
+    return (
+      <Container maxWidth="sm" style={{ margin: 'auto', height: '100%', display: 'flex' }}>
+        <SignOutScreen />
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="sm" style={{ margin: 'auto', height: '100%', display: 'flex' }}>
       <Card style={{ width: '100%', margin: 'auto' }}>

@@ -1,15 +1,16 @@
+import api from "api";
+import { AuthError } from "api/auth/client-errors";
 import { Input, Button } from "components/ui";
 import { useFormik } from "formik";
 import Console from "lib/Console";
-import { sleep } from "lib/sleep";
 import { useEffect, useState } from "react";
 import validator from 'validator';
 
 type FormValues = {
-  email?: string;
-  password?: string;
-  password2?: string;
-  secret?: string;
+  email: string;
+  password: string;
+  password2: string;
+  secret: string;
 }
 
 const SignUpForm = (): JSX.Element => {
@@ -22,14 +23,33 @@ const SignUpForm = (): JSX.Element => {
 
   async function onSubmit(values: FormValues) {
     Console.log('About to sign un with the following values:', values);
-    // TODO submit here
-    await sleep(2000);
-    formik.setSubmitting(false);
+    try {
+      await api.auth.SignUp({
+        email: values.email,
+        password: values.password,
+        secret: values.secret,
+      });
+    } catch (error) {
+      Console.error(error, error instanceof AuthError);
+
+      if (error instanceof AuthError) {
+        if (error.code === 'email-in-use') {
+          formik.setFieldError('email', 'Email already in use, try another one');
+        } else if (error.code === 'unauthorized' || error.code === 'forbidden') {
+          // TODO: Make notification and message components
+          alert('Sorry, but you are not authorized to perform such request');
+        } else {
+          // TODO: Make notification widget, and sent notification here!
+        }
+      }
+    } finally {
+      formik.setSubmitting(false);
+    }
   }
 
   function validate(values: FormValues) {
     Console.log('Validating with:', values);
-    const error: FormValues = {};
+    const error: Partial<FormValues> = {};
 
     if (!values.email) {
       error.email = 'The email is required to sign in';
