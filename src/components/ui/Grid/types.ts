@@ -51,7 +51,7 @@ interface FlexItemProps extends BreakpointType, NativeProps {
 }
 
 interface RowStyleProps {
-  spacing: {
+  $spacing: {
     x: number | string;
     y: number | string;
   }

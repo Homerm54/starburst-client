@@ -10,7 +10,7 @@ import { useMediaQueries } from '../hooks';
 
 /** Flexbox system max items in the same row */
 const MaxItems = 12;
-
+ 
 /**
  * Container of the flex system.
  */
@@ -46,7 +46,7 @@ const Row = ({
 
   return (
     <RowStyle
-      spacing={trueSpacing}
+      $spacing={trueSpacing}
       style={{...style, ...flexStyle}}
       {...props}
     >
