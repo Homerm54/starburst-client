@@ -11,7 +11,7 @@ type FormValues = {
   password: string;
 }
 
-const SigninForm = (): JSX.Element => {
+const SigninForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => {
   const [submitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: { email: '', password: '' },
@@ -24,8 +24,13 @@ const SigninForm = (): JSX.Element => {
     try {
       await api.auth.SignIn({ email: values.email, password: values.password });
       Console.log(`Signed in!`);
+
+      if (onFinish) onFinish();
+      else formik.setSubmitting(false);
     } catch (error) {
       Console.error(error);
+      formik.setSubmitting(false);
+
       if (error instanceof AuthError) {
         if (error.code === 'invalid-credentials') {
           formik.setFieldError('password', 'Email or password invalid, check again');
@@ -37,8 +42,6 @@ const SigninForm = (): JSX.Element => {
           // TODO: Make notification widget, and sent notification here!
         }
       }
-    } finally {
-      formik.setSubmitting(false);
     }
   }
 

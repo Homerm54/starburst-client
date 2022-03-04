@@ -13,7 +13,7 @@ type FormValues = {
   secret: string;
 }
 
-const SignUpForm = (): JSX.Element => {
+const SignUpForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => {
   const [submitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: { email: '', password: '', password2: '', secret: '' },
@@ -29,8 +29,12 @@ const SignUpForm = (): JSX.Element => {
         password: values.password,
         secret: values.secret,
       });
+
+      if (onFinish) onFinish();
+      else formik.setSubmitting(false);
     } catch (error) {
       Console.error(error, error instanceof AuthError);
+      formik.setSubmitting(false);
 
       if (error instanceof AuthError) {
         if (error.code === 'email-in-use') {
@@ -42,8 +46,6 @@ const SignUpForm = (): JSX.Element => {
           // TODO: Make notification widget, and sent notification here!
         }
       }
-    } finally {
-      formik.setSubmitting(false);
     }
   }
 

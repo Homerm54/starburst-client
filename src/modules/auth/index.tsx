@@ -4,14 +4,40 @@ import { SignUpScreen } from "components/auth/signup";
 import { SignOutScreen } from "components/auth/singout";
 import { Typography, Divider, Tab, Card } from "components/ui";
 import { Container } from "components/ui/Container";
+import Console from "lib/Console";
+import { useEffect, useState } from "react";
 import { useLocation, useHistory } from 'react-router-dom';
+import routes from "router/routes";
 
-const Auth = (): JSX.Element => {
-  const location = useLocation();
+const Auth = (): JSX.Element | null => {
+  const [isSignedIn, setIsSignedIn] = useState<boolean | undefined>(undefined);
+  
+  const location = useLocation<{ redirectTo?: string }>();
   const history = useHistory();
   const tab = new URLSearchParams(location.search).get("tab") || 'signin';
-  const handleTabChange = (key?: string) => key && history.push(`/auth?tab=${key}`);
- 
+
+  Console.log(location, tab);
+
+  const handleTabChange = (key?: string) => {
+    Console.log(`handleTabChange called with: ${key}`);
+    key && history.push(`/auth?tab=${key}`, location.state);
+  };
+  const onFinish = () => {
+    history.push(`${location.state?.redirectTo || routes.dashboard}`);
+  };
+
+  useEffect(() => {
+    const unsub = api.auth.onAuthStateChange((state) => {
+      setIsSignedIn(state);
+    });
+
+    setIsSignedIn(api.auth.isSignedIn);
+
+    return unsub;
+  }, []);
+
+  if (isSignedIn === undefined) return null;
+  
   if (api.auth.isSignedIn) {
     return (
       <Container maxWidth="sm" style={{ margin: 'auto', height: '100%', display: 'flex' }}>
@@ -31,14 +57,14 @@ const Auth = (): JSX.Element => {
             tabKey="signin"
             label="Sign In"
           >
-            <SignInScreen />
+            <SignInScreen onFinish={onFinish} />
           </Tab.Item>
 
           <Tab.Item
             label="Sign Up"
             tabKey="signup"
           >
-            <SignUpScreen />
+            <SignUpScreen onFinish={onFinish} />
           </Tab.Item>
         </Tab.Group>
       </Card>

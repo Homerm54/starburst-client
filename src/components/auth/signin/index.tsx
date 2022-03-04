@@ -1,7 +1,7 @@
 import { Divider, Link } from "components/ui";
 import { SigninForm } from "./form";
 
-const SignInScreen = (): JSX.Element => {
+const SignInScreen = ({ onFinish }: { onFinish: () => unknown }): JSX.Element => {
 
   return(
     <div className="mt-3 px-3">
@@ -10,7 +10,7 @@ const SignInScreen = (): JSX.Element => {
       Sign in to continue.
 
       <div className="mb-4">
-        <SigninForm />
+        <SigninForm onFinish={onFinish} />
       </div>
 
       <div style={{ textAlign: 'center'}}>

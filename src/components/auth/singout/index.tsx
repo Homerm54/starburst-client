@@ -1,8 +1,9 @@
 import api from "api";
 import { Button, Link, Typography } from "components/ui";
+import { useHistory } from "react-router-dom";
+import routes from "router/routes";
 
 const SignOutScreen = (): JSX.Element => {
-
   const handleSignOut = () => {
     api.auth.SignOut();
   };
@@ -18,8 +19,8 @@ const SignOutScreen = (): JSX.Element => {
         SIGN OUT
         </Button>
 
-        <Link to="/dashboard">
-        Back to Dashboard
+        <Link to={routes.dashboard}>
+          Back to Dashboard
         </Link>
       </div>
     </div>
