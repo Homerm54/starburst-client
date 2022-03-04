@@ -15,6 +15,7 @@ import api from 'api';
 import ScreenSizeWatcher from 'components/ScreenSizeWatcher';
 import AccountModule from 'modules/account';
 import { ErrorBoundary } from './ErrorBoundary';
+import { Management } from 'modules/management';
 
 import 'assets/icons/faIcons';
 
@@ -29,6 +30,10 @@ const PagesRouter = (): JSX.Element => {
 
           <Route exact path={routes.authentication}>
             <AuthModule />
+          </Route>
+
+          <Route exact path={routes.management}>
+            <Management />
           </Route>
 
           <PrivateRoute path={routes.accountModule.index}>

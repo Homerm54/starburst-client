@@ -4,7 +4,6 @@ import routes from "router/routes";
 import { FileStorageScreen } from './file-storage';
 import NotFound from 'pages/404';
 import { Main } from "./dashboard";
-import { Management } from "./management";
 
 const Router = (): JSX.Element => {
   return(
@@ -15,10 +14,6 @@ const Router = (): JSX.Element => {
 
       <Route exact path={routes.accountModule.fileStorage}>
         <FileStorageScreen />
-      </Route>
-
-      <Route exact path={routes.accountModule.management}>
-        <Management />
       </Route>
 
       <Route path="*">
