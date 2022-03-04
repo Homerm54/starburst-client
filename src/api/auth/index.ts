@@ -5,7 +5,7 @@
  * Check the README.md file inside this folder for details, metodologies and strategies.
  */
 import Console from 'lib/Console';
-import { SignIn, SignUp, SignOut, refreshAccessToken } from './functions';
+import { SignIn, SignUp, SignOut, refreshAccessToken, recoverPassword, askForRecoverEmail } from './functions';
 import { setupInterceptors } from './interceptors';
 import { AuthListener, SignInState } from './types';
 
@@ -47,6 +47,8 @@ class AuthService {
   SignIn = SignIn;
   SignUp = SignUp;
   SignOut = SignOut;
+  recoverPassword = recoverPassword;
+  askForRecoverEmail = askForRecoverEmail;
 
   // Getter / Setter
   get isSignedIn(): SignInState {

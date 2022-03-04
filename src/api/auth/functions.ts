@@ -1,5 +1,5 @@
 import { axios, isAxiosError } from 'api/fetcher';
-import { SignInArgs, SignUpArgs } from './types';
+import { RecoverPasswordArgs, SignInArgs, SignUpArgs } from './types';
 import Console from "lib/Console";
 import { AuthService } from '.';
 import { AuthError } from './client-errors';
@@ -87,4 +87,51 @@ async function refreshAccessToken(refreshToken: string): Promise<[string, string
   return [res.data.accessToken, res.data.refreshToken];
 }
 
-export { SignIn, SignUp, SignOut, refreshAccessToken };
+// Auth util functions
+async function recoverPassword(
+  this: AuthService,
+  { code, password }: RecoverPasswordArgs
+): Promise<void> {
+  try {
+    await axios.post('/auth/recover-password', { code, password });
+  } catch (error) {
+    if (isAxiosError(error)) {
+      if (error.response) {
+        const { code } = error.response.data;
+        const isAuthError = AuthError.isAuthError(code);
+        if (isAuthError) throw new AuthError(code);
+
+        Console.error(error.response.data);
+        throw error;
+      }
+    }
+
+    Console.error(error);
+    throw error;
+  }
+}
+
+async function askForRecoverEmail(
+  this: AuthService,
+  { email }: { email: string; }
+): Promise<void> {
+  try {
+    await axios.post('/auth/recover-password', { email });
+  } catch (error) {
+    if (isAxiosError(error)) {
+      if (error.response) {
+        const { code } = error.response.data;
+        const isAuthError = AuthError.isAuthError(code);
+        if (isAuthError) throw new AuthError(code);
+
+        Console.error(error.response.data);
+        throw error;
+      }
+    }
+
+    Console.error(error);
+    throw error;
+  }
+}
+
+export { SignIn, SignUp, SignOut, refreshAccessToken, recoverPassword, askForRecoverEmail };

@@ -1,10 +1,18 @@
-import { Divider, Link } from "components/ui";
+import { Button, Divider, Link } from "components/ui";
+import { useState } from "react";
 import { SigninForm } from "./form";
+import { EmailRecoverModal } from "./EmailRecoverModal";
 
 const SignInScreen = ({ onFinish }: { onFinish: () => unknown }): JSX.Element => {
-
+  const [showModal, setShowModal] = useState(false);
+  
   return(
     <div className="mt-3 px-3">
+      <EmailRecoverModal
+        display={showModal}
+        onClose={() => setShowModal(false)}
+      />
+
       <strong>Hello! let&apos;s get started</strong>
       <br />
       Sign in to continue.
@@ -14,9 +22,14 @@ const SignInScreen = ({ onFinish }: { onFinish: () => unknown }): JSX.Element =>
       </div>
 
       <div style={{ textAlign: 'center'}}>
-        <Link to="/haha-to-chile">
-        Forgot your password?
-        </Link>
+        <Button
+          variant="text"
+          type="unstyled"
+          style={{ display: 'inline' }}
+          onClick={() => setShowModal(true)}
+        >
+          Forgot your password?
+        </Button>
         
         <Divider type="vertical" />
 

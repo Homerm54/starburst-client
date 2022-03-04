@@ -19,4 +19,9 @@ interface SignUpArgs {
   secret: string;
 }
 
-export type { SignInArgs, SignUpArgs, SignInState, GenericFunction, AuthListener };
+interface RecoverPasswordArgs {
+  code: string;
+  password: string;
+}
+
+export type { SignInArgs, SignUpArgs, SignInState, GenericFunction, AuthListener, RecoverPasswordArgs };
