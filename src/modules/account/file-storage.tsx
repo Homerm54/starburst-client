@@ -1,9 +1,9 @@
 import api from 'api';
-import { Logos, SubmitCodeSection, TextAndLink } from 'components/account-settings/file-storage';
+import { Logos, SubmitCodeSection, TextAndLink } from 'components/account/file-storage';
 import Console from 'lib/Console';
 import { useState } from 'react';
 
-const AccountSettings = (): JSX.Element => {
+const FileStorageScreen = (): JSX.Element => {
   const [showSubmitSection, setShowSubmitSection] = useState(false);
   const [loading, setLoading] = useState(false);
   
@@ -36,4 +36,4 @@ const AccountSettings = (): JSX.Element => {
 };
 
 
-export { AccountSettings };
+export { FileStorageScreen };

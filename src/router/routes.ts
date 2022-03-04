@@ -1,7 +1,11 @@
 const routes = {
   dashboard: '/',
   authentication: '/auth',
-  accountSettings: '/account-settings',
+  accountModule: {
+    index: '/account',
+    fileStorage: '/account/file-storage',
+    management: '/account/management',
+  },
 };
 
 export default routes;

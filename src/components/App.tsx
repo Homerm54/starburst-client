@@ -7,13 +7,13 @@ import { Loading } from 'components/ui';
 import { useGlobalContext } from './shared/context';
 import NotFound from 'pages/404';
 import { useEffect, useState, Suspense } from 'react';
-import Dashboard from 'pages';
+import Dashboard from 'modules/dashboard';
 import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
-import Auth from 'pages/auth';
+import AuthModule from 'modules/auth';
 import api from 'api';
 import ScreenSizeWatcher from 'components/ScreenSizeWatcher';
-import { AccountSettings } from 'pages/account-settings';
+import AccountModule from 'modules/account';
 import { ErrorBoundary } from './ErrorBoundary';
 
 import 'assets/icons/faIcons';
@@ -28,12 +28,12 @@ const PagesRouter = (): JSX.Element => {
           </PrivateRoute>
 
           <Route exact path={routes.authentication}>
-            <Auth />
+            <AuthModule />
           </Route>
 
-          <Route exact path={routes.accountSettings}>
-            <AccountSettings />
-          </Route>
+          <PrivateRoute path={routes.accountModule.index}>
+            <AccountModule />
+          </PrivateRoute>
 
           <Route>
             <NotFound />
