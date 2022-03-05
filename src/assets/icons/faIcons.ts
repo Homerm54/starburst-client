@@ -11,6 +11,9 @@ import {
   faTerminal,
   faKey,
   faCheck,
+  faInfoCircle,
+  faSquareCheck,
+  faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { faDropbox } from '@fortawesome/free-brands-svg-icons';
 
@@ -28,4 +31,7 @@ library.add(
   faPlus,
   faTerminal,
   faDropbox,
+  faInfoCircle,
+  faSquareCheck,
+  faTriangleExclamation
 );

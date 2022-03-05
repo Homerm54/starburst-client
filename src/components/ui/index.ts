@@ -11,6 +11,7 @@ import { Tab } from './Tabs';
 import { Input } from './Input';
 import { Link } from './Link';
 import { Container } from './Container';
+import { message } from './Message';
 
 export {
   Tab,
@@ -28,5 +29,6 @@ export {
   showModal,
   Typography,
   Link,
-  Container
+  Container,
+  message,
 };
