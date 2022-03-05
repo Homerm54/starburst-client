@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'assets/style/ThemeProvider';
 import routes from 'router/routes';
 import GlobalStyle from 'assets/style/global';
 import { dark as darktheme, light as lighttheme } from 'assets/style/theme';
@@ -53,8 +53,7 @@ function App(): JSX.Element {
   const context = useGlobalContext();
   const [initialLoading, setInitialLoading] = useState(true);
   
-  const initRoutine = () => {
-    // Check API status adn initial routine
+  const initApp = () => {
     setInitialLoading(true);
     api.build()
       .then(() => {
@@ -67,7 +66,7 @@ function App(): JSX.Element {
       })
       .finally(() => setInitialLoading(false));
   };
-  useEffect(initRoutine, []);
+  useEffect(initApp, []);
 
   return (
     <ThemeProvider theme={context.state.theme === 'dark' ? darktheme : lighttheme}>
