@@ -18,14 +18,17 @@ interface MessageComponentProps extends Omit<NativeProps, 'children'> {
   position?: Positions;
   content?: NativeProps['children'];
   type: Variants;
+  destroy: () => unknown;
+  destroyOnClick?: boolean;
 }
 
-interface MessageProps extends Omit<MessageComponentProps, 'type'> {
+interface MessageProps extends Omit<MessageComponentProps, 'type' | 'destroy'> {
   timeout?: number | boolean;
 }
 
 interface MessageContainerStyleProps {
   $position: Positions;
+  $showButton: boolean;
 }
 
 export type {

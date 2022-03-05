@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosBase, { AxiosError } from 'axios';
-import Console from 'lib/Console';
 import { variables } from 'lib/config';
 
 const baseURL = variables.devMode

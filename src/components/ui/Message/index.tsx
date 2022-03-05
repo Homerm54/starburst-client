@@ -1,24 +1,40 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Console from 'lib/Console';
 import ReactDOM from 'react-dom';
 import { useThemeOutside } from "../hooks/useThemeOutside";
-import { MessageContainer } from './style';
+import { MessageContainer, IconStyle, TextStyle } from './style';
 import { MessageComponentProps, MessageProps, Variants } from "./types";
 
 function MessageComponent({
   content,
   type,
+  destroy,
+  onClick,
+  destroyOnClick = false,
   position = "top-center",
   ...rest
 }: MessageComponentProps) {
   const theme = useThemeOutside();
-
+  Console.log(destroyOnClick);
   return (
     <MessageContainer
       theme={theme}
+      role="alert"
+      $showButton={destroyOnClick}
       $position={position}
+      onClick={(e) => {
+        if (destroyOnClick) destroy();
+        if (onClick) onClick(e);
+      }}
       {...rest}
     >
-      {mapIcon(type)} {content}
+      <IconStyle theme={theme}>
+        {mapIcon(type)}
+      </IconStyle>
+      
+      <TextStyle theme={theme}>
+        {content}
+      </TextStyle>
     </MessageContainer>
   );
 }
@@ -55,7 +71,7 @@ function MessageBuilder(type: Variants) {
 
     // Always needed to append child before rendering component, async process so ok.
     document.body.appendChild(container);
-    ReactDOM.render(<MessageComponent type={type} {...rest} />, container);
+    ReactDOM.render(<MessageComponent destroy={destroy} type={type} {...rest} />, container);
 
     // Clean up function
     return () => {

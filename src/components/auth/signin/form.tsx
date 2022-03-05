@@ -1,4 +1,4 @@
-import { Input, Button } from "components/ui";
+import { Input, Button, message } from "components/ui";
 import Console from "lib/Console";
 import { useFormik } from 'formik';
 import validator from 'validator';
@@ -25,22 +25,45 @@ const SigninForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => 
       await api.auth.SignIn({ email: values.email, password: values.password });
       Console.log(`Signed in!`);
 
-      if (onFinish) onFinish();
-      else formik.setSubmitting(false);
+      if (onFinish) {
+        onFinish();
+        message.success({ content: 'Successfully signed in' });
+      } else {
+        formik.setSubmitting(false);
+      }
     } catch (error) {
       Console.error(error);
       formik.setSubmitting(false);
 
       if (error instanceof AuthError) {
-        if (error.code === 'invalid-credentials') {
-          formik.setFieldError('password', 'Email or password invalid, check again');
-        } else if (error.code === 'user-not-found') {
-          formik.setFieldError('email', 'Email or password invalid, check again');
+        if (
+          error.code === 'invalid-credentials'
+          || error.code === 'user-not-found'
+        ) {
+          message.error({
+            destroyOnClick: true,
+            timeout: 6000,
+            content: 'Email or password invalid, check again',
+          });
         } else if (error.code === 'unauthorized' || error.code === 'forbidden') {
-          alert('Sorry, but you are not authorized to perform such request');
+          message.error({
+            destroyOnClick: true,
+            timeout: 6000,
+            content: 'Sorry, but you are not authorized to perform such request',
+          });
         } else {
-          // TODO: Make notification widget, and sent notification here!
+          message.error({
+            destroyOnClick: true,
+            timeout: 6000,
+            content: 'Something weird happended, please try again',
+          });
         }
+      } else {
+        message.error({
+          destroyOnClick: true,
+          timeout: 6000,
+          content: 'Something happended, check your internet connection and try again',
+        });
       }
     }
   }
