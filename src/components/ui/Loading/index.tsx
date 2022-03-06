@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { ThemeContext } from 'styled-components';
+import { useTheme } from 'styled-components';
 import Lottie from "lottie-react";
 import LoadingAnimation  from 'assets/animations/loading_animation.json';
 import { replaceColors } from 'lib/helpers';
@@ -13,7 +12,7 @@ function Loading({
   hint = '',
   ...rest
 }: LoadingProps): JSX.Element | null {
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
 
   if (!show) return null;
 
