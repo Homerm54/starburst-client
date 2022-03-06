@@ -104,7 +104,7 @@ const basePalette = {
 
   common: {
     black: "#1D1D1D",
-    white: "#fff",
+    white: "#ffffff",
   },
 
   error: {

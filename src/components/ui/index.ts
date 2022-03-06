@@ -12,6 +12,7 @@ import { Input } from './Input';
 import { Link } from './Link';
 import { Container } from './Container';
 import { message } from './Message';
+import { Checkbox } from './Checkbox';
 
 export {
   Tab,
@@ -31,4 +32,5 @@ export {
   Link,
   Container,
   message,
+  Checkbox,
 };

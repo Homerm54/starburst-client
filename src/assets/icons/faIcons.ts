@@ -15,6 +15,7 @@ import {
   faSquareCheck,
   faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
+import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import { faDropbox } from '@fortawesome/free-brands-svg-icons';
 
 // Add the icons used by the whole application to the library, allowing to use globally
@@ -33,5 +34,6 @@ library.add(
   faDropbox,
   faInfoCircle,
   faSquareCheck,
-  faTriangleExclamation
+  faSquare,
+  faTriangleExclamation,
 );
