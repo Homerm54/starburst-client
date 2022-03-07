@@ -4,14 +4,11 @@
  * 
  * Check the README.md file inside this folder for details, metodologies and strategies.
  */
+import { authDB, AuthenticationKey } from 'api/db';
 import Console from 'lib/Console';
 import { SignIn, SignUp, SignOut, refreshAccessToken, recoverPassword, askForRecoverEmail } from './functions';
 import { setupInterceptors } from './interceptors';
-import { AuthListener, SignInState } from './types';
-
-// ---------- CONSTANTS
-const LOCALSTORAGE_RT_KEY = 'rt_key';
-const SESION_STATE_KEY = 'keep_sesion';
+import { AuthListener, DBSession, SignInState } from './types';
 
 /**
  * Authentication module to connect with the API Authentication service.
@@ -32,16 +29,10 @@ class AuthService {
   private _refresh_token: string | null = null;
   private access_token: string | null | undefined = undefined;
   private _authStateListeners: Array<AuthListener> = [];
-  keepSesionActive = true;
+  private session: DBSession | null = null;
+  readonly keepSesionActive = true;
 
-  constructor() {
-    try {
-      const refresh_token = localStorage.getItem(LOCALSTORAGE_RT_KEY);
-      this._refresh_token = refresh_token;
-    } catch (error) {
-      Console.error(error);
-    }
-  }
+  constructor() { }
 
   // Methods
   SignIn = SignIn;
@@ -70,8 +61,8 @@ class AuthService {
     Console.log(`Setting refresh token to: ${token}`);
     this._refresh_token = token;
     if (this.keepSesionActive) {
-      if (token) localStorage.setItem(LOCALSTORAGE_RT_KEY, token);
-      else localStorage.removeItem(LOCALSTORAGE_RT_KEY);
+      if (token) this.updateSession({ refresh_token: token });
+      else this.destroySession();
     }
   }
 
@@ -84,6 +75,16 @@ class AuthService {
     };
   }
 
+  private async updateSession(value: Partial<DBSession>) {
+    const data = await authDB.getItem(AuthenticationKey) as DBSession;
+    // Value will override all the keys of data, hence, updating as needed
+    await authDB.setItem(AuthenticationKey, { ...data, ...value });
+  }
+
+  private async destroySession() {
+    await authDB.removeItem(AuthenticationKey);
+  }
+
   private _notifyAuthStateChange(): void {
     this._authStateListeners.forEach((fn) => {
       fn(this.isSignedIn);
@@ -94,12 +95,19 @@ class AuthService {
   // INIT METHOD TO START THE MODULE
   async init(): Promise<void> {
     Console.log(`AuthService class constructor called, current refresh token: ${this.refresh_token}`);
-    if (this.refresh_token) {
+    Console.log('Init db...');
+    await authDB.ready();
+    Console.log(`Using DB ${authDB.driver()} for auth module`);
+
+    this.session = await authDB.getItem(AuthenticationKey);
+
+    if (this.session) {
       Console.log('About to request new refresh token here!');
-      await refreshAccessToken(this.refresh_token)
+
+      await refreshAccessToken(this.session.refresh_token)
         .then(([access_token, refresh_token]) => {
           this.accessToken = access_token;
-          this.refresh_token = refresh_token;
+          return this.updateSession({ access_token, refresh_token });
         })
         .catch((error) => {
           Console.error('Error generating new access token derived from refresh token');
