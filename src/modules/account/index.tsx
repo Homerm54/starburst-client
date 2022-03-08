@@ -1,4 +1,3 @@
-import Console from "lib/Console";
 import { Route, Switch } from "react-router-dom";
 import routes from "router/routes";
 import { FileStorageScreen } from './file-storage';

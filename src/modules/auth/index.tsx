@@ -19,10 +19,10 @@ const Auth = (): JSX.Element | null => {
   Console.log(location, tab);
 
   const handleTabChange = (key?: string) => {
-    // TODO: This function is called at least twice, and is source of multiple rerenders
     Console.log(`handleTabChange called with: ${key}`);
     if (key) history.push(`/auth?tab=${key}`, location.state); // Preserve location state
   };
+
   const onFinish = () => {
     history.push(`${location.state?.redirectTo || routes.dashboard}`);
   };

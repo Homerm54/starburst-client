@@ -1,6 +1,5 @@
 import api from "api";
 import { Button, Link, Typography } from "components/ui";
-import { useHistory } from "react-router-dom";
 import routes from "router/routes";
 
 const SignOutScreen = (): JSX.Element => {

@@ -1,4 +1,3 @@
-import Console from 'lib/Console';
 import { BindAccountToDropbox } from './functions';
 
 // ---------- CONSTANTS
