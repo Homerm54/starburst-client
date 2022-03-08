@@ -105,10 +105,11 @@ class AuthService {
 
   private async updateSession(value: Partial<DBSession>) {
     // Value will override all the keys of data, hence, updating as needed
-    Console.log(value);
     const newData = { ...this.session, ...value, updated_at: new Date() };
-    this.session = newData as DBSession;
-    await authDB.setItem(AuthenticationKey, newData);
+    
+    this.session = newData as DBSession; // Updates session in memory
+    await authDB.setItem(AuthenticationKey, newData); // And update session in local storage
+
     this.callListeners();
   }
 
@@ -173,10 +174,15 @@ class AuthService {
    * Sign the user out of the Auth service.
    */
   async SignOut() {
-    const res = await axios.post('/auth/signout', {});
-    Console.log(res.data);
+    try {
+      const res = await axios.post('/auth/signout', {});
+      Console.log(res.data);
+    } catch (error) {
+      this.handleError(error);
+    } finally {
+      this.destroySession();
+    }
 
-    this.destroySession();
   }
 
   private callListeners() {
@@ -211,11 +217,14 @@ class AuthService {
     this.session = await authDB.getItem(AuthenticationKey);
 
     if (this.session) {
+      // Already has an active session, so get tokens and move on, in case no session
+      // will be null, so it's ok
       Console.log('About to request new refresh token here!');
       await this.updateTokens();
-      axios.interceptors.request.use(AuthService.authHeader(this));
-      axios.interceptors.response.use(undefined, AuthService.errorInterceptor(this));
     }
+
+    axios.interceptors.request.use(AuthService.authHeader(this));
+    axios.interceptors.response.use(undefined, AuthService.errorInterceptor(this));
   }
   // ---------- [END OF SECTION]
 
@@ -228,7 +237,7 @@ class AuthService {
 
     if (!error.response) return Promise.reject(error);
     if (originalConfig._retry || !instance.session) {
-      // Already retried or not refresh token, better ask for log in again
+      // Already retried or no refresh token, better ask for sign in again
       await instance.destroySession();
       return Promise.reject(error);
     }
