@@ -13,6 +13,7 @@ import { Link } from './Link';
 import { Container } from './Container';
 import { message } from './Message';
 import { Checkbox } from './Checkbox';
+import { FileTree, FileTreeItem } from './FileTree';
 
 export {
   Tab,
@@ -33,4 +34,6 @@ export {
   Container,
   message,
   Checkbox,
+  FileTree,
+  FileTreeItem,
 };
