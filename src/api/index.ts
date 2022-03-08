@@ -1,26 +1,54 @@
-import { checkAPIStatus } from "./utils";
-
-/**
- * Dropbox link:
- * https://www.dropbox.com/oauth2/authorize?client_id=kif0d4fv1k8zfqa&token_access_type=offline&response_type=code
- */
-
-class APIClass {
-  // Should hold api state
-
-  constructor() {
-    
+import { axios, isAxiosError } from "./fetcher";
+import { AuthService } from "./auth";
+import { FileStorageService } from "./file-storage";
+import { sleep } from "lib/sleep";
+import Console from "lib/Console";
+import { APIInterface } from "./types";
+ 
+class APIClass implements APIInterface {
+  // ---------- Properties
+  isAPIOnline: boolean | undefined;
+  
+  // ---------- Methods
+  async checkStatus(): Promise<boolean> {
+    try {
+      const res = await axios.get('/status');
+      if (res.data.ok) return true;
+      return false;
+    } catch (error) {
+      if (!navigator.onLine) {
+        Console.log('Browser offline, starting backup mode');
+        return false;
+      } else {
+        Console.error(error);
+        if (isAxiosError(error)) {
+          if (error.response) {
+            Console.log('Server response not in 200 range');
+          } else {
+            Console.log('The request was made but no response was received');
+          }
+        }
+        return false;
+      }
+    }
   }
 
-  /**
-   * Check if server online and endpoints are ready to be used, should be called
-   * first to wake it up in case Heroku hibernate the application.
-   * 
-   * @return Whether server is active and ready to use or not
-   */
-  wakeUpServer = checkAPIStatus;
+  // ---------- Modules
+  auth = new AuthService();
+  fileStorage = new FileStorageService();
+
+  // Build function
+  async build(): Promise<void> {
+    // Sleep to mock up api calls 
+    this.isAPIOnline = await this.checkStatus();
+    
+    await sleep(3000);
+    await this.auth.init();
+    await this.fileStorage.init();
+  }
 }
 
 const api = new APIClass();
-export default api;
 
+export default api;
+export { APIClass };

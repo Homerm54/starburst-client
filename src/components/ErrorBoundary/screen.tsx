@@ -6,7 +6,7 @@ import Console from "lib/Console";
 import { useGlobalContext } from "components/shared/context";
 import { dark as darktheme, light as lighttheme } from 'assets/style/theme';
 
-function parseErrorMessage(error: any) {
+function parseErrorMessage(error: Error) {
   Console.error(error);
   return {
     title: '500',

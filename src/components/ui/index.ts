@@ -10,6 +10,9 @@ import { Typography } from './Typography';
 import { Tab } from './Tabs';
 import { Input } from './Input';
 import { Link } from './Link';
+import { Container } from './Container';
+import { message } from './Message';
+import { Checkbox } from './Checkbox';
 
 export {
   Tab,
@@ -27,4 +30,7 @@ export {
   showModal,
   Typography,
   Link,
+  Container,
+  message,
+  Checkbox,
 };

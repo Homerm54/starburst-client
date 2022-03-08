@@ -1,8 +1,3 @@
-/**
- * TODO
- * Create an input with the following props
- */
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "styled-components";

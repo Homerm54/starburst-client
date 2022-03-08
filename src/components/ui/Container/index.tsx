@@ -19,7 +19,11 @@ function Container({
   if (fixed) {
     trueMaxWidth = theme.breakpoints.values[breakpoints[breakpoints.length - 1]];
   } else {
-    trueMaxWidth = theme.breakpoints.values[maxWidth];
+    if (typeof maxWidth === "number") {
+      trueMaxWidth = maxWidth;
+    } else {
+      trueMaxWidth = theme.breakpoints.values[maxWidth];
+    }
   }
 
   return (

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'assets/style/ThemeProvider';
 import routes from 'router/routes';
 import GlobalStyle from 'assets/style/global';
 import { dark as darktheme, light as lighttheme } from 'assets/style/theme';
@@ -7,15 +7,17 @@ import { Loading } from 'components/ui';
 import { useGlobalContext } from './shared/context';
 import NotFound from 'pages/404';
 import { useEffect, useState, Suspense } from 'react';
-import Dashboard from 'pages/dashboard';
+import Dashboard from 'modules/dashboard';
 import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
-import Auth from 'pages/auth';
+import AuthModule from 'modules/auth';
 import api from 'api';
 import ScreenSizeWatcher from 'components/ScreenSizeWatcher';
+import AccountModule from 'modules/account';
+import { ErrorBoundary } from './ErrorBoundary';
+import { Management } from 'modules/management';
 
 import 'assets/icons/faIcons';
-import { ErrorBoundary } from './ErrorBoundary';
 
 const PagesRouter = (): JSX.Element => {
   return (
@@ -26,9 +28,17 @@ const PagesRouter = (): JSX.Element => {
             <Dashboard />
           </PrivateRoute>
 
-          <Route exact path={routes.authSection}>
-            <Auth />
+          <Route exact path={routes.authentication}>
+            <AuthModule />
           </Route>
+
+          <Route exact path={routes.management}>
+            <Management />
+          </Route>
+
+          <PrivateRoute path={routes.accountModule.index}>
+            <AccountModule />
+          </PrivateRoute>
 
           <Route>
             <NotFound />
@@ -43,13 +53,12 @@ function App(): JSX.Element {
   const context = useGlobalContext();
   const [initialLoading, setInitialLoading] = useState(true);
   
-  const initRoutine = () => {
-    // Check API status adn initial routine
+  const initApp = () => {
     setInitialLoading(true);
-    api.wakeUpServer()
-      .then((ok) => {
-        if (!ok) throw new Error("Server Response not OK");
-        // TODO: Check auth status here
+    api.build()
+      .then(() => {
+        if (!api.isAPIOnline) throw new Error("API not online!");
+        Console.log(`Auth state: ${api.auth.isSignedIn}`);
       })
       .catch((error) => {
         Console.error(error);
@@ -57,7 +66,7 @@ function App(): JSX.Element {
       })
       .finally(() => setInitialLoading(false));
   };
-  useEffect(initRoutine, []);
+  useEffect(initApp, []);
 
   return (
     <ThemeProvider theme={context.state.theme === 'dark' ? darktheme : lighttheme}>

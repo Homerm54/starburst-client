@@ -14,6 +14,7 @@ module.exports = {
     "semi": 2,
     "no-empty-function": "off",
     "@typescript-eslint/no-empty-function": ["off"],
+    "@typescript-eslint/no-explicit-any": ["off"],
     'linebreak-style': 'off',
     'no-console': [
       'error',

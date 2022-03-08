@@ -1,4 +1,4 @@
-import { StyledLink } from './style';
+import { StyledLink, StyledNormalLink } from './style';
 import { LinkProps } from './types';
 import { useLocation } from 'react-router-dom';
 
@@ -10,18 +10,29 @@ const Link = ({
   ...rest
 }: LinkProps): JSX.Element => {
   const { pathname } = useLocation();
-
   const matches = pathname === to;
 
+  if (to) {
+    return (
+      <StyledLink
+        to={to}
+        $type={type}
+        $active={matches && styleOnMatch}
+        {...rest}
+      >
+        {children}
+      </StyledLink>
+    );
+  }
+
   return (
-    <StyledLink
-      to={to}
+    <StyledNormalLink
       $type={type}
       $active={matches && styleOnMatch}
       {...rest}
     >
       {children}
-    </StyledLink>
+    </StyledNormalLink>
   );
 };
 
