@@ -52,17 +52,17 @@ type PasswordProps = Omit<InputProps, 'sufix' | 'type'>; // The sufix is added b
 interface InputContainerProps {
   $color: InputColors;
   $isFocused: boolean;
-  $isReadOnly?: boolean;
+  $isReadOnly?: boolean | undefined;
   $error: boolean;
   $size: InputSize;
-  $disabled?: boolean;
+  $disabled: boolean | undefined;
 }
 
 interface ParentContainerProps {
   $fullWidth: boolean;
   $error: boolean;
   $size: InputSize;
-  $disabled?: boolean;
+  $disabled?: boolean | undefined;
   $color: InputColors;
 }
 

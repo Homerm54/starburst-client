@@ -4,7 +4,7 @@ interface ErrorScreenProps {
 }
 
 interface ErrorBoundaryProps {
-  children?: React.ReactNode;
+  children?: React.ReactNode | undefined;
 }
 
 export type { ErrorScreenProps, ErrorBoundaryProps };

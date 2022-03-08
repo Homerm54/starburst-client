@@ -1,11 +1,5 @@
-type SignInState = boolean | undefined;
 type GenericFunction = () => unknown;
-type AuthListener = (authState: SignInState) => unknown;
-
-enum SesionSetting {
-  YES = '1',
-  NO = '0',
-}
+type AuthListener = (authState: User | null) => unknown;
 
 /**
  * Type of object that will be stored in the Client Database, and that
@@ -25,6 +19,18 @@ type DBSession = {
   // Tokens
   refresh_token: string;
   access_token: string;
+}
+
+type User = {
+  /** Email of the user authenticated */
+  email: string;
+  /** 
+   * The uid of the user authenticated
+   * Stored in case that some operations requires it.
+   */
+  uid: string;
+  /** Like username, the human readable user identifier */
+  display_name: string;
 }
 
 // ---------- Function arguments
@@ -47,9 +53,9 @@ interface RecoverPasswordArgs {
 export type {
   SignInArgs,
   SignUpArgs,
-  SignInState,
   GenericFunction,
   AuthListener,
   RecoverPasswordArgs,
-  DBSession
+  DBSession,
+  User,
 };

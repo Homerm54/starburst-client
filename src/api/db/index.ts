@@ -1,3 +1,7 @@
+/**
+ * This file holds all the **client side** database libs that are used to support
+ * offline activity, and keeps sessions.
+ */
 import localforage from "localforage";
 
 const AuthenticationKey = 'starburst:auth';

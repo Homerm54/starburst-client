@@ -5,10 +5,12 @@
  * Check the README.md file inside this folder for details, metodologies and strategies.
  */
 import { authDB, AuthenticationKey } from 'api/db';
+import { axios } from 'api/fetcher';
+import { AxiosRequestConfig } from 'axios';
 import Console from 'lib/Console';
-import { SignIn, SignUp, SignOut, refreshAccessToken, recoverPassword, askForRecoverEmail } from './functions';
-import { setupInterceptors } from './interceptors';
-import { AuthListener, DBSession, SignInState } from './types';
+import { AuthError } from './client-errors';
+import { AuthorizartionErrorCodes, ErrorCodesThatRequireRefresh } from './server-errors';
+import { AuthListener, DBSession, RecoverPasswordArgs, SignInArgs, SignUpArgs, User } from './types';
 
 /**
  * Authentication module to connect with the API Authentication service.
@@ -26,46 +28,160 @@ import { AuthListener, DBSession, SignInState } from './types';
  */
 class AuthService {
   // Properties
-  private _refresh_token: string | null = null;
-  private access_token: string | null | undefined = undefined;
+  /** The current active session of the authenticated user, or null if not authenticated */
+  private _session: DBSession | null = null;
+  /** Array of functions that are subscribed to the session observer */
   private _authStateListeners: Array<AuthListener> = [];
-  private session: DBSession | null = null;
-  readonly keepSesionActive = true;
 
   constructor() { }
 
-  // Methods
-  SignIn = SignIn;
-  SignUp = SignUp;
-  SignOut = SignOut;
-  recoverPassword = recoverPassword;
-  askForRecoverEmail = askForRecoverEmail;
-
   // Getter / Setter
-  get isSignedIn(): SignInState {
-    if (this.access_token === null) return false;
-    if (typeof this.access_token === 'string') return true;
-    if (this.access_token === undefined) return undefined;
-    return false;
+  /** Return whether or not the user is signed in */
+  get isSignedIn() { return Boolean(this.session); }
+  /** Return the data of the authenticated user, or null if nor signed in */
+  get currentUser(): User | null {
+    if (this.session) {
+      return {
+        email: this.session.email,
+        display_name: this.session.display_name,
+        uid: this.session.uid,
+      };
+    }
+
+    return null;
   }
 
-  get accessToken(): string | null | undefined { return this.access_token; }
-  set accessToken(token: string | null | undefined) {
-    Console.log(`Setting access token to: ${token}`);
-    this.access_token = token;
-    this._notifyAuthStateChange();
+  // ---------- [NEW SECTION] Token Section
+  private get access_token(): string | null {
+    if (this.session) return this.session.access_token;
+    return null;
   }
 
-  get refresh_token(): string | null { return this._refresh_token; }
-  set refresh_token(token: string | null) { 
-    Console.log(`Setting refresh token to: ${token}`);
-    this._refresh_token = token;
-    if (this.keepSesionActive) {
-      if (token) this.updateSession({ refresh_token: token });
-      else this.destroySession();
+  private get refresh_token(): string | null {
+    if (this.session) return this.session.refresh_token;
+    return null;
+  }
+
+  // Methods
+  /** Generate a new pair of refresh / access token, and save them on the session. */
+  private async updateTokens() {
+    try {
+      if (this.session) {
+        const res = await axios.post(
+          '/auth/refresh-access-token',
+          { refreshToken: this.refresh_token }
+        );
+
+        this.updateSession({
+          refresh_token: res.data.refreshToken,
+          access_token: res.data.accessToken,
+        });
+      }
+    } catch (error) {
+      Console.error('Error generating new access token derived from refresh token');
+      Console.error(error);
+      this.destroySession();
     }
   }
 
+  private handleError(error: any) {
+    if (error.response) {
+      const { code } = error.response.data;
+      const isAuthError = AuthError.isAuthError(code);
+      if (isAuthError) throw new AuthError(code);
+
+      Console.error(error.response.data);
+      throw error;
+    }
+    Console.error(error);
+    throw error;
+  }
+  // ---------- [END OF SECTION]
+
+  // ---------- [NEW SECTION] Session Handlers
+  // This getter and setter will allow to call the listeners on any update
+  get session(): DBSession | null { return this._session; }
+  set session(s: DBSession | null) { this._session = s; }
+
+  private async updateSession(value: Partial<DBSession>) {
+    // Value will override all the keys of data, hence, updating as needed
+    Console.log(value);
+    const newData = { ...this.session, ...value, updated_at: new Date() };
+    this.session = newData as DBSession;
+    await authDB.setItem(AuthenticationKey, newData);
+    this.callListeners();
+  }
+
+  private async destroySession() {
+    this.session = null;
+    await authDB.removeItem(AuthenticationKey);
+    this.callListeners();
+  }
+
+  // ---------- [NEW SECTION] Public Methods
+  /**
+   * Sign the user into the Auth service, using the credentials required.
+   * @param email The email of the user.
+   * @param password The new password of the user.
+   */
+  async SignIn(this: AuthService, { email, password }: SignInArgs): Promise<void> {
+    try {
+      Console.log(`Signing in with credentials: ${email} - ${password}`);
+      const res = await axios.post('/auth/signin', { email, password });
+      Console.log('User data:', res.data);
+
+      this.updateSession({
+        refresh_token: res.data.refreshToken,
+        access_token: res.data.accessToken,
+        display_name: res.data.username,
+        auth_method: 'password',
+        created_at: new Date(),
+        email: res.data.email,
+        uid: res.data.uid,
+        updated_at: new Date(),
+      });
+    } catch (error) { this.handleError(error); }
+  }
+  
+  /**
+   * Enroll the user into the API Auth service, using the email + password credential.
+   * @param email The email of the user.
+   * @param password The new password of the user.
+   * @param secret The secret code that the user must provide in order to log in.
+   */
+  async SignUp(this: AuthService, { email, password, secret }: SignUpArgs): Promise<void> {
+    Console.log(`Signing up with credentials: ${email} - ${password} - ${secret}`);
+
+    try {
+      const res = await axios.post('/auth', { email, password, secret_signup_code: secret });
+      Console.log('User data:', res.data);
+
+      await this.updateSession({
+        refresh_token: res.data.refreshToken,
+        access_token: res.data.accessToken,
+        display_name: res.data.username,
+        auth_method: 'password',
+        created_at: new Date(),
+        email: res.data.email,
+        uid: res.data.uid,
+        updated_at: new Date(),
+      });
+    } catch (error) { this.handleError(error); }
+  }
+
+  /**
+   * Sign the user out of the Auth service.
+   */
+  async SignOut() {
+    const res = await axios.post('/auth/signout', {});
+    Console.log(res.data);
+
+    this.destroySession();
+  }
+
+  private callListeners() {
+    this._authStateListeners.forEach((fn) => { fn(this.currentUser); });
+  }
   onAuthStateChange(fn: AuthListener): () => void {
     this._authStateListeners.push(fn);
 
@@ -75,51 +191,72 @@ class AuthService {
     };
   }
 
-  private async updateSession(value: Partial<DBSession>) {
-    const data = await authDB.getItem(AuthenticationKey) as DBSession;
-    // Value will override all the keys of data, hence, updating as needed
-    await authDB.setItem(AuthenticationKey, { ...data, ...value });
+  // ---------- Auth utils function
+  async recoverPassword({ code, password }: RecoverPasswordArgs): Promise<void> {
+    try {
+      await axios.post('/auth/recover-password', { code, password });
+    } catch (error) { this.handleError(error); }
   }
 
-  private async destroySession() {
-    await authDB.removeItem(AuthenticationKey);
+  async askForRecoverEmail({ email }: { email: string; }): Promise<void> {
+    try {
+      await axios.post('/auth/recover-password', { email });
+    } catch (error) { this.handleError(error); }
   }
 
-  private _notifyAuthStateChange(): void {
-    this._authStateListeners.forEach((fn) => {
-      fn(this.isSignedIn);
-    });
-  }
-
-
-  // INIT METHOD TO START THE MODULE
   async init(): Promise<void> {
-    Console.log(`AuthService class constructor called, current refresh token: ${this.refresh_token}`);
-    Console.log('Init db...');
-    await authDB.ready();
+    Console.log(`AuthService class constructor called, starting db...`);
+    await authDB.ready(); // Wait for the database to be ready
     Console.log(`Using DB ${authDB.driver()} for auth module`);
-
     this.session = await authDB.getItem(AuthenticationKey);
 
     if (this.session) {
       Console.log('About to request new refresh token here!');
-
-      await refreshAccessToken(this.session.refresh_token)
-        .then(([access_token, refresh_token]) => {
-          this.accessToken = access_token;
-          return this.updateSession({ access_token, refresh_token });
-        })
-        .catch((error) => {
-          Console.error('Error generating new access token derived from refresh token');
-          Console.error(error);
-          this.accessToken = null;
-          this.refresh_token = null;
-        })
-        .finally(() => setupInterceptors(this));
-    } else {
-      this.accessToken = null;
+      await this.updateTokens();
+      axios.interceptors.request.use(AuthService.authHeader(this));
+      axios.interceptors.response.use(undefined, AuthService.errorInterceptor(this));
     }
   }
+  // ---------- [END OF SECTION]
+
+
+  // ---------- [INTERCEPTORS] Interceptors for the axios instance
+
+  static errorInterceptor = (instance: AuthService) => async function (error: any): Promise<unknown> {
+    const originalConfig = error.config;
+    Console.error(error.response, originalConfig);
+
+    if (!error.response) return Promise.reject(error);
+    if (originalConfig._retry || !instance.session) {
+      // Already retried or not refresh token, better ask for log in again
+      await instance.destroySession();
+      return Promise.reject(error);
+    }
+
+    // Check error code to see if corresponding with Auth Business
+    if (ErrorCodesThatRequireRefresh.includes(error.response.data.code)) {
+      originalConfig._retry = true;
+      await instance.updateTokens();
+      return axios(originalConfig);
+    }
+
+    if (AuthorizartionErrorCodes.INVALID_REFRESH_TOKEN === error.response.data.code) {
+      await instance.destroySession();
+      return Promise.reject(error);
+    }
+
+    // Default case, return error since the error code provided isn't related to core auth
+    return Promise.reject(error);
+  };
+
+  /** Add authentication header, **if present** to all the requests */
+  static authHeader = (instance: AuthService) => function (config: AxiosRequestConfig<any>) {
+    if (!instance.access_token) return config;
+    if (!config.headers) config.headers = {};
+    config.headers.Authorization = `Bearer ${instance.access_token}`;
+    return config;
+  };
+  // ---------- [END OF INTERCEPTORS]
 }
 
 export { AuthService };

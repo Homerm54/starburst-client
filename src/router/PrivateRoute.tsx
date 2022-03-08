@@ -16,7 +16,7 @@ const PrivateRoute = ({ children, ...rest } : RouteProps): JSX.Element => {
   useEffect(() => {
     const unsub = api.auth.onAuthStateChange((state) => {
       Console.warn(`Authentication state changed to: ${state}`);
-      setIsAuth(state);
+      setIsAuth(api.auth.isSignedIn);
     });
 
     return unsub;

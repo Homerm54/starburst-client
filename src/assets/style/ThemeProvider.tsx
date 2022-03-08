@@ -4,7 +4,7 @@ import { ThemeProvider as BaseThemeProvider, DefaultTheme } from 'styled-compone
 import { dark } from './theme';
 
 interface Props {
-  children?: React.ReactNode;
+  children?: React.ReactNode | undefined;
   theme: DefaultTheme;
 }
 

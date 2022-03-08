@@ -6,7 +6,7 @@ const Container = styled.svg`
 `;
 
 interface Props extends React.ComponentPropsWithoutRef<'svg'> {
-  size?: number;
+  size?: number | undefined;
 }
 
 const StarburstLogo = ({ size = 12, ...rest }: Props): JSX.Element => {

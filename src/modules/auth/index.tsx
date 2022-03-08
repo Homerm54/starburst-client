@@ -28,8 +28,8 @@ const Auth = (): JSX.Element | null => {
   };
 
   useEffect(() => {
-    const unsub = api.auth.onAuthStateChange((state) => {
-      setIsSignedIn(state);
+    const unsub = api.auth.onAuthStateChange(() => {
+      setIsSignedIn(api.auth.isSignedIn);
     });
 
     setIsSignedIn(api.auth.isSignedIn);

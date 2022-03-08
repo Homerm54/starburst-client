@@ -25,14 +25,14 @@ interface TabGroupProps extends Omit<NativeProps, 'onChange'> {
 
 interface TabItemProps extends Omit<NativeProps, 'onChange'> {
   readonly tabKey: string;
-  readonly activeTab?: string;
+  readonly activeTab?: string | undefined;
   readonly label: string;
   readonly icon?: React.ReactNode | IconLabelType;
   readonly onChange?: (arg: string) => unknown;
 }
 
 interface TabPanelProps extends NativeProps {
-  readonly activeTab?: string;
+  readonly activeTab: string | undefined;
   readonly tabKey: string;
 }
 
