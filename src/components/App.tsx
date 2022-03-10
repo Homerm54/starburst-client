@@ -7,7 +7,7 @@ import { Loading } from 'components/ui';
 import { useGlobalContext } from './shared/context';
 import NotFound from 'pages/404';
 import { useEffect, useState, Suspense } from 'react';
-import Dashboard from 'modules/dashboard';
+import FileExplorer from 'modules/dashboard';
 import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
 import AuthModule from 'modules/auth';
@@ -25,7 +25,7 @@ const PagesRouter = (): JSX.Element => {
       <Suspense fallback={<Loading />}>
         <Switch>
           <PrivateRoute exact path={routes.dashboard}>
-            <Dashboard />
+            <FileExplorer />
           </PrivateRoute>
 
           <Route exact path={routes.authentication}>

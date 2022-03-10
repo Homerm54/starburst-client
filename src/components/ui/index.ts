@@ -14,6 +14,7 @@ import { Container } from './Container';
 import { message } from './Message';
 import { Checkbox } from './Checkbox';
 import { FileTree, FileTreeItem } from './FileTree';
+import { Breadcrums } from './Breadcrums';
 
 export {
   Tab,
@@ -36,4 +37,5 @@ export {
   Checkbox,
   FileTree,
   FileTreeItem,
+  Breadcrums,
 };

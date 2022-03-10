@@ -27,6 +27,7 @@ body {
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
   font-size: ${({ theme }) => theme.baseFontSize}px;
+  letter-spacing: 0.00938em;
 }
 
 #root {
