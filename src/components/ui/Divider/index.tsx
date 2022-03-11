@@ -8,20 +8,21 @@ import { Props } from "./types";
 const Divider = ({
   text,
   type = 'horizontal',
-  textOrientation = 'center'
+  textOrientation = 'center',
+  ...rest
 }: Props): JSX.Element => {
 
-  if (type === 'vertical') return <VerticalDivider />;
+  if (type === 'vertical') return <VerticalDivider {...rest} />;
 
   if (text) {
     return (
-      <HorizontalDividerText orientation={textOrientation}>
+      <HorizontalDividerText orientation={textOrientation} {...rest}>
         <TextDivider>{text}</TextDivider>
       </HorizontalDividerText>
     );
   }
   return(
-    <HorizontalDivider />
+    <HorizontalDivider {...rest} />
   );
 };
 

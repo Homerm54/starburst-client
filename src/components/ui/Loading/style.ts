@@ -23,7 +23,6 @@ const GlobalContainer = styled.div`
 const Hint = styled.div`
   width: 100%;
   text-align: center;
-  padding-left: 1rem;
 `;
 
 export { Container, GlobalContainer, Hint };

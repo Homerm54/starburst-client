@@ -10,13 +10,29 @@ function Breadcrums({
   onHome,
   home = false,
   noParse = false,
+  maxItems,
 }: BreadcrumProps): JSX.Element {
   if (noParse && typeof data === 'string') throw Error("noParse prop and data as string isn't allowed");
+
+  // Data parse and collapse
   const path = noParse ? data as Array<Path> : parsePath(data, separator);
+  const collapse = maxItems && path.length > maxItems;
+  const trimmedPath = collapse ? path.slice(path.length - maxItems) : path;
 
   const handleClick = (ix: number) => {
     // Call update on selected path when the one clicked isn't the one already active
-    if (onSelection && ix !== path.length -1) {
+    if (onSelection && ix !== trimmedPath.length -1) {
+      onSelection(
+        collapse ? (ix + path.length - maxItems) : ix, 
+        `${separator}${trimmedPath[ix]}`,
+        `${separator}${trimmedPath.slice(undefined, ix + 1).join(separator)}`
+      );
+    }
+  };
+
+  const handleCollapsedClick = () => {
+    if (onSelection && collapse) {
+      const ix = path.length - maxItems - 1; // -1 because will index and .length brings +1
       onSelection(
         ix, 
         `${separator}${path[ix]}`,
@@ -25,21 +41,34 @@ function Breadcrums({
     }
   };
 
-  const homeComponent = home && (
+  const homeComponent = (
     <BreadcrumItem $isActive={path.length === 0} onClick={onHome}>
-      { home === true? <FontAwesomeIcon icon="folder" /> : home }
+      { home === true ? <FontAwesomeIcon icon="folder" /> : home }
     </BreadcrumItem>
+  );
+
+  const collapsedElement = (
+    <>
+      <FordwardSlashStyle>{separator}</FordwardSlashStyle>
+      <BreadcrumItem $isActive={false} onClick={handleCollapsedClick}>
+        <FontAwesomeIcon icon="ellipsis" />
+      </BreadcrumItem>
+    </>
   );
 
   return(
     <BreadcrumContainer>
-      {homeComponent}
+      {home && homeComponent}
+      {collapse && collapsedElement}
 
       {
-        path.map((label, ix) => (
+        trimmedPath.map((label, ix) => (
           <Fragment key={ix}>
             <FordwardSlashStyle>{separator}</FordwardSlashStyle>
-            <BreadcrumItem $isActive={ix === (path.length - 1)} onClick={() => handleClick(ix)}>
+            <BreadcrumItem
+              $isActive={ix === (trimmedPath.length - 1)}
+              onClick={() => handleClick(ix)}
+            >
               {label}
             </BreadcrumItem>
           </Fragment>

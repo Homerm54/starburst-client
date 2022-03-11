@@ -25,6 +25,11 @@ import {
   faFileImage,
   faFileVideo,
   faBoxArchive,
+  faEllipsis,
+  faFolderPlus,
+  faUpload,
+  faArrowsRotate,
+  faBug,
 } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import { faCss3, faDropbox, faHtml5, faJsSquare, faMarkdown } from '@fortawesome/free-brands-svg-icons';
@@ -62,4 +67,10 @@ library.add(
   faFileImage,
   faFileVideo,
   faBoxArchive,
+  faEllipsis,
+  faPlus,
+  faFolderPlus,
+  faUpload,
+  faArrowsRotate,
+  faBug,
 );

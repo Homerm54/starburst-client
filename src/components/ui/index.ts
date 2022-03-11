@@ -15,6 +15,7 @@ import { message } from './Message';
 import { Checkbox } from './Checkbox';
 import { FileTree, FileTreeItem } from './FileTree';
 import { Breadcrums } from './Breadcrums';
+import { ActionMenu } from './ActionMenu';
 
 export {
   Tab,
@@ -38,4 +39,5 @@ export {
   FileTree,
   FileTreeItem,
   Breadcrums,
+  ActionMenu,
 };

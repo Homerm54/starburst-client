@@ -1,4 +1,6 @@
-interface Props {
+type NativeProps = React.ComponentPropsWithoutRef<'div'>;
+
+interface Props extends Omit<NativeProps, 'child'> {
   /** True if the divider will be used in a vertical way, false to horizontal */
   type?: 'horizontal' | 'vertical';
 

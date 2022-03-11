@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const Contianer = styled.div``;
+const Contianer = styled.div`
+  position: relative;
+`;
 
 const EmptyContainer = styled.div`
   display: flex;
@@ -10,7 +12,7 @@ const EmptyContainer = styled.div`
   min-height: 200px;
 `;
 const EmptyText = styled.div` 
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: ${({ theme }) => theme.palette.action.disabled};
 `;
 const EmptyIcon = styled.div` 
@@ -28,11 +30,21 @@ const Icon = styled.span`
   min-width: ${({ theme }) => theme.spacing(3)}px;
 `;
 
+const LoadingStyle = styled.div`
+  position: absolute;
+  display: flex;
+  width: 100%;
+  min-height: 200px;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Styles = {
   Contianer,
   Item,
   Name,
   NameIcon: Icon,
+  Loading: LoadingStyle,
 };
 
 const Empty = {

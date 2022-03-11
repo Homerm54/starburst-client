@@ -5,6 +5,11 @@ import { IconMapper, SizeConverter } from "./utils";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
+import LoadingIcon from '../Loading';
+
+function Loading() {
+  return <Styles.Loading><LoadingIcon size={100} hint="Loading files" /></Styles.Loading>;
+}
 
 function EmptyFolder() {
   return (
@@ -20,6 +25,20 @@ function EmptyFolder() {
   );
 }
 
+function Error() {
+  return (
+    <Empty.Contianer>
+      <Empty.Icon>
+        <FontAwesomeIcon icon="bug" size="3x" className="text-error" />
+      </Empty.Icon>
+
+      <Empty.Text>
+        An error ocurred while loading the folder, refresh
+      </Empty.Text>
+    </Empty.Contianer>
+  );
+}
+
 /**
  * TODO
  * Get metadata for header
@@ -28,14 +47,20 @@ function EmptyFolder() {
 function FileTree({
   data,
   onBack,
+  backEntry,
   onFileSelect,
   onFolderSelect,
+  onContextMenu,
+  // STATES
+  error,
+  loading,
 }: FileTreeComponentProps): JSX.Element {
 
   const content = data.length === 0 
     ? <EmptyFolder />
     : data.map((item) => (
       <FileTreeItem
+        onContextMenu={onContextMenu}
         data={item}
         key={item.key}
         onSelect={
@@ -50,13 +75,36 @@ function FileTree({
     if (e.detail === 2 && onBack) onBack();
   };
 
+  if (error) {
+    return (
+      <Styles.Contianer>
+        <FileTreeHeader />
+        <Error />
+      </Styles.Contianer>
+    );
+  }
+
+  if (loading) {
+    return (
+      <Styles.Contianer>
+        <FileTreeHeader />
+        <Loading />
+      </Styles.Contianer>
+    );
+  }
+
   return (
     <Styles.Contianer>
       <FileTreeHeader />
 
       <Styles.Item>
-        <Styles.Name onClick={handleBack}>
-          <Styles.NameIcon>{IconMapper('folder')}</Styles.NameIcon> .. </Styles.Name>
+        {
+          backEntry && (
+            <Styles.Name onClick={handleBack}>
+              <Styles.NameIcon>{IconMapper('folder')}</Styles.NameIcon>..
+            </Styles.Name>
+          )
+        }
       </Styles.Item>
 
       {content}
@@ -75,7 +123,7 @@ function FileTreeHeader(): JSX.Element {
   );
 }
 
-function FileTreeItem({ data, onSelect, onClick }: FileTreeItemProps): JSX.Element {
+function FileTreeItem({ data, onSelect, onClick, onContextMenu }: FileTreeItemProps): JSX.Element {
   const time = useRef<number | undefined>(undefined);
   const size = data.metadata.size ? SizeConverter(data.metadata.size) : ['N/A', ''];
 
@@ -89,7 +137,10 @@ function FileTreeItem({ data, onSelect, onClick }: FileTreeItemProps): JSX.Eleme
   };
 
   return (
-    <Styles.Item as={Row}>
+    <Styles.Item
+      as={Row}
+      onContextMenu={(e: unknown) => onContextMenu && onContextMenu(data.key, e as React.MouseEvent<HTMLDivElement, MouseEvent>)}
+    >
       <Styles.Name as={Col} xs={5} onClick={handleClick}>
         <Styles.NameIcon>{IconMapper(data.type)}</Styles.NameIcon>
         {data.name}

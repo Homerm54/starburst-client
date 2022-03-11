@@ -1,5 +1,10 @@
 import React from "react";
 
+type ErrorProp = {
+  handleClick: () => unknown;
+  text: string;
+}
+
 /**
  * Data value that the File Tree will handle.
  * This value is the representation of each item that the file tree will handle,
@@ -27,7 +32,7 @@ type TreeData = {
 
 type NativeProps = React.ComponentPropsWithoutRef<'div'>;
 
-interface FileTreeComponentProps extends Omit<NativeProps, 'child'> {
+interface FileTreeComponentProps extends Omit<NativeProps, 'child' | 'onContextMenu'> {
   /** 
    * Fired when a file is selected (selected is fired on double click).
    * Note: Double Click will block single click.
@@ -42,15 +47,31 @@ interface FileTreeComponentProps extends Omit<NativeProps, 'child'> {
   onFolderSelect?: (key: string) => unknown;
   /** Fired when the back item is selected (the one with the folder and ..). */
   onBack?: () => unknown;
+  /** Function called when rigth clicked an item (file or folder) */
+  onContextMenu?: ((key: string, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => unknown) | undefined;
   /** Array of Tree Data items (folder and files) that will be rendered on the list */
   data: Array<TreeData>;
+  /** Whether to show the entry to call onBack, or not */
+  backEntry?: boolean;
+
+  // STATES
+  /** Whether to show a loading indicator or not */
+  loading?: boolean;
+  /** 
+   * Whether to show an error banner.
+   * If boolean, will only show an icon, on object, will show an icon along with
+   * a button to ask for refresh.
+   */
+  error?: boolean | ErrorProp;
 }
 
-interface FileTreeItemProps extends Omit<NativeProps, 'child' | 'onSelect'> {
+interface FileTreeItemProps extends Omit<NativeProps, 'child' | 'onSelect' | 'onContextMenu'> {
   /** Tree data item (file or folder) to render */
   data: TreeData;
   /** Fired when the given item (file or folder) is selected, on double click */
   onSelect?: ((key: string) => unknown) | undefined;
+  /** Function called when rigth clicked an item (file or folder) */
+  onContextMenu?: ((key: string, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => unknown) | undefined;
 }
 
 export type { TreeData, FileTreeComponentProps, FileTreeItemProps };
