@@ -206,6 +206,7 @@ declare module 'styled-components' {
       snackbar: number;
       tooltip: number;
       message: number;
+      contextMenu: number;
     };
 
 

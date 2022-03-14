@@ -17,6 +17,7 @@ const base = {
     snackbar: 1400,
     tooltip: 1500,
     message: 1600,
+    contextMenu: 1700,
   },
 
   transitions: {

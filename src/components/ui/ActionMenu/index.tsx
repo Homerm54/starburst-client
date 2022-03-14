@@ -11,7 +11,7 @@ function ActionMenu({
 
   return(
     <MenuStyle.Container
-      $orientation={orientation === 'horizontal' ? 'row' : 'col'}
+      $orientation={orientation === 'horizontal' ? 'row' : 'column'}
       $fullWidth={fullWidth}
       {...rest}
     >

@@ -8,6 +8,8 @@ const MenuIcon = styled.button`
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+
+  min-width: 40px;
 `;
 
 const MenuText = styled.div``;
@@ -17,10 +19,9 @@ const MenuTool = styled.div`
   flex-flow: row;
   align-items: center;
   width: 100%;
-  justify-content: space-around;
 `;
 
-const MenuContainer = styled.div<{ $fullWidth: boolean, $orientation: 'row' | 'col' }>`
+const MenuContainer = styled.div<{ $fullWidth: boolean, $orientation: 'row' | 'column' }>`
   display: flex;
   flex-flow: ${({ $orientation }) => $orientation};
   justify-content: space-around;
@@ -30,7 +31,11 @@ const MenuContainer = styled.div<{ $fullWidth: boolean, $orientation: 'row' | 'c
   margin: ${({ theme }) => theme.spacing(1.25)}px 0;
 
   & > ${MenuTool} {
-    margin: 0 ${({ theme }) => theme.spacing(2)}px;
+    margin: ${({ theme, $orientation }) => $orientation === 'row'
+    ? `0 ${theme.spacing(2)}px`
+    : `0 0`
+};
+    justify-content: ${({ $orientation }) => $orientation === 'row' ? 'space-around' : 'flex-start'};
   }
 `;
 

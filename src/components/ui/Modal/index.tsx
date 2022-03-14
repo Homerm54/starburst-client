@@ -1,13 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactDOM from 'react-dom';
 import { Button } from 'components/ui';
-import { Mask, BodyContainer } from "./style";
+import { BodyContainer } from "./style";
 import { ModalFunctionProps, ModalProps } from './types';
 import { Card } from '../Card';
+import { useClickOutside } from 'lib/hooks';
 
 /** Root component in the HTML where the modals called by method are added */
-const ModalID = 'ui-modal';
-
 const Modal = ({
   footer,
   title,
@@ -19,28 +18,27 @@ const Modal = ({
   closable = true,
   allowCloseOutside = true,
 }: ModalProps): JSX.Element | null => {
+  const ref = useClickOutside<HTMLDivElement>(handleClickOutside);
+
+  function handleClickOutside() {
+    if (display && allowCloseOutside && onClose) onClose();
+  }
+
   if (!display) return null;
 
   return (
-    <Mask
-      id={ModalID}
-      onClick={(e) => {
-        const target = e.target as HTMLElement;
-        if (target.id === ModalID && allowCloseOutside && onClose) onClose();
-      }}
-    >
-      <BodyContainer onClick={(e) => e.preventDefault()}>
-        <Card
-          title={title}
-          actionsTop={closable
+    <BodyContainer onClick={(e) => e.preventDefault()} ref={ref}>
+      <Card
+        title={title}
+        actionsTop={closable
             &&
             <Button
               onClick={onClose}
               type="unstyled"
               icon={<FontAwesomeIcon icon="circle-xmark" />}
             />}
-          actionsBottom={
-            footer !== null
+        actionsBottom={
+          footer !== null
             && (
               footer
                 ? footer
@@ -50,12 +48,11 @@ const Modal = ({
                     <Button key="ok" onClick={onOk}>Ok</Button>
                   ]
                 ))
-          }
-        >
-          {children}
-        </Card>
-      </BodyContainer>
-    </Mask>
+        }
+      >
+        {children}
+      </Card>
+    </BodyContainer>
   );
 };
 

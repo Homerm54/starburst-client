@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
+import { useFocus } from "lib/hooks";
+import { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 import { Button } from "..";
 import { Container, Elements } from "./style";
@@ -15,8 +16,6 @@ const Input = ({
   errorText,
   helperText,
   allowClear,
-  onFocus,
-  onBlur,
   onClear,
   readOnly,
   disabled,
@@ -26,9 +25,8 @@ const Input = ({
   fullWidth = false,
   ...rest
 }: InputProps): JSX.Element => {
-  const [isFocused, setIsFocused] = useState(false);
+  const [setRef, isFocused, inputRef] = useFocus<HTMLInputElement>();
   const [showClearIcon, setShowClearIcon] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
   
   const hoverSufix = (
     <Button
@@ -76,21 +74,13 @@ const Input = ({
         <Elements.Input
           id={id}
           disabled={disabled}
-          ref={inputRef}
+          ref={setRef}
           value={value}
           onChange={(e) => {
             if (onChange) onChange(e);
             else setShowClearIcon(Boolean(e.currentTarget.value));
           }}
           readOnly={readOnly}
-          onFocus={(e) => {
-            setIsFocused(true);
-            if (onFocus) onFocus(e);
-          }}
-          onBlur={(e) => {
-            setIsFocused(false);
-            if (onBlur) onBlur(e);
-          }}
           {...rest}
         />
 

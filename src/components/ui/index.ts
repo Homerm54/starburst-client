@@ -16,6 +16,7 @@ import { Checkbox } from './Checkbox';
 import { FileTree, FileTreeItem } from './FileTree';
 import { Breadcrums } from './Breadcrums';
 import { ActionMenu } from './ActionMenu';
+import { ContextMenu } from './ContextMenu';
 
 export {
   Tab,
@@ -40,4 +41,5 @@ export {
   FileTreeItem,
   Breadcrums,
   ActionMenu,
+  ContextMenu,
 };

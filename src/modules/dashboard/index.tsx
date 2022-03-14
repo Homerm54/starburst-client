@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import api from "api";
-import { ActionMenu, Breadcrums, Col, Container, FileTree, Row } from "components/ui";
+import { ActionMenu, Breadcrums, Col, Container, ContextMenu, FileTree, Row, Typography } from "components/ui";
 import { TreeData } from "components/ui/FileTree/types";
 import Console from "lib/Console";
 import { sleep } from "lib/sleep";
@@ -206,7 +206,10 @@ function FileExplorer (): JSX.Element {
   // States that might end up derived
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  
+
+  // ContextMenu
+  const [menuState, setMenuState] = useState({ show: false, x: 0, y: 0 });
+
   const handleToHome = () => {
     setData(baseData);
     setPath([]);
@@ -311,9 +314,12 @@ function FileExplorer (): JSX.Element {
     Console.log(`Rigth clicked component: ${key} | at x: ${e.pageX} - y: ${e.pageY}`);
     if (!e.shiftKey) {
       e.preventDefault();
-      // TODO: Show modal component here!
+      setMenuState({ show: true, x: e.pageX, y: e.pageY });
     }
   };
+
+  const onMenuClose = () => setMenuState({ show: false, x: 0, y: 0 });
+
 
   // Should refresh relative to the current directory, not from parent
   const refreshDirectory = async () => {
@@ -325,9 +331,29 @@ function FileExplorer (): JSX.Element {
     loader();
   };
   
-
   return(
-    <Container maxWidth="lg" style={{ margin: 'auto' }} onContextMenu={(e) => {}}>
+    <Container maxWidth="lg" style={{ margin: 'auto' }}>
+      <ContextMenu
+        show={menuState.show}
+        onClose={onMenuClose}
+        position={{ x: menuState.x, y: menuState.y }}
+      >
+        <ActionMenu
+          showName="inline"
+          orientation="vertical"
+          tools={[
+            { icon: <FontAwesomeIcon icon="plus" />, name: 'Create new file', onClick: createNewFile },
+            { icon: <FontAwesomeIcon icon="folder-plus" />, name: 'Create new folder', onClick: createNewFolder },
+            { icon: <FontAwesomeIcon icon="upload" />, name: 'Upload file', onClick: uploadFile },
+            { icon: <FontAwesomeIcon icon="arrows-rotate" />, name: 'Refresh directory list', onClick: refreshDirectory },
+          ]}
+        />
+
+        <Typography variant="body1" className="text-muted mx-4">
+          CTRL + SHIFT to show browser menu
+        </Typography>
+      </ContextMenu>
+
       <div className="mx-4">
         <Row className="mb-2">
           <Col xs={8}>
