@@ -17,7 +17,7 @@ const BindScreen = ({ onFinish }: Props): JSX.Element => {
     Console.log(`Binding with Dropbox code: ${code}`);
 
     try {
-      await api.fileStorage.bindAccount({ code });
+      await api.fileStorage.account.activateAccount({ code });
       Console.log('Operation successfully done, redirect here!');
       onFinish();
     } catch (error) {

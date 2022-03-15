@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FileStorageUserData } from "api/file-storage/types";
+import { FileStorageUserData, units } from "api/file-storage/types";
 import { Button, Typography as TypographyOG, Progress } from "components/ui";
 import styled from "styled-components";
 
@@ -29,8 +29,10 @@ function BackButton({ onClick }: { onClick: () => unknown }) {
   );
 }
 
-function Metrics({ data }: { data: FileStorageUserData }): JSX.Element {
-  const spaceUsedInPercentage = normalize(data.spaceUsed.kb, data.total.kb);
+function Metrics({ data, reload }: { data: Partial<FileStorageUserData>, reload: () => unknown }): JSX.Element {
+  const spaceUsedInPercentage = (!data.spaceUsed || !data.total)
+    ? 0
+    :normalize(data.spaceUsed.kb, data.total.kb);
 
   return(
     <>
@@ -38,11 +40,11 @@ function Metrics({ data }: { data: FileStorageUserData }): JSX.Element {
         Space Metrics
       </TypographyOG>
       
-      <Typography>Total files used: {data.files}</Typography>
+      <Typography>Total files: {data.files}</Typography>
 
-      <Typography>Space used: {data.spaceUsed.kb} KB.</Typography>
-      <Typography>Space remain: {data.remain.kb} KB.</Typography>
-      <Typography>Total space in disk: {data.total.kb} KB.</Typography>
+      <Typography>Space used by Starburst: {mapSize(data.spaceUsed)[0]} {mapSize(data.spaceUsed)[1]}.</Typography>
+      <Typography>Space remain on disk: {mapSize(data.remain)[0]} {mapSize(data.remain)[1]}.</Typography>
+      <Typography>Total space in disk: {mapSize(data.total)[0]} {mapSize(data.total)[1]}.</Typography>
 
       <Progress
         className="mt-3"
@@ -51,11 +53,18 @@ function Metrics({ data }: { data: FileStorageUserData }): JSX.Element {
         color={colorMapper(spaceUsedInPercentage)}
         hint={`Total space used: ${spaceUsedInPercentage}%`}
       />
+
+      <Button
+        icon={<FontAwesomeIcon icon="arrows-rotate" />}
+        onClick={reload}
+      >
+        Reload data
+      </Button>
     </>
   );
 }
 
-function StateSection({ onClick }: { onClick: () => unknown }) {
+function StateSection({ onClick, data }: { onClick: () => unknown, data: Partial<FileStorageUserData> }) {
   return (
     <>
       <TypographyOG variant="h5" component="h2" className="mb-3">
@@ -63,7 +72,7 @@ function StateSection({ onClick }: { onClick: () => unknown }) {
       </TypographyOG>
 
       <Typography>
-        Dropbox account active: <span className="text-success">YES</span>
+        Dropbox account active: {stateMapper(data.active)}
       </Typography>
 
       <Typography className="mt-3 mb-2">
@@ -83,12 +92,30 @@ function StateSection({ onClick }: { onClick: () => unknown }) {
 
 export { BackButton, Metrics, StateSection };
 
-function normalize(value: number, total: number) {
-  return (value / total) * 100;
+function normalize(value: string, total: string) {
+  return parseInt(((parseFloat(value) / parseFloat(total)) * 100).toFixed(2));
+}
+
+function mapSize(size?: units): [string, string] {
+  if (!size) return ['N/A', 'KB'];
+
+  const gb = parseFloat(size.gb);
+  const mb = parseFloat(size.mb);
+  const kb = parseFloat(size.kb);
+
+  if(gb > 1) return [gb.toFixed(2), 'GB'];
+  if (mb > 1) return [mb.toFixed(2), 'MB'];
+  return [kb.toFixed(2), 'KB'];
 }
 
 function colorMapper(value: number) {
   if (value < 50) return 'success';
   if (value < 75) return 'warning';
   return 'error';
+}
+
+function stateMapper(state?: boolean) {
+  if (state === false) return <span className="text-warning">No</span>;
+  if (state === true) return <span className="text-success">Yes</span>;
+  return <span className="text-error">Error</span>;
 }

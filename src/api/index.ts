@@ -1,7 +1,6 @@
 import { axios, isAxiosError } from "./fetcher";
 import { AuthService } from "./auth";
 import { FileStorageService } from "./file-storage";
-import { sleep } from "lib/sleep";
 import Console from "lib/Console";
 import { APIInterface } from "./types";
  
@@ -41,8 +40,6 @@ class APIClass implements APIInterface {
   async build(): Promise<void> {
     // Sleep to mock up api calls 
     this.isAPIOnline = await this.checkStatus();
-    
-    await sleep(3000);
     await this.auth.init();
     await this.fileStorage.init();
   }

@@ -1,33 +1,30 @@
+type units = {
+  gb: string;
+  mb: string;
+  kb: string;
+}
+
+type FileStorageUserData = {
+  used: units;
+  spaceUsed: units;
+  total: units;
+  remain: units;
+  files: number;
+  active: boolean;
+}
+
+type DBData = {
+  tokens: {
+    access_token: string;
+  },
+  updated_at: Date;
+}
+
+
+// Function args
+
 interface DropboxBindArgs {
   code: string;
 }
 
-type FileStorageUserData = {
-  used: {
-    gb: number;
-    mb: number;
-    kb: number;
-  };
-
-  total: {
-    gb: number;
-    mb: number;
-    kb: number;
-  };
-
-  remain: {
-    gb: number;
-    mb: number;
-    kb: number;
-  };
-
-  files: number;
-
-  spaceUsed: {
-    gb: number;
-    mb: number;
-    kb: number;
-  };
-}
-
-export type { DropboxBindArgs, FileStorageUserData };
+export type { DropboxBindArgs, FileStorageUserData, DBData, units };

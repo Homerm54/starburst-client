@@ -5,6 +5,7 @@
 import localforage from "localforage";
 
 const AuthenticationKey = 'starburst:auth';
+const FileStorageKey = 'starburst:file-storage';
 
 const authDB = localforage.createInstance({
   name: 'starburst',
@@ -17,5 +18,18 @@ const authDB = localforage.createInstance({
   `,
 });
 
+const fileStorageDB = localforage.createInstance({
+  name: 'starburst',
+  storeName: 'file-storage',
+  version: 1,
+  description: `
+    Database store to save the tokens used for the file storage service, along
+    with any other details needed.
+  `,
+});
 
-export { authDB, AuthenticationKey };
+
+export {
+  authDB, AuthenticationKey,
+  fileStorageDB, FileStorageKey
+};

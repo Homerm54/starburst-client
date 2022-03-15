@@ -1,38 +1,29 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FileStorageUserData } from "api/file-storage/types";
 import { BackButton, Metrics, StateSection } from "components/account/file-storage/dashboard";
-import { Col, Container, Row } from "components/ui";
+import { Col, Container, Loading, Row } from "components/ui";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTheme } from "styled-components";
-
-const userMetrics: FileStorageUserData = {
-  files: 69,
-  remain: {
-    gb: 420,
-    kb: 420,
-    mb: 420,
-  },
-  spaceUsed: {
-    gb: 420,
-    kb: 420,
-    mb: 420,
-  },
-  total: {
-    gb: 1000,
-    kb: 1000,
-    mb: 1000,
-  },
-  used: {
-    gb: 420,
-    kb: 420,
-    mb: 420,
-  }
-};
+import { FileStorageUserData } from "api/file-storage/types";
+import api from "api";
+import Console from "lib/Console";
 
 function Dashboard({ goToBindScreen }: { goToBindScreen: () => unknown }): JSX.Element {
+  const [data, setData] = useState<FileStorageUserData | null>(null);
+  
   const history = useHistory();
   const { spacing } = useTheme();
   const goBack = () => history.goBack();
+
+  const loadData = () => {
+    setData(null);
+    api.fileStorage.account.getAccountMetrics().then(setData);
+  };
+
+  useEffect(() => { loadData(); }, []);
+  
+  Console.log(data);
+  if(!data) return <Loading />;
 
   return(
     <Container maxWidth="lg" style={{ margin: `${spacing(4)}px auto`, position: 'relative' }}>
@@ -49,11 +40,11 @@ function Dashboard({ goToBindScreen }: { goToBindScreen: () => unknown }): JSX.E
         </Col>
 
         <Col xs={{ span: 5, offset: 1 }}>
-          <Metrics data={userMetrics} />
+          <Metrics data={data} reload={loadData} /> 
         </Col>
 
         <Col xs={{ offset: 1, span: 5}}>
-          <StateSection onClick={goToBindScreen} />
+          <StateSection onClick={goToBindScreen} data={data} />
         </Col>
       </Row>
     </Container>

@@ -61,18 +61,55 @@ function FileExplorer(): JSX.Element {
     // Initial Loader
     sleep(3000) // Mockup of data fetching
       .then(() => dispatch({ type: 'SET_DATA', payload: { data: baseData } }));
-
+    
+    api.fileStorage.fileSystem.searchPath('').then(Console.log);
     return () => {
       dispatch({ type: 'RESET' });
       setMenuState({ show: false, x: 0, y: 0, key: null });
-    };
+    }; 
   }, []);
   
   // MENU CONTEXT SECTION
   const renameItem = () => { Console.log(`Renaming item with key: ${menuState.key}`); onMenuClose(); };
   const createNewFolder = () => { Console.log(`Creating new folder with key: ${menuState.key}`); onMenuClose(); };
-  const uploadFile = () => { Console.log(`Uploading file with key: ${menuState.key}`); onMenuClose(); };
-  const deleteFile = () => { Console.log(`Deleting file with key: ${menuState.key}`); onMenuClose(); };
+
+  const uploadFile = () => {
+    Console.log(path);
+    const folder = path.join('') || '';
+    Console.log(`Uploading file on path: ${folder}`); onMenuClose();
+
+    const uploader = document.createElement('input');
+    uploader.type = 'file';
+    uploader.multiple = true;
+
+    uploader.onchange = async () => {
+      const files = Array.from(uploader.files || []);
+      const uploadTasks = files.map((file) => {
+        Console.log(`Uploading file ${file.name}`);
+        return api.fileStorage.fileSystem.uploadFile(file, folder);
+      });
+
+      // TODO: Show uploading here
+      await Promise.all(uploadTasks);
+      loadMoreData(keys); // Update folder
+    };
+
+    uploader.click();
+  };
+
+  const deleteFile = () => {
+    Console.log(`Deleting file with key: ${menuState.key}`);
+    onMenuClose();
+
+    const item = data.find((item) => item.key === menuState.key);
+    if (item) {
+      const deletePath = [...path, `/${item.name}`].join(''); // TODO: This has a path prop
+      Console.log(`Deleting item: ${deletePath}`);
+
+      api.fileStorage.fileSystem.deleteFile(deletePath);
+      loadMoreData(keys);
+    }
+  };
   const createNewMarkdown = () => { Console.log(`Creating markdown here with key: ${menuState.key}`); onMenuClose(); };
 
   // Should refresh relative to the current directory, not from parent
@@ -353,3 +390,60 @@ async function deriveData(keys: Array<string>): Promise<{ folder: TreeData[], pa
 
   return { folder, path: notfound ? [] : path };
 }
+
+
+/*
+
+True data from API:
+
+[
+    {
+        ".tag": "folder",
+        "name": "a",
+        "path_lower": "/a",
+        "path_display": "/a",
+        "id": "id:St3LmJRPlZUAAAAAAAABOg"
+    },
+    {
+        ".tag": "folder",
+        "name": "trash",
+        "path_lower": "/trash",
+        "path_display": "/trash",
+        "id": "id:St3LmJRPlZUAAAAAAAABqQ"
+    },
+    {
+        ".tag": "folder",
+        "name": "Folder 2",
+        "path_lower": "/folder 2",
+        "path_display": "/Folder 2",
+        "id": "id:St3LmJRPlZUAAAAAAAABvA"
+    },
+    {
+        ".tag": "file",
+        "name": "New Text Document.txt",
+        "path_lower": "/new text document.txt",
+        "path_display": "/New Text Document.txt",
+        "id": "id:St3LmJRPlZUAAAAAAAABKw",
+        "client_modified": "2022-01-21T17:45:08Z",
+        "server_modified": "2022-01-21T17:45:10Z",
+        "rev": "5d61b2e2eddbb8c9436a1",
+        "size": 13,
+        "is_downloadable": true,
+        "content_hash": "49cc3802ddc465b493c591c79cfd72a769ebf6358ad157463311d1a28d58a724"
+    },
+    {
+        ".tag": "file",
+        "name": "1.png",
+        "path_lower": "/1.png",
+        "path_display": "/1.png",
+        "id": "id:St3LmJRPlZUAAAAAAAABug",
+        "client_modified": "2022-03-15T19:24:43Z",
+        "server_modified": "2022-03-15T19:24:44Z",
+        "rev": "5da46bfcfdfa68c9436a1",
+        "size": 49141,
+        "is_downloadable": true,
+        "content_hash": "e5a1cd68b52e4ec0c4920e3194c88ae7bc228512ede0d40d71982883cdc0427b"
+    }
+]
+
+*/
