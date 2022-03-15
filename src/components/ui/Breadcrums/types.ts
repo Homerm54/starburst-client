@@ -9,7 +9,7 @@ interface BreadcrumProps {
    * **Note:** It's expected that the items of the array starts with the separator, 
    * futhermore, the the separator isn't present in path, othersie, pass the noParse prop. 
    */
-  data: Data;
+  entries: Data;
   /** Max number of breadcrums, will compress in the middle */
   maxItems?: number;
   /** Separator between breadcrums, ex: - | > | / | etc */

@@ -1,6 +1,17 @@
 import styled from "styled-components";
 
-const MenuIcon = styled.button`
+const MenuIcon = styled.span`
+    min-width: 40px;
+`;
+
+const MenuText = styled.div``;
+
+const MenuTool = styled.button`
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  width: 100%;
+
   background: none;
 	color: inherit;
 	border: none;
@@ -8,17 +19,6 @@ const MenuIcon = styled.button`
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
-
-  min-width: 40px;
-`;
-
-const MenuText = styled.div``;
-
-const MenuTool = styled.div`
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  width: 100%;
 `;
 
 const MenuContainer = styled.div<{ $fullWidth: boolean, $orientation: 'row' | 'column' }>`

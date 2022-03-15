@@ -78,7 +78,7 @@ const SubmitCodeSection = ({ onSubmit, loading }: { onSubmit: (code: string) => 
           disabled={!inputState}
           onClick={() => onSubmit(inputState)}
         >
-          Submit Code
+          {loading ? 'Submiting, please wait' : 'Submit Code'}
         </Button>
 
         <Typography variant='body1' component='span'>

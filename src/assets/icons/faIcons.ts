@@ -30,6 +30,10 @@ import {
   faUpload,
   faArrowsRotate,
   faBug,
+  faPencil,
+  faTrash,
+  faFileMedical,
+  faHardDrive,
 } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import { faCss3, faDropbox, faHtml5, faJsSquare, faMarkdown } from '@fortawesome/free-brands-svg-icons';
@@ -73,4 +77,9 @@ library.add(
   faUpload,
   faArrowsRotate,
   faBug,
+  faPencil,
+  faTrash,
+  faFileMedical,
+  faArrowRight,
+  faHardDrive,
 );

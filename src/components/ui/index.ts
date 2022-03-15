@@ -17,6 +17,7 @@ import { FileTree, FileTreeItem } from './FileTree';
 import { Breadcrums } from './Breadcrums';
 import { ActionMenu } from './ActionMenu';
 import { ContextMenu } from './ContextMenu';
+import { Progress } from './Progress';
 
 export {
   Tab,
@@ -42,4 +43,5 @@ export {
   Breadcrums,
   ActionMenu,
   ContextMenu,
+  Progress,
 };

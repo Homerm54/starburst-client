@@ -25,7 +25,7 @@ const types: TypeStyleObject = {
 
     outlined: css<ButtonProps>`
 				background-color: transparent;
-				border-color: ${({ theme }) => theme.palette.primary.main};
+				border-color: ${({ theme }) => theme.palette.text.primary};
 
         :hover {
 					border-color: ${({ theme }) => theme.palette.primary.dark};

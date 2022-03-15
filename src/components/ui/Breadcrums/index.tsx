@@ -4,7 +4,7 @@ import { BreadcrumContainer, BreadcrumItem, FordwardSlashStyle } from "./style";
 import { BreadcrumProps, Path } from "./types";
 
 function Breadcrums({
-  data,
+  entries: data,
   separator,
   onSelection,
   onHome,

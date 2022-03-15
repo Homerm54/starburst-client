@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import routes from "router/routes";
-import { FileStorageScreen } from './file-storage';
+import { FileStorage } from './file-storage';
 import NotFound from 'pages/404';
 import { Main } from "./dashboard";
 
@@ -12,7 +12,7 @@ const Router = (): JSX.Element => {
       </Route>
 
       <Route exact path={routes.accountModule.fileStorage}>
-        <FileStorageScreen />
+        <FileStorage />
       </Route>
 
       <Route path="*">

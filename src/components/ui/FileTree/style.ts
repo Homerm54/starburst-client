@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const Contianer = styled.div`
   position: relative;
+  min-height: 25vh;
 `;
 
 const EmptyContainer = styled.div`

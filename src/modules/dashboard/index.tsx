@@ -1,10 +1,169 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import api from "api";
+import { useFileExplorerState } from "components/FileExplorer/reducer";
 import { ActionMenu, Breadcrums, Col, Container, ContextMenu, FileTree, Row, Typography } from "components/ui";
 import { TreeData } from "components/ui/FileTree/types";
 import Console from "lib/Console";
 import { sleep } from "lib/sleep";
 import { useEffect, useState } from "react";
+
+function FileExplorer(): JSX.Element {
+  const [state, dispatch] = useFileExplorerState();
+  const [menuState, setMenuState] = useState<ContextManagerState>({
+    key: null,
+    x: 0, y: 0,
+    show: false,
+  });
+  const { path, data, keys, loading, error } = state;
+
+  const handleToHome = () => {
+    dispatch({ type: 'SET_DATA', payload: { data: baseData } });
+  };
+  
+  const onFileSelect = (key: string) => {
+    Console.log(`Selected file with key: ${key}`);
+  };
+
+  const loadMoreData = async (keyPath: string[]) => {
+    dispatch({ type: 'SET_LOADING' });
+    try {
+      const newData = await deriveData(keyPath);
+      dispatch({
+        type: 'SET_DATA',
+        payload: {
+          data: newData.folder,
+          path: newData.path,
+          keys: keyPath,
+        }
+      });
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR' });
+    }
+  };
+
+  const handleFolderChange = async (key: string) => {
+    const keyPath = [...keys, key];
+    loadMoreData(keyPath);
+  };
+
+  const onBack = async () => {
+    const keyPath = [...keys];
+    keyPath.pop();
+    loadMoreData(keyPath);
+  };
+
+  const handleBreadcrum = async (ix: number) => {
+    const keyPath = keys.slice(undefined, ix + 1);
+    loadMoreData(keyPath);
+  };
+
+  useEffect(() => {
+    // Initial Loader
+    sleep(3000) // Mockup of data fetching
+      .then(() => dispatch({ type: 'SET_DATA', payload: { data: baseData } }));
+
+    return () => {
+      dispatch({ type: 'RESET' });
+      setMenuState({ show: false, x: 0, y: 0, key: null });
+    };
+  }, []);
+  
+  // MENU CONTEXT SECTION
+  const renameItem = () => { Console.log(`Renaming item with key: ${menuState.key}`); onMenuClose(); };
+  const createNewFolder = () => { Console.log(`Creating new folder with key: ${menuState.key}`); onMenuClose(); };
+  const uploadFile = () => { Console.log(`Uploading file with key: ${menuState.key}`); onMenuClose(); };
+  const deleteFile = () => { Console.log(`Deleting file with key: ${menuState.key}`); onMenuClose(); };
+  const createNewMarkdown = () => { Console.log(`Creating markdown here with key: ${menuState.key}`); onMenuClose(); };
+
+  // Should refresh relative to the current directory, not from parent
+  const refreshDirectory = async () => {
+    Console.log('Refreshing directory');
+    dispatch({ type: 'RESET' });
+    await sleep(3000);
+    loadMoreData(keys);
+  };
+
+  const showContextMenu = (key: string, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    Console.log(`Rigth clicked component: ${key} | at x: ${e.pageX} - y: ${e.pageY}`);
+    if (!e.shiftKey) {
+      e.preventDefault();
+      setMenuState({ show: true, x: e.pageX, y: e.pageY, key });
+    }
+  };
+
+  const onMenuClose = () => setMenuState({ show: false, x: 0, y: 0, key: null });
+  // END MENU CONTEXT SECTION
+  
+  return(
+    <Container maxWidth="lg" style={{ margin: 'auto' }}>
+      <ContextMenu
+        show={menuState.show}
+        onClose={onMenuClose}
+        position={{ x: menuState.x, y: menuState.y }}
+      >
+        <ActionMenu
+          showName="inline"
+          orientation="vertical"
+          tools={[
+            { icon: <FontAwesomeIcon icon="pencil" />, name: 'Rename Item', onClick: renameItem },
+            { icon: <FontAwesomeIcon icon="upload" />, name: 'Upload file', onClick: uploadFile },
+            { icon: <FontAwesomeIcon icon="trash" />, name: 'Delete file', onClick: deleteFile },
+            { icon: <FontAwesomeIcon icon="folder-plus" />, name: 'Create new folder', onClick: createNewFolder },
+            { icon: <FontAwesomeIcon icon={['fab', 'markdown']} className="text-info" />, name: 'Create new Markdown File', onClick: createNewMarkdown },
+          ]}
+        />
+
+        <Typography variant="body1" className="text-muted mx-4">
+          CTRL + SHIFT to show browser menu
+        </Typography>
+      </ContextMenu>
+
+      <div className="mx-4">
+        <Row className="mb-2">
+          <Col xs={8}>
+            <Breadcrums
+              home
+              maxItems={3}
+              entries={path}
+              separator="/"
+              onHome={handleToHome}
+              onSelection={handleBreadcrum}
+            />
+          </Col>
+
+          <Col xs={4}>
+            <ActionMenu
+              fullWidth
+              tools={[
+                { icon: <FontAwesomeIcon icon="folder-plus" />, name: 'Create new folder', onClick: createNewFolder },
+                { icon: <FontAwesomeIcon icon="upload" />, name: 'Upload file', onClick: uploadFile },
+                { icon: <FontAwesomeIcon icon="arrows-rotate" />, name: 'Refresh directory list', onClick: refreshDirectory },
+              ]}
+            />
+          </Col>
+        </Row>
+
+        <FileTree
+          error={error}
+          loading={loading}
+          data={data}
+          onBack={onBack}
+          backEntry={keys.length > 0} // Avoid showing back on home folder
+          onFileSelect={onFileSelect}
+          onContextMenu={showContextMenu}
+          onFolderSelect={handleFolderChange}
+        />
+      </div>
+    </Container>
+  );
+}
+
+export default FileExplorer;
+
+
+// [UTILS] Mock up data and util functions
+
+type ContextManagerState = { show: boolean, x: number, y: number, key: string | null };
 
 // Base data that will be fetched by the api
 // TODO: Match this more to the data returned by dropbox, just check to see
@@ -194,205 +353,3 @@ async function deriveData(keys: Array<string>): Promise<{ folder: TreeData[], pa
 
   return { folder, path: notfound ? [] : path };
 }
-
-function FileExplorer (): JSX.Element {
-  // Current path where the user is positioned, each entry is a folder deep (just name of files).
-  const [path, setPath] = useState<Array<string>>([]);
-  // Current folder shown (files and subfolders)
-  const [data, setData] = useState<Array<TreeData>>([]);
-  // Current key where the user is positioned, same as path, but keys deep, each key is a folder inside
-  const [keys, setKeys] = useState<Array<string>>([]);
-
-  // States that might end up derived
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  // ContextMenu
-  const [menuState, setMenuState] = useState({ show: false, x: 0, y: 0 });
-
-  const handleToHome = () => {
-    setData(baseData);
-    setPath([]);
-    setKeys([]);
-  };
-  
-  const onFileSelect = (key: string) => {
-    Console.log(`Selected file with key: ${key}`);
-  };
-
-  const handleFolderChange = async (key: string) => {
-    setLoading(true);
-
-    try {
-      Console.log(`Key selected: ${key}`);
-      const keyPath = [...keys, key];
-
-      // [TODO:] redundancy here? bugs sometimes here
-      const newData = await deriveData(keyPath);
-      setData(newData.folder);
-      setPath(newData.path);
-      setKeys(keyPath);
-    } catch (error) {
-      setError(true);
-      // TODO:
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const onBack = async () => {
-    setLoading(true);
-
-    try {
-      const keyPath = [...keys];
-      keyPath.pop();
-
-      const newData = await deriveData(keyPath);
-      if (!newData) {
-      // TODO: Bugs here some times, show empty folder
-        alert('Invalid folder path');
-      } else {
-        setData(newData.folder);
-        setPath(newData.path);
-        setKeys(keyPath);
-      }
-    } catch (error) {
-      setError(true);
-      // TODO:
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleBreadcrum = async (ix: number) => {
-    setLoading(true);
-
-    try {
-      const keyPath = keys.slice(undefined, ix + 1);
-      Console.log(ix, keyPath);
-      const newData = await deriveData(keyPath);
-
-      if (!newData) {
-        alert('Invalid folder path');
-      } else {
-        setData(newData.folder);
-        setPath(newData.path);
-        setKeys(keyPath);
-      }
-    } catch (error) {
-      setError(true);
-      // TODO:
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loader = async () => {
-    await sleep(3000);
-    setKeys([]);
-    setPath([]);
-    setData(baseData);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    loader();
-
-    return () => {
-      setData([]);
-      setKeys([]);
-      setPath([]);
-      setLoading(true);
-    };
-  }, []);
-  
-  const createNewFile = () => Console.log('Creating new file');
-  const createNewFolder = () => Console.log('Creating new folder');
-  const uploadFile = () => Console.log('Uploading file');
-
-  const showContextMenu = (key: string, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    Console.log(`Rigth clicked component: ${key} | at x: ${e.pageX} - y: ${e.pageY}`);
-    if (!e.shiftKey) {
-      e.preventDefault();
-      setMenuState({ show: true, x: e.pageX, y: e.pageY });
-    }
-  };
-
-  const onMenuClose = () => setMenuState({ show: false, x: 0, y: 0 });
-
-
-  // Should refresh relative to the current directory, not from parent
-  const refreshDirectory = async () => {
-    Console.log('Refreshing directory');
-    setLoading(true);
-    setError(false);
-    await sleep(3000);
-
-    loader();
-  };
-  
-  return(
-    <Container maxWidth="lg" style={{ margin: 'auto' }}>
-      <ContextMenu
-        show={menuState.show}
-        onClose={onMenuClose}
-        position={{ x: menuState.x, y: menuState.y }}
-      >
-        <ActionMenu
-          showName="inline"
-          orientation="vertical"
-          tools={[
-            { icon: <FontAwesomeIcon icon="plus" />, name: 'Create new file', onClick: createNewFile },
-            { icon: <FontAwesomeIcon icon="folder-plus" />, name: 'Create new folder', onClick: createNewFolder },
-            { icon: <FontAwesomeIcon icon="upload" />, name: 'Upload file', onClick: uploadFile },
-            { icon: <FontAwesomeIcon icon="arrows-rotate" />, name: 'Refresh directory list', onClick: refreshDirectory },
-          ]}
-        />
-
-        <Typography variant="body1" className="text-muted mx-4">
-          CTRL + SHIFT to show browser menu
-        </Typography>
-      </ContextMenu>
-
-      <div className="mx-4">
-        <Row className="mb-2">
-          <Col xs={8}>
-            <Breadcrums
-              home
-              maxItems={3}
-              data={path}
-              separator="/"
-              onHome={handleToHome}
-              onSelection={handleBreadcrum}
-            />
-          </Col>
-
-          <Col xs={4}>
-            <ActionMenu
-              fullWidth
-              tools={[
-                { icon: <FontAwesomeIcon icon="plus" />, name: 'Create new file', onClick: createNewFile },
-                { icon: <FontAwesomeIcon icon="folder-plus" />, name: 'Create new folder', onClick: createNewFolder },
-                { icon: <FontAwesomeIcon icon="upload" />, name: 'Upload file', onClick: uploadFile },
-                { icon: <FontAwesomeIcon icon="arrows-rotate" />, name: 'Refresh directory list', onClick: refreshDirectory },
-              ]}
-            />
-          </Col>
-        </Row>
-
-        <FileTree
-          error={error}
-          loading={loading}
-          data={data}
-          onBack={onBack}
-          backEntry={keys.length > 0} // Avoid showing back on home folder
-          onFileSelect={onFileSelect}
-          onContextMenu={showContextMenu}
-          onFolderSelect={handleFolderChange}
-        />
-      </div>
-    </Container>
-  );
-}
-
-export default FileExplorer;
