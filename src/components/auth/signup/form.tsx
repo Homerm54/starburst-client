@@ -3,7 +3,6 @@ import { AuthError } from "api/auth/client-errors";
 import { Input, Button } from "components/ui";
 import { useFormik } from "formik";
 import Console from "lib/Console";
-import { useEffect, useState } from "react";
 import validator from 'validator';
 
 type FormValues = {
@@ -14,7 +13,6 @@ type FormValues = {
 }
 
 const SignUpForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => {
-  const [submitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: { email: '', password: '', password2: '', secret: '' },
     onSubmit,
@@ -76,8 +74,6 @@ const SignUpForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => 
     return error;
   }
 
-  useEffect(() => { setSubmitting(formik.isSubmitting); }, [formik.isSubmitting]);
-
   return(
     <form onSubmit={formik.handleSubmit}>
       <div className="my-4">
@@ -137,7 +133,7 @@ const SignUpForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => 
         block
         size="large"
         htmlType="submit"
-        loading={submitting}
+        loading={formik.isSubmitting}
       >
         SIGN UP
       </Button>
