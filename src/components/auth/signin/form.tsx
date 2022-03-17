@@ -2,7 +2,6 @@ import { Input, Button, message } from "components/ui";
 import Console from "lib/Console";
 import { useFormik } from 'formik';
 import validator from 'validator';
-import { useEffect, useState } from "react";
 import api from 'api';
 import { AuthError } from 'api/auth/client-errors';
 
