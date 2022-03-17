@@ -50,7 +50,6 @@ const PasswordScreen = ({ code }: Props): JSX.Element => {
       setTimeout(() => history.push(routes.authentication), 5000);
     } catch (error) {
       console.error(error);
-    } finally {
       formik.setSubmitting(false);
     }
   }

@@ -1,6 +1,6 @@
+import { useSafeState } from "@react-hookz/web";
 import api from "api";
 import { Button, Col, Input, Modal, Row, Typography } from "components/ui";
-import { useState } from "react";
 import validator from 'validator';
 
 interface Props {
@@ -9,8 +9,8 @@ interface Props {
 }
 
 const EmailRecoverModal = ({ onClose, display }: Props): JSX.Element => {
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useSafeState(false);
+  const [email, setEmail] = useSafeState('');
 
   const sentEmail = async () => {
     setLoading(true);

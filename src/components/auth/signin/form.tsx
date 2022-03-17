@@ -12,7 +12,6 @@ type FormValues = {
 }
 
 const SigninForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => {
-  const [submitting, setSubmitting] = useState(false);
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     onSubmit,
@@ -87,8 +86,6 @@ const SigninForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => 
     return error;
   }
 
-  useEffect(() => { setSubmitting(formik.isSubmitting); }, [formik.isSubmitting]);
-  
   return(
     <form onSubmit={formik.handleSubmit}>
       <div className="my-4">
@@ -122,7 +119,7 @@ const SigninForm = ({ onFinish }: { onFinish?: () => unknown }): JSX.Element => 
         block
         size="large"
         htmlType="submit"
-        loading={submitting}
+        loading={formik.isSubmitting}
       >
         SIGN IN
       </Button>

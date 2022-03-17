@@ -1,3 +1,4 @@
+import { useSafeState } from "@react-hookz/web";
 import api from "api";
 import { SignInScreen } from "components/auth/signin";
 import { SignUpScreen } from "components/auth/signup";
@@ -5,12 +6,12 @@ import { SignOutScreen } from "components/auth/singout";
 import { Typography, Divider, Tab, Card } from "components/ui";
 import { Container } from "components/ui/Container";
 import Console from "lib/Console";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useHistory } from 'react-router-dom';
 import routes from "router/routes";
 
 const Auth = (): JSX.Element | null => {
-  const [isSignedIn, setIsSignedIn] = useState<boolean | undefined>(undefined);
+  const [isSignedIn, setIsSignedIn] = useSafeState<boolean | undefined>(undefined);
   
   const location = useLocation<{ redirectTo?: string }>();
   const history = useHistory();

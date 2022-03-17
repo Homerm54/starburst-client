@@ -1,3 +1,4 @@
+import { useSafeState } from '@react-hookz/web';
 import api from 'api';
 import { Logos, SubmitCodeSection, TextAndLink } from 'components/account/file-storage/bind';
 import { message } from 'components/ui';
@@ -10,7 +11,7 @@ type Props = {
 
 const BindScreen = ({ onFinish }: Props): JSX.Element => {
   const [showSubmitSection, setShowSubmitSection] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useSafeState(false);
   
   const onSubmit = async (code: string) => {
     setLoading(true);

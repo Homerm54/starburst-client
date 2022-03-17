@@ -6,16 +6,18 @@ import { dark as darktheme, light as lighttheme } from 'assets/style/theme';
 import { Loading } from 'components/ui';
 import { useGlobalContext } from './shared/context';
 import NotFound from 'pages/404';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, Suspense } from 'react';
 import FileExplorer from 'modules/dashboard';
 import Console from 'lib/Console';
 import PrivateRoute from 'router/PrivateRoute';
 import AuthModule from 'modules/auth';
 import api from 'api';
 import ScreenSizeWatcher from 'components/ScreenSizeWatcher';
+import { NetworkWatcher } from 'components/NetworkWatcher';
 import AccountModule from 'modules/account';
 import { ErrorBoundary } from './ErrorBoundary';
 import { Management } from 'modules/management';
+import { useSafeState } from '@react-hookz/web';
 
 import 'assets/icons/faIcons';
 
@@ -51,7 +53,7 @@ const PagesRouter = (): JSX.Element => {
 
 function App(): JSX.Element {
   const context = useGlobalContext();
-  const [initialLoading, setInitialLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useSafeState(true);
   
   const initApp = () => {
     setInitialLoading(true);
@@ -73,15 +75,13 @@ function App(): JSX.Element {
       <GlobalStyle />
 
       <ErrorBoundary>
+        <ScreenSizeWatcher />
+        <NetworkWatcher />
+
         {
           initialLoading
             ? <Loading global hint="Reaching server..." />
-            : (
-              <>
-                <ScreenSizeWatcher />
-                <PagesRouter />
-              </>
-            )
+            : <PagesRouter />
         }
       </ErrorBoundary>
     </ThemeProvider>
