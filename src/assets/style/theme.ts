@@ -83,7 +83,7 @@ const base = {
 
   spacing: (multiplier: number, withUnit = false) => {
     const calculatedSpacing = baseSpacing * multiplier;
-    if (withUnit)`${calculatedSpacing}px`;
+    if (withUnit) return `${calculatedSpacing}px`;
     return calculatedSpacing;
   },
 };

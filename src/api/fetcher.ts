@@ -2,7 +2,7 @@
 import axiosBase, { AxiosError } from 'axios';
 import { variables } from 'lib/config';
 
-const baseURL = variables.devMode
+const baseURL = false // variables.devMode
   ? `http://localhost:${variables.BACKEND_PORT}`
   : variables.BACKEND_URL
 ;
