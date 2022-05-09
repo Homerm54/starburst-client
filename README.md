@@ -1,6 +1,4 @@
-<style type="text/css"> h1 { color: red; }</style>
-
-<h1>Getting Started with Create React App</h1>
+# Getting Started with Create React App
 
 ## Configuration
 
