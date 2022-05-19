@@ -15,4 +15,4 @@ const Main = (): JSX.Element => {
 };
 
 
-export { Main };
+export default Main;

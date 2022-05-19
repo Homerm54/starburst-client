@@ -18,4 +18,4 @@ const Management = (): JSX.Element => {
 };
 
 
-export { Management };
+export default Management;
