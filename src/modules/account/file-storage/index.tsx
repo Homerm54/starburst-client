@@ -11,4 +11,4 @@ function FileStorage(): JSX.Element {
   return <Dashboard goToBindScreen={() => setShowBindScreen(true)} />;
 }
 
-export { FileStorage };
+export default FileStorage;

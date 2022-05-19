@@ -38,7 +38,7 @@ const Auth = (): JSX.Element | null => {
     return unsub;
   }, []);
 
-  if (isSignedIn === undefined) return null;
+  if (isSignedIn === undefined) return <></>;
   
   if (api.auth.isSignedIn) {
     return (

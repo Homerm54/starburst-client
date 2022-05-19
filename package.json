@@ -40,6 +40,7 @@
   "scripts": {
     "dev": "react-scripts start",
     "postinstall": "react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "start": "serve -s build",
     "lint": "eslint src/**/*.{js,ts,tsx} --quiet --fix"
