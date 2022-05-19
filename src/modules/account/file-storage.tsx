@@ -36,4 +36,4 @@ const FileStorageScreen = (): JSX.Element => {
 };
 
 
-export { FileStorageScreen };
+export default FileStorageScreen;
